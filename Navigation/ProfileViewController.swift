@@ -31,7 +31,6 @@ class ProfileViewController: UIViewController {
         
         view.addSubview(centerLabel)
         
-        // Центрируем label
         NSLayoutConstraint.activate([
             centerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             centerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
