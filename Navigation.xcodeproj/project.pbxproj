@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3F42F872F5C311500D1FCA7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F42F862F5C310E00D1FCA7 /* LoginViewController.swift */; };
 		B3FFDC132F4F31690055EF63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FFDC0A2F4F31690055EF63 /* ProfileViewController.swift */; };
 		B3FFDC1B2F4F31C20055EF63 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FFDC1A2F4F318D0055EF63 /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B3E923002F4B3234000990D4 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3F42F862F5C310E00D1FCA7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B3FFDC0A2F4F31690055EF63 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B3FFDC1A2F4F318D0055EF63 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +71,7 @@
 		B3FFDC012F4F31330055EF63 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				B3F42F862F5C310E00D1FCA7 /* LoginViewController.swift */,
 				B3FFDC1A2F4F318D0055EF63 /* ProfileHeaderView.swift */,
 				B3FFDC0A2F4F31690055EF63 /* ProfileViewController.swift */,
 			);
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3FFDC1B2F4F31C20055EF63 /* ProfileHeaderView.swift in Sources */,
+				B3F42F872F5C311500D1FCA7 /* LoginViewController.swift in Sources */,
 				B3FFDC132F4F31690055EF63 /* ProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +168,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J3642PFHD3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -194,6 +199,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J3642PFHD3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
