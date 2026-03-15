@@ -11,6 +11,7 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Data
     
+    private let photos: [String] = (1...20).map { "photo\($0)" }
     private let posts: [PostModel] = [
         PostModel(
             author: "vedmak.official",
@@ -49,6 +50,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosTableViewCell")
         return tableView
     }()
     
@@ -77,16 +79,39 @@ class ProfileViewController: UIViewController {
 
 //MARK: - Extensions
 extension ProfileViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        switch section {
+        case 0: return 1
+        case 1: return posts.count
+            
+        default:
+            return 0
+        }
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->    UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for:   indexPath) as? PostTableViewCell else {
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosTableViewCell", for: indexPath) as? PhotosTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: Array(photos.prefix(4)))
+            return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for:   indexPath) as? PostTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: posts[indexPath.row])
+            return cell
+            
+        default:
             return UITableViewCell()
         }
-        cell.configure(with: posts[indexPath.row])
-        return cell
     }
 }
 
@@ -102,5 +127,12 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section == 0 else { return 0 }
         return 220
+    }
+    
+    func tableView(_ tableVie: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let photosVC = PhotosViewController()
+            navigationController?.pushViewController(photosVC, animated: true)
+        }
     }
 }
