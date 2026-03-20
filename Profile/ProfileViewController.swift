@@ -11,37 +11,8 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Data
     
-    private let photos: [String] = (1...20).map { "photo\($0)" }
-    private let posts: [PostModel] = [
-        PostModel(
-            author: "vedmak.official",
-            description: "Новые кадры со съемок второго сезона Ведьмаке.",
-            image: "post1",
-            likes: 240,
-            views: 560
-        ),
-        PostModel(
-            author: "Крутые уроки по Swift",
-            description: "А вы знали, что можно использовать guard let в Swift?",
-            image: "post2",
-            likes: 530,
-            views: 1245
-        ),
-        PostModel(
-            author: "java.qa",
-            description: "Как в 2026 можно использовать AI в тестировании?",
-            image: "post3",
-            likes: 13,
-            views: 553
-        ),
-        PostModel(
-            author: "nasa.exploring",
-            description: "Новые снимки с телескопа Джейма Уэбба показали новые планеты в Солнечной системе.",
-            image: "post4",
-            likes: 5840,
-            views: 13402
-        )
-    ]
+    private let photos = PhotoStorage.photos
+    private let posts = PostStorage.posts
     
     //MARK: - Subviews
     private lazy var tableView: UITableView = {
