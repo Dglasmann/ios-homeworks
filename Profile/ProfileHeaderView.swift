@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView {
 
     // MARK: - Subviews
 
-    private let avatarImageView: UIImageView = {
+    let avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.contentMode = .scaleAspectFill
@@ -20,6 +20,7 @@ final class ProfileHeaderView: UIView {
         avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.cornerRadius = 50
+        avatarImageView.isUserInteractionEnabled = true
         return avatarImageView
     }()
 
