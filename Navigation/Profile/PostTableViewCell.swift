@@ -7,6 +7,8 @@
 
 
 import UIKit
+import iOSIntPackage
+
 class PostTableViewCell: UITableViewCell {
     
     
@@ -113,10 +115,17 @@ class PostTableViewCell: UITableViewCell {
     
     
     func configure(with post: PostModel) {
-            authorLabel.text = post.author
-            postImageView.image = UIImage(named: post.image)
-            descriptionLabel.text = post.description
-            likesLabel.text = "Likes: \(post.likes)"
-            viewsLabel.text = "Views: \(post.views)"
+        authorLabel.text = post.author
+        descriptionLabel.text = post.description
+        likesLabel.text = "Likes: \(post.likes)"
+        viewsLabel.text = "Views: \(post.views)"
+        
+        guard let image = UIImage(named: post.image) else { return }
+        let processor = ImageProcessor()
+        processor.processImage(sourceImage: image, filter: .noir) { result in
+            DispatchQueue.main.async {
+                self.postImageView.image = result
+            }
+        }
         }
 }
