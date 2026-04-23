@@ -11,10 +11,20 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Data
     
+    private let user: User
     private let photos = PhotoStorage.photos
     private let posts = PostStorage.posts
     
     private var profileHeaderView: ProfileHeaderView?
+    
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - All for avatar
     private lazy var dimmedOverlay: UIView = {
@@ -210,6 +220,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = ProfileHeaderView()
+        headerView.confugire(with: user)
         
         self.profileHeaderView = headerView
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))

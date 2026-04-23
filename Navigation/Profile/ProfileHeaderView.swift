@@ -9,6 +9,7 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
+
     // MARK: - Subviews
 
     let avatarImageView: UIImageView = {
@@ -166,5 +167,10 @@ final class ProfileHeaderView: UIView {
         sender.resignFirstResponder()
     }
 
+    func confugire(with user: User) {
+        avatarImageView.image = user.avatar
+        fullNameLabel.text = user.fullName
+        statusLabel.text = user.status
+    }
   
 }
