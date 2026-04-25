@@ -9,7 +9,32 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    
+    private let userService: UserService =   {
+    let avatar = UIImage(named: "avatar") ?? UIImage()
+
+        
+        #if DEBUG
+        return TestUserService(
+            user: User(
+                login: "test",
+                fullName: "Test User",
+                avatar: avatar,
+                status: "Debug mode"
+            )
+        )
+        
+        #else
+        return CurrentUserService(
+            user: User(
+                login: "ivanov",
+                fullName: "Ivan Ivanov",
+                avatar: avatar,
+                status: "Working hard"
+            )
+        )
+        #endif
+    }()
+      
     //MARK: - Subviews
     
     private lazy var scrollView: UIScrollView = {
@@ -247,7 +272,14 @@ class LoginViewController: UIViewController {
     //MARK: - Actions
     
     @objc private func logInButtonPressed() {
-        let profileVC = ProfileViewController()
+        
+        let login = emailTextField.text ?? ""
+        guard let user = userService.user(for: login) else {
+            showInvalidLoginAlert()
+            return
+        }
+        
+        let profileVC = ProfileViewController(user: user)
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
@@ -266,8 +298,18 @@ class LoginViewController: UIViewController {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
     }
-}
     
+    private func showInvalidLoginAlert() {
+        let alert = UIAlertController(
+            title: "Ошибка",
+            message: "Некорректный логин или пароль",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+}
+
     extension UIImage {
         func withAlpha(_ alpha: CGFloat) -> UIImage {
             UIGraphicsBeginImageContextWithOptions(size, false, scale)
