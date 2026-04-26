@@ -9,6 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    var loginDelegate: LoginViewControllerDelegate?
     private let userService: UserService =   {
     let avatar = UIImage(named: "avatar") ?? UIImage()
 
@@ -16,7 +17,7 @@ class LoginViewController: UIViewController {
         #if DEBUG
         return TestUserService(
             user: User(
-                login: "test",
+                login: "admin",
                 fullName: "Test User",
                 avatar: avatar,
                 status: "Debug mode"
@@ -26,7 +27,7 @@ class LoginViewController: UIViewController {
         #else
         return CurrentUserService(
             user: User(
-                login: "ivanov",
+                login: "admin",
                 fullName: "Ivan Ivanov",
                 avatar: avatar,
                 status: "Working hard"
@@ -274,11 +275,20 @@ class LoginViewController: UIViewController {
     @objc private func logInButtonPressed() {
         
         let login = emailTextField.text ?? ""
-        guard let user = userService.user(for: login) else {
+        let password = passwordTextField.text ?? ""
+        
+        
+        guard loginDelegate?.check(login: login, password: password) == true else {
             showInvalidLoginAlert()
             return
         }
         
+        guard let user = userService.user(for: login) else {
+            showInvalidLoginAlert()
+            return  
+        }
+        
+            
         let profileVC = ProfileViewController(user: user)
         navigationController?.pushViewController(profileVC, animated: true)
     }
