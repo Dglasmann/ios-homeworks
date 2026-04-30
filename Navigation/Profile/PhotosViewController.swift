@@ -11,9 +11,6 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     //MARK: - Data
-//    private let photos: [String] = (1...20).map {
-//        "photo\($0)"
-//    }
     private var photos: [UIImage] = []
     private var facade = ImagePublisherFacade()
     
