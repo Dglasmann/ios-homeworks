@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
     //MARK: - Data
-    private let photos: [String] = (1...20).map {
-        "photo\($0)"
-    }
+//    private let photos: [String] = (1...20).map {
+//        "photo\($0)"
+//    }
+    private var photos: [UIImage] = []
+    private var facade = ImagePublisherFacade()
     
     //MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
@@ -33,8 +36,12 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Photo Gallery"
+        facade.subscribe(self)
+        let myImages = (1...20).compactMap { UIImage(named: "photo\($0)") }
+        facade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: myImages)
         setupViews()
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +52,7 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+        facade.removeSubscription(for: self)
     }
     
     //MARK: - Setup
@@ -100,4 +108,15 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        photos = images
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
+    }
+    
 }
