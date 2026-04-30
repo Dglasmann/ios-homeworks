@@ -67,6 +67,7 @@ class LoginViewController: UIViewController {
         let emailTextField = UITextField()
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "Email or phone"
+        emailTextField.text = "admin"
         emailTextField.font = UIFont.systemFont(ofSize: 16)
         emailTextField.textColor = .black
         emailTextField.tintColor = .systemBlue
@@ -86,6 +87,7 @@ class LoginViewController: UIViewController {
         let passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Password"
+        passwordTextField.text = "admin123"
         passwordTextField.font = UIFont.systemFont(ofSize: 16)
         passwordTextField.textColor = .black
         passwordTextField.tintColor = .systemBlue
