@@ -24,7 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
 
         let feedVC = FeedViewController()
+        
+        let loginFactory = MyLoginFactory()
         let profileVC = LoginViewController()
+        profileVC.loginDelegate = loginFactory.makeLoginInspector()
 
         let feedNavController = UINavigationController(rootViewController: feedVC)
         let profileNavController = UINavigationController(rootViewController: profileVC)
