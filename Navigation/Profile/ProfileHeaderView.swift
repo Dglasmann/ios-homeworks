@@ -8,10 +8,10 @@
 import UIKit
 
 final class ProfileHeaderView: UIView {
-
-
+    
+    
     // MARK: - Subviews
-
+    
     let avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ final class ProfileHeaderView: UIView {
         avatarImageView.isUserInteractionEnabled = true
         return avatarImageView
     }()
-
+    
     private let fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ final class ProfileHeaderView: UIView {
         fullNameLabel.numberOfLines = 1
         return fullNameLabel
     }()
-
+    
     private let statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ final class ProfileHeaderView: UIView {
         statusLabel.numberOfLines = 1
         return statusLabel
     }()
-
+    
     private let statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -62,21 +62,38 @@ final class ProfileHeaderView: UIView {
         statusTextField.leftViewMode = .always
         return statusTextField
     }()
-
-    private let setStatusButton: UIButton = {
-        let setStatusButton = UIButton(type: .system)
-        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-        setStatusButton.backgroundColor = .systemBlue
-        setStatusButton.setTitle("Set status", for: .normal)
-        setStatusButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular) // задал свой размер шрифта, так как не было по макету
-        setStatusButton.setTitleColor(.white, for: .normal)
-        setStatusButton.layer.cornerRadius = 14 // поставил 14 вместо 4, потому что на макете сильно закруглен, а с 4 так не сделаешь
+    
+    //    private let setStatusButton: UIButton = {
+    //        let setStatusButton = UIButton(type: .system)
+    //        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+    //        setStatusButton.backgroundColor = .systemBlue
+    //        setStatusButton.setTitle("Set status", for: .normal)
+    //        setStatusButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular) // задал свой размер шрифта, так как не было по макету
+    //        setStatusButton.setTitleColor(.white, for: .normal)
+    //        setStatusButton.layer.cornerRadius = 14 // поставил 14 вместо 4, потому что на макете сильно закруглен, а с 4 так не сделаешь
+    //        setStatusButton.layer.shadowColor = UIColor.black.cgColor
+    //        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+    //        setStatusButton.layer.shadowRadius = 4
+    //        setStatusButton.layer.shadowOpacity = 0.7
+    //        return setStatusButton
+    //    }()
+    private lazy var setStatusButton: CustomButton = {
+        let setStatusButton = CustomButton(
+        title: "Set status",
+        backgroundColor: .systemBlue,
+        cornerRadius: 14,
+        font: UIFont.systemFont(ofSize: 20, weight: .regular),
+        tapAction: {
+            [weak self] in self?.buttonPressed()
+        }
+    )
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         setStatusButton.layer.shadowRadius = 4
         setStatusButton.layer.shadowOpacity = 0.7
+        setStatusButton.clipsToBounds = false
         return setStatusButton
-    }()
+}()
 
     // MARK: - State
 
@@ -110,7 +127,6 @@ final class ProfileHeaderView: UIView {
         addSubview(statusTextField)
         addSubview(setStatusButton)
         
-        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         statusTextField.addTarget(self, action: #selector(textFieldDidEndOnExit(_:)), for: .editingDidEndOnExit)
         

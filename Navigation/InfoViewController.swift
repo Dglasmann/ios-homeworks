@@ -9,6 +9,14 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    private lazy var alertButton = CustomButton(
+        title: "Показать Alert",
+        backgroundColor: .systemGreen,
+        tapAction: {
+            [weak self] in self?.showAlert()
+        }
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -19,24 +27,16 @@ class InfoViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
-        let button = UIButton(type: .system)
-        button.setTitle("Показать Alert", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        button.backgroundColor = .systemGreen
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(button)
+        view.addSubview(alertButton)
         
         NSLayoutConstraint.activate([
-                    button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                    alertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                    alertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
                 ])
     }
         
-        @objc private func showAlert() {
+        private func showAlert() {
             let alertController = UIAlertController(
                 title: "Внимание!!",
                 message: "Это тестовое сообщение",
