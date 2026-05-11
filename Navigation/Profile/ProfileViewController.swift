@@ -35,15 +35,31 @@ class ProfileViewController: UIViewController {
         return dimmedOverlay
     }()
     
-    private lazy var closeButton: UIButton = {
-        let closeButton = UIButton()
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(systemName: "xmark")?.withConfiguration(
-            UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
-        ), for: .normal)
-        closeButton.tintColor = .white
-        closeButton.alpha = 0
-        closeButton.addTarget(self, action: #selector(closeAvatarAnimation), for: .touchUpInside)
+//    private lazy var closeButton: UIButton = {
+//        let closeButton = UIButton()
+//        closeButton.translatesAutoresizingMaskIntoConstraints = false
+//        closeButton.setImage(UIImage(systemName: "xmark")?.withConfiguration(
+//            UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+//        ), for: .normal)
+//        closeButton.tintColor = .white
+//        closeButton.alpha = 0
+//        closeButton.addTarget(self, action: #selector(closeAvatarAnimation), for: .touchUpInside)
+//        return closeButton
+//    }()
+    
+    private lazy var closeButton: CustomButton = {
+        let closeButton = CustomButton(
+            title: "",
+            tapAction: {[weak self] in self?.closeAvatarAnimation() }
+        )
+        
+        closeButton.setImage(
+            UIImage(systemName: "xmark")?.withConfiguration(
+                UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            ),
+            for: .normal
+        )
+        
         return closeButton
     }()
     
@@ -149,7 +165,7 @@ class ProfileViewController: UIViewController {
     }
     
     //Обратная анимация
-    @objc private func closeAvatarAnimation() {
+    private func closeAvatarAnimation() {
         guard isAvatarExpanded, let animatingView = animatingAvatarView else { return }
         
         //скрываем крестик
