@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let tabBarController = UITabBarController()
 
-        let feedVC = FeedViewController()
+        let feedViewModel = FeedViewModel()
+        let feedVC = FeedViewController(viewModel: feedViewModel)
         
         let loginFactory = MyLoginFactory()
         let profileVC = LoginViewController()

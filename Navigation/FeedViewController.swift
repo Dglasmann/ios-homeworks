@@ -10,7 +10,16 @@ import StorageService
 
 class FeedViewController: UIViewController {
     let post = Post(title: "Мой первый пост")
-    private let feedModel = FeedModel()
+    private let viewModel: FeedViewModel
+    
+    init(viewModel: FeedViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -64,24 +73,33 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleCheckResult(_:)),
-            name: .feedCheckResult,
-            object: nil
-        )
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        viewModel.onStateDidChange = { [weak self] state in
+            self?.render(state: state)
+        }
+    }
+    
+    private func render(state: FeedViewModel.State) {
+        switch state {
+        case .initial:
+            resultLabel.text = ""
+        case .correct:
+            resultLabel.text = "Верно!"
+            resultLabel.textColor = .systemGreen
+        case .incorrect:
+            resultLabel.text = "Неверно :("
+            resultLabel.textColor = .systemRed
+        }
     }
     
     private func checkGuess() {
-        guard let text = guessTextField.text, !text.isEmpty else { return }
-        feedModel.check(word: text)
+        viewModel.checkGuess(word: guessTextField.text)
     }
     
-    @objc private func handleCheckResult(_ notification: Notification) {
-        guard let isCorrect = notification.userInfo?["isCorrect"] as? Bool else { return }
-        resultLabel.text = isCorrect ? "Верно!": "Неверно :("
-        resultLabel.textColor = isCorrect ? .systemGreen : .systemRed
-    }
+    
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Лента"
@@ -110,7 +128,4 @@ class FeedViewController: UIViewController {
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }
