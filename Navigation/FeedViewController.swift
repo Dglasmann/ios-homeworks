@@ -11,6 +11,7 @@ import StorageService
 class FeedViewController: UIViewController {
     let post = Post(title: "Мой первый пост")
     private let viewModel: FeedViewModel
+    weak var coordinator: FeedCoordinator?
     
     init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
@@ -123,9 +124,8 @@ class FeedViewController: UIViewController {
     }
     
     private func showPost() {
-        let postViewController = PostViewController()
-        postViewController.post = post
-        navigationController?.pushViewController(postViewController, animated: true)
+        coordinator?.showPost(post)
     }
+    
     
 }

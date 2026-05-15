@@ -10,6 +10,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     var loginDelegate: LoginViewControllerDelegate?
+    weak var coordinator: ProfileCoordinator?
     private let userService: UserService =   {
     let avatar = UIImage(named: "avatar") ?? UIImage()
 
@@ -307,8 +308,7 @@ class LoginViewController: UIViewController {
         }
         
             
-        let profileVC = ProfileViewController(user: user)
-        navigationController?.pushViewController(profileVC, animated: true)
+        coordinator?.showProfile(user: user)
     }
     
     @objc private func dismissKeyboard() {

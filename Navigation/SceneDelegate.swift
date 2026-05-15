@@ -11,6 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -18,38 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
         let window = UIWindow(windowScene: windowScene)
 
-        let tabBarController = UITabBarController()
-
-        let feedViewModel = FeedViewModel()
-        let feedVC = FeedViewController(viewModel: feedViewModel)
+        let appCoordinator = AppCoordinator(window: window)
+        appCoordinator.start()
         
-        let loginFactory = MyLoginFactory()
-        let profileVC = LoginViewController()
-        profileVC.loginDelegate = loginFactory.makeLoginInspector()
-
-        let feedNavController = UINavigationController(rootViewController: feedVC)
-        let profileNavController = UINavigationController(rootViewController: profileVC)
-
-        feedNavController.tabBarItem = UITabBarItem(
-            title: "Лента",
-            image: UIImage(systemName: "house"),
-            tag: 0
-        )
-
-        profileNavController.tabBarItem = UITabBarItem(
-            title: "Профиль",
-            image: UIImage(systemName: "person"),
-            tag: 1
-        )
-
-        tabBarController.viewControllers = [feedNavController, profileNavController]
-
-        window.rootViewController = tabBarController
-        window.makeKeyAndVisible()
-
+        self.appCoordinator = appCoordinator
         self.window = window
     }
 }
