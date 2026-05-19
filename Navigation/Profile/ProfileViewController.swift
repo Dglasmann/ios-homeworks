@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
     private let user: User
     private let photos = PhotoStorage.photos
     private let posts = PostStorage.posts
+    weak var coordinator: ProfileCoordinator?
     
     private var profileHeaderView: ProfileHeaderView?
     
@@ -249,10 +250,9 @@ extension ProfileViewController: UITableViewDelegate {
         return 220
     }
     
-    func tableView(_ tableVie: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let photosVC = PhotosViewController()
-            navigationController?.pushViewController(photosVC, animated: true)
+            coordinator?.showPhotos()
         }
     }
 }

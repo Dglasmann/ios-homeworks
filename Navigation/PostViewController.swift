@@ -11,6 +11,7 @@ import StorageService
 class PostViewController: UIViewController {
     
     var post: Post?
+    weak var coordinator: FeedCoordinator?
     
     private lazy var  label : UILabel = {
         let label = UILabel()
@@ -20,7 +21,7 @@ class PostViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -40,15 +41,14 @@ class PostViewController: UIViewController {
         view.addSubview(label)
         
         NSLayoutConstraint.activate([
-                    label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-                ])
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     @objc private func showInfo() {
-            let infoViewController = InfoViewController()
-            present(infoViewController, animated: true, completion: nil)
-        }
+        coordinator?.showInfo()
     }
+}
 
 
