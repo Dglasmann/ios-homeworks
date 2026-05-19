@@ -12,7 +12,7 @@ class PhotosViewController: UIViewController {
     
     //MARK: - Data
     private var photos: [UIImage] = []
-    private var facade = ImagePublisherFacade()
+    private let imageProcessor = ImageProcessor()
     
     //MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
@@ -33,9 +33,8 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Photo Gallery"
-        facade.subscribe(self)
-        let myImages = (1...20).compactMap { UIImage(named: "photo\($0)") }
-        facade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: myImages)
+        photos = (1...20).compactMap{ UIImage(named: "photo\($0)") }
+        processImages()
         setupViews()
         setupConstraints()
         
@@ -49,7 +48,6 @@ class PhotosViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
-        facade.removeSubscription(for: self)
     }
     
     //MARK: - Setup
@@ -64,6 +62,30 @@ class PhotosViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    private func processImages() {
+        let qos: QualityOfService = .userInitiated
+        let filter: ColorFilter = .sepia(intensity: 1)
+        
+        let startTime = CFAbsoluteTimeGetCurrent()
+        
+        imageProcessor.processImagesOnThread(
+            sourceImages: photos,
+            filter: filter,
+            qos: qos
+        ) {
+            [weak self] cgImages in
+            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+            print("qos: \(qos.rawValue), filter: \(filter), time: \(elapsed)")
+            
+            let processed = cgImages.compactMap { $0 }.map { UIImage(cgImage: $0) }
+            
+            DispatchQueue.main.async {
+                self?.photos = processed
+                self?.collectionView.reloadData()
+            }
+        }
     }
 }
 //MARK: - Extensions
@@ -107,14 +129,5 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        photos = images
-        collectionView.reloadData()
-        
-        let item = IndexPath(item: images.count - 1, section: 0)
-        collectionView.scrollToItem(at: item, at: .bottom, animated: true)
-        
-    }
-    
-}
+
+
