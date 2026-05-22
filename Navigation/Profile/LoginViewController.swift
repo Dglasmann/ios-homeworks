@@ -128,7 +128,7 @@ class LoginViewController: UIViewController {
     private lazy var textFieldsContainer: UIView = {
         let textFieldContainer = UIView()
         textFieldContainer.translatesAutoresizingMaskIntoConstraints = false
-        textFieldContainer.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        textFieldContainer.backgroundColor = .systemGray6
         textFieldContainer.layer.borderColor = UIColor.lightGray.cgColor
         textFieldContainer.layer.borderWidth = 0.5
         textFieldContainer.layer.cornerRadius = 10
@@ -176,6 +176,7 @@ class LoginViewController: UIViewController {
             object: nil
         )
         
+        //обрабатываем появление клавиатуры, делаем подписку
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillHide),
