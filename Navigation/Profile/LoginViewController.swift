@@ -259,12 +259,12 @@ class LoginViewController: UIViewController {
             //password textfield (внутри контейнера высота 50)
             passwordTextField.topAnchor.constraint(equalTo: separator.bottomAnchor),
             passwordTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: passwordActivityIndicator.leadingAnchor, constant: -8),
+            passwordTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
             passwordTextField.bottomAnchor.constraint(equalTo: textFieldsContainer.bottomAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             
             //спиннер рядом
-            passwordActivityIndicator.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor, constant: -12),
+            passwordActivityIndicator.centerXAnchor.constraint(equalTo: textFieldsContainer.centerXAnchor),
             passwordActivityIndicator.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
             passwordActivityIndicator.widthAnchor.constraint(equalToConstant: 20),
             passwordActivityIndicator.heightAnchor.constraint(equalToConstant: 20),
