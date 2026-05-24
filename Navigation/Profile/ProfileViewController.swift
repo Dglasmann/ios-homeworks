@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     private let user: User
     private let photos = PhotoStorage.photos
     private let posts = PostStorage.posts
+    private var sessionTimer: Timer?
+    private var sessionSeconds: Int = 0
     weak var coordinator: ProfileCoordinator?
     
     private var profileHeaderView: ProfileHeaderView?
@@ -96,6 +98,17 @@ class ProfileViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startSessionTimer()
+    }
+
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopSessionTimer()
+    }
+    
     private func setupViews() {
         view.addSubview(tableView)
         view.addSubview(dimmedOverlay)
@@ -121,7 +134,7 @@ class ProfileViewController: UIViewController {
         ])
     }
     
-    //MARK: - Анимация для аватара
+    //MARK: - Actions
     @objc private func avatarTapped() {
         guard !isAvatarExpanded, let headerView = profileHeaderView else { return }
         
@@ -189,6 +202,36 @@ class ProfileViewController: UIViewController {
             
         })
     }
+    
+    private func startSessionTimer() {
+        sessionSeconds = 0;
+        updateTitle()
+        
+        let timer = Timer.scheduledTimer(
+            withTimeInterval: 1.0,
+            repeats: true,
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.sessionSeconds += 1
+            self.updateTitle()
+            
+        }
+        
+        RunLoop.current.add(timer, forMode: .common)
+        sessionTimer = timer
+    }
+    
+    private func stopSessionTimer() {
+        sessionTimer?.invalidate()
+        sessionTimer = nil
+    }
+    
+    private func updateTitle() {
+        let minutes = sessionSeconds / 60
+        let seconds = sessionSeconds % 60
+        let timeString = String(format: "На экране: %02d:%02d", minutes, seconds)
+        profileHeaderView?.setTimerText(timeString)
+    }
 }
 
 
@@ -237,7 +280,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = ProfileHeaderView()
-        headerView.confugire(with: user)
+        headerView.configure(with: user)
         
         self.profileHeaderView = headerView
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
