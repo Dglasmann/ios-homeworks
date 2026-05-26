@@ -25,6 +25,18 @@ final class ProfileHeaderView: UIView {
         return avatarImageView
     }()
     
+    private let timerLabel: UILabel = {
+        let timerLabel = UILabel()
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        timerLabel.textColor = .black
+        timerLabel.textAlignment = .center
+        timerLabel.layer.cornerRadius = 8
+        timerLabel.clipsToBounds = true
+        timerLabel.text = "На экране: 00:00"
+        return timerLabel
+    }()
+    
     private let fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,6 +138,7 @@ final class ProfileHeaderView: UIView {
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+        addSubview(timerLabel)
         
         statusTextField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         statusTextField.addTarget(self, action: #selector(textFieldDidEndOnExit(_:)), for: .editingDidEndOnExit)
@@ -144,6 +157,10 @@ final class ProfileHeaderView: UIView {
         fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
         fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
         fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+        
+        //timerLabel
+        timerLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 8),
+        timerLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
         
         //statuslabel, под именем и над текстфилдом
         statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
@@ -183,10 +200,14 @@ final class ProfileHeaderView: UIView {
         sender.resignFirstResponder()
     }
 
-    func confugire(with user: User) {
+    func configure(with user: User) {
         avatarImageView.image = user.avatar
         fullNameLabel.text = user.fullName
         statusLabel.text = user.status
+    }
+    
+    func setTimerText(_ text: String) {
+        timerLabel.text = text
     }
   
 }
