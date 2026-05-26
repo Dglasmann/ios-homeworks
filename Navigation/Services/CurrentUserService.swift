@@ -12,9 +12,9 @@ class CurrentUserService: UserService {
         self.user = user
     }
     
-    func user(for login: String) -> User? {
-        guard login == user.login else { return nil }
-        return user
+    func user(for login: String) -> Result<User, AuthError> {
+        guard login == user.login else { return .failure(.userNotFound) }
+        return .success(user)
     }
 }
     
