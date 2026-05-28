@@ -7,5 +7,5 @@
 
 protocol UserService {
     
-    func user(for login: String) -> User?
+    func user(for login: String) -> Result<User, AuthError>
 }

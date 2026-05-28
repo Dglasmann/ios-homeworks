@@ -296,19 +296,26 @@ class LoginViewController: UIViewController {
         let login = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
-        
-        guard loginDelegate?.check(login: login, password: password) == true else {
-            showInvalidLoginAlert()
-            return
-        }
-        
-        guard let user = userService.user(for: login) else {
-            showInvalidLoginAlert()
-            return  
-        }
-        
+        do {
+            try loginDelegate?.check(login: login, password: password)
             
-        coordinator?.showProfile(user: user)
+            switch userService.user(for: login) {
+            case .success(let user):
+                //используем preconditionFailure, т.к coordinator не должен быть nil при успешном логине
+                guard let coordinator = self.coordinator else {
+                    preconditionFailure("Coordinator не должен быть nil")
+                }
+                coordinator.showProfile(user: user)
+            case .failure(let error):
+                showAlert(message: error.localizedDescription)
+            }
+
+            
+        } catch let error as AuthError {
+                showAlert(message: error.localizedDescription)
+            } catch {
+                showAlert(message: "Произошла неизвестная ошибка")
+            }
     }
     
     @objc private func dismissKeyboard() {
@@ -327,10 +334,10 @@ class LoginViewController: UIViewController {
         scrollView.scrollIndicatorInsets = .zero
     }
     
-    private func showInvalidLoginAlert() {
+    private func showAlert(message: String) {
         let alert = UIAlertController(
             title: "Ошибка",
-            message: "Некорректный логин или пароль",
+            message: message,
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default))

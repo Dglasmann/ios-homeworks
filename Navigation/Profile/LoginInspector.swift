@@ -6,7 +6,12 @@
 //
 
 struct LoginInspector: LoginViewControllerDelegate {
-    func check(login: String, password: String) -> Bool {
-        Checker.shared.check(login: login, password: password)
+    func check(login: String, password: String) throws {
+        guard !login.isEmpty else { throw AuthError.emptyLogin }
+        guard !password.isEmpty else { throw AuthError.emptyPassword }
+        
+        guard Checker.shared.check(login: login, password: password) else {
+            throw AuthError.invalidCredentials
+        }
     }
 }
