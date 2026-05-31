@@ -41,7 +41,16 @@ final class AppCoordinator {
         feedCoordinator.start()
         profileCoordinator.start()
         
-        tabBarController.viewControllers = [feedNavController, profileNavController]
+        let mediaNavController = UINavigationController()
+        let mediaVC = MediaMenuViewController()
+        mediaNavController.setViewControllers([mediaVC], animated: false)
+        mediaNavController.tabBarItem = UITabBarItem(
+            title: "Медиа",
+            image: UIImage(systemName: "play.circle"),
+            tag: 2
+        )
+        
+        tabBarController.viewControllers = [feedNavController, profileNavController, mediaNavController]
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }

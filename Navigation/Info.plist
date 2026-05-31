@@ -19,5 +19,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Приложению нужен доступ к микрофону для записи аудио.</string>
 </dict>
 </plist>
