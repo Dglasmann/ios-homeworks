@@ -11,10 +11,23 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Data
     
+    private let user: User
     private let photos = PhotoStorage.photos
     private let posts = PostStorage.posts
+    private var sessionTimer: Timer?
+    private var sessionSeconds: Int = 0
+    weak var coordinator: ProfileCoordinator?
     
     private var profileHeaderView: ProfileHeaderView?
+    
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - All for avatar
     private lazy var dimmedOverlay: UIView = {
@@ -25,15 +38,31 @@ class ProfileViewController: UIViewController {
         return dimmedOverlay
     }()
     
-    private lazy var closeButton: UIButton = {
-        let closeButton = UIButton()
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(systemName: "xmark")?.withConfiguration(
-            UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
-        ), for: .normal)
-        closeButton.tintColor = .white
-        closeButton.alpha = 0
-        closeButton.addTarget(self, action: #selector(closeAvatarAnimation), for: .touchUpInside)
+//    private lazy var closeButton: UIButton = {
+//        let closeButton = UIButton()
+//        closeButton.translatesAutoresizingMaskIntoConstraints = false
+//        closeButton.setImage(UIImage(systemName: "xmark")?.withConfiguration(
+//            UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+//        ), for: .normal)
+//        closeButton.tintColor = .white
+//        closeButton.alpha = 0
+//        closeButton.addTarget(self, action: #selector(closeAvatarAnimation), for: .touchUpInside)
+//        return closeButton
+//    }()
+    
+    private lazy var closeButton: CustomButton = {
+        let closeButton = CustomButton(
+            title: "",
+            tapAction: {[weak self] in self?.closeAvatarAnimation() }
+        )
+        
+        closeButton.setImage(
+            UIImage(systemName: "xmark")?.withConfiguration(
+                UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            ),
+            for: .normal
+        )
+        
         return closeButton
     }()
     
@@ -58,10 +87,26 @@ class ProfileViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        
+        #if DEBUG
+        view.backgroundColor = .red
+        #else
+        view.backgroundColor = .green
+        #endif
         title = "Profile"
         setupViews()
         setupConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startSessionTimer()
+    }
+
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopSessionTimer()
     }
     
     private func setupViews() {
@@ -89,7 +134,7 @@ class ProfileViewController: UIViewController {
         ])
     }
     
-    //MARK: - Анимация для аватара
+    //MARK: - Actions
     @objc private func avatarTapped() {
         guard !isAvatarExpanded, let headerView = profileHeaderView else { return }
         
@@ -134,7 +179,7 @@ class ProfileViewController: UIViewController {
     }
     
     //Обратная анимация
-    @objc private func closeAvatarAnimation() {
+    private func closeAvatarAnimation() {
         guard isAvatarExpanded, let animatingView = animatingAvatarView else { return }
         
         //скрываем крестик
@@ -156,6 +201,36 @@ class ProfileViewController: UIViewController {
             })
             
         })
+    }
+    
+    private func startSessionTimer() {
+        sessionSeconds = 0;
+        updateTitle()
+        
+        let timer = Timer.scheduledTimer(
+            withTimeInterval: 1.0,
+            repeats: true,
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.sessionSeconds += 1
+            self.updateTitle()
+            
+        }
+        
+        RunLoop.current.add(timer, forMode: .common)
+        sessionTimer = timer
+    }
+    
+    private func stopSessionTimer() {
+        sessionTimer?.invalidate()
+        sessionTimer = nil
+    }
+    
+    private func updateTitle() {
+        let minutes = sessionSeconds / 60
+        let seconds = sessionSeconds % 60
+        let timeString = String(format: "На экране: %02d:%02d", minutes, seconds)
+        profileHeaderView?.setTimerText(timeString)
     }
 }
 
@@ -205,6 +280,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         let headerView = ProfileHeaderView()
+        headerView.configure(with: user)
         
         self.profileHeaderView = headerView
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
@@ -217,10 +293,9 @@ extension ProfileViewController: UITableViewDelegate {
         return 220
     }
     
-    func tableView(_ tableVie: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let photosVC = PhotosViewController()
-            navigationController?.pushViewController(photosVC, animated: true)
+            coordinator?.showPhotos()
         }
     }
 }

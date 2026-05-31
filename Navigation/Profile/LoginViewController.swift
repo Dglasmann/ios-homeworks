@@ -9,7 +9,34 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    
+    var loginDelegate: LoginViewControllerDelegate?
+    weak var coordinator: ProfileCoordinator?
+    private let userService: UserService =   {
+    let avatar = UIImage(named: "avatar") ?? UIImage()
+
+        
+        #if DEBUG
+        return TestUserService(
+            user: User(
+                login: "admin",
+                fullName: "Test User",
+                avatar: avatar,
+                status: "Debug mode"
+            )
+        )
+        
+        #else
+        return CurrentUserService(
+            user: User(
+                login: "admin",
+                fullName: "Ivan Ivanov",
+                avatar: avatar,
+                status: "Working hard"
+            )
+        )
+        #endif
+    }()
+      
     //MARK: - Subviews
     
     private lazy var scrollView: UIScrollView = {
@@ -41,6 +68,7 @@ class LoginViewController: UIViewController {
         let emailTextField = UITextField()
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "Email or phone"
+        emailTextField.text = "admin"
         emailTextField.font = UIFont.systemFont(ofSize: 16)
         emailTextField.textColor = .black
         emailTextField.tintColor = .systemBlue
@@ -60,6 +88,7 @@ class LoginViewController: UIViewController {
         let passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Password"
+        passwordTextField.text = "admin123"
         passwordTextField.font = UIFont.systemFont(ofSize: 16)
         passwordTextField.textColor = .black
         passwordTextField.tintColor = .systemBlue
@@ -97,13 +126,36 @@ class LoginViewController: UIViewController {
     }()
     
     //кнопка Log in
-    private lazy var logInButton: UIButton = {
-        let logInButton = UIButton(type: .system)
-        logInButton.translatesAutoresizingMaskIntoConstraints = false
-        logInButton.setTitle("Log in", for: .normal)
-        logInButton.setTitleColor(.white, for: .normal)
-        logInButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        logInButton.backgroundColor = UIColor(red: 0.000, green: 0.569, blue: 0.808, alpha: 1.000)
+//    private lazy var logInButton: UIButton = {
+//        let logInButton = UIButton(type: .system)
+//        logInButton.translatesAutoresizingMaskIntoConstraints = false
+//        logInButton.setTitle("Log in", for: .normal)
+//        logInButton.setTitleColor(.white, for: .normal)
+//        logInButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+//        logInButton.backgroundColor = UIColor(red: 0.000, green: 0.569, blue: 0.808, alpha: 1.000)
+//        
+//        if let bluePixel = UIImage(named: "blue_pixel") {
+//            logInButton.setBackgroundImage(bluePixel, for: .normal)
+//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .selected)
+//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .highlighted)
+//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .disabled)
+//        }
+//        logInButton.layer.cornerRadius = 10
+//        logInButton.clipsToBounds = true
+//        
+//        logInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
+//        
+//        return logInButton
+//    }()
+    
+    private lazy var logInButton: CustomButton = {
+        let logInButton = CustomButton(
+            title: "Log in",
+            backgroundColor: UIColor(red: 0.00, green: 0.569, blue: 0.808, alpha: 1.000),
+            tapAction: {
+                [weak self] in self?.logInButtonPressed()
+            }
+        )
         
         if let bluePixel = UIImage(named: "blue_pixel") {
             logInButton.setBackgroundImage(bluePixel, for: .normal)
@@ -111,15 +163,8 @@ class LoginViewController: UIViewController {
             logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .highlighted)
             logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .disabled)
         }
-        logInButton.layer.cornerRadius = 10
-        logInButton.clipsToBounds = true
-        
-        logInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-        
         return logInButton
     }()
-    
-    
     //MARK: - Lifecycle
     
     
@@ -246,9 +291,31 @@ class LoginViewController: UIViewController {
     
     //MARK: - Actions
     
-    @objc private func logInButtonPressed() {
-        let profileVC = ProfileViewController()
-        navigationController?.pushViewController(profileVC, animated: true)
+    private func logInButtonPressed() {
+        
+        let login = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+        
+        do {
+            try loginDelegate?.check(login: login, password: password)
+            
+            switch userService.user(for: login) {
+            case .success(let user):
+                //используем preconditionFailure, т.к coordinator не должен быть nil при успешном логине
+                guard let coordinator = self.coordinator else {
+                    preconditionFailure("Coordinator не должен быть nil")
+                }
+                coordinator.showProfile(user: user)
+            case .failure(let error):
+                showAlert(message: error.localizedDescription)
+            }
+
+            
+        } catch let error as AuthError {
+                showAlert(message: error.localizedDescription)
+            } catch {
+                showAlert(message: "Произошла неизвестная ошибка")
+            }
     }
     
     @objc private func dismissKeyboard() {
@@ -266,8 +333,18 @@ class LoginViewController: UIViewController {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
     }
-}
     
+    private func showAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Ошибка",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+}
+
     extension UIImage {
         func withAlpha(_ alpha: CGFloat) -> UIImage {
             UIGraphicsBeginImageContextWithOptions(size, false, scale)

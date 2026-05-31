@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
     //MARK: - Data
-    private let photos: [String] = (1...20).map {
-        "photo\($0)"
-    }
+    private var photos: [UIImage] = []
+    private let imageProcessor = ImageProcessor()
     
     //MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
@@ -33,8 +33,11 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Photo Gallery"
+        photos = (1...20).compactMap{ UIImage(named: "photo\($0)") }
+        processImages()
         setupViews()
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +62,30 @@ class PhotosViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    private func processImages() {
+        let qos: QualityOfService = .userInitiated
+        let filter: ColorFilter = .sepia(intensity: 1)
+        
+        let startTime = CFAbsoluteTimeGetCurrent()
+        
+        imageProcessor.processImagesOnThread(
+            sourceImages: photos,
+            filter: filter,
+            qos: qos
+        ) {
+            [weak self] cgImages in
+            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+            print("qos: \(qos.rawValue), filter: \(filter), time: \(elapsed)")
+            
+            let processed = cgImages.compactMap { $0 }.map { UIImage(cgImage: $0) }
+            
+            DispatchQueue.main.async {
+                self?.photos = processed
+                self?.collectionView.reloadData()
+            }
+        }
     }
 }
 //MARK: - Extensions
@@ -101,3 +128,6 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         return 8
     }
 }
+
+
+
