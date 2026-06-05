@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
+    var appConfiguration: AppConfiguration?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -26,5 +27,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.appCoordinator = appCoordinator
         self.window = window
+        
+        let configuration: [AppConfiguration] = [
+            .people(URL(string: "https://swapi.dev/api/people/8")!),
+            .starships(URL(string: "https://swapi.dev/api/starships/3")!),
+            .planets(URL(string: "https://swapi.dev/api/planets/5")!)
+        ]
+        let appConfiguration = configuration.randomElement()!
+        self.appConfiguration = appConfiguration
+        
+        NetworkService.request(for: appConfiguration)
+            
+        
     }
 }
