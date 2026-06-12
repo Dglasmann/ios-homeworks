@@ -7,6 +7,7 @@
 
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -37,7 +38,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.appConfiguration = appConfiguration
         
         NetworkService.request(for: appConfiguration)
-            
         
+    }
+    
+    func sceneDidDisconnect(_: UIScene) {
+        try? Auth.auth().signOut()
     }
 }

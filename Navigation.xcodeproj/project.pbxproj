@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0762CDB3FBED29F5C5F473F8 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1985B7EE47267EE90FC94C8C /* Pods_StorageService.framework */; };
+		4439DE458FF0F3624125AAFD /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C7C5081B4D2306916B1C39 /* Pods_Navigation.framework */; };
 		B35C375E2FA3BCF9009D550C /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = B35C375D2FA3BCF9009D550C /* iOSIntPackage */; };
 		B3CF32422F8FDB8900604781 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CF323A2F8FDB8900604781 /* StorageService.framework */; };
 		B3CF32432F8FDB8900604781 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3CF323A2F8FDB8900604781 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -37,11 +39,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1985B7EE47267EE90FC94C8C /* Pods_StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F8D1456DE2BCA884DFE1BF /* Pods-StorageService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.release.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.release.xcconfig"; sourceTree = "<group>"; };
+		6EF2422235238760F78DF3F9 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
+		B2B8E91600E3BB1F1F5C947C /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		B3CF323A2F8FDB8900604781 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E923002F4B3234000990D4 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6C7C5081B4D2306916B1C39 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC8FC75324CAA5F0180E416D /* Pods-StorageService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.debug.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B385E5FA2FDBF28200EF23A5 /* Exceptions for "Navigation" folder in "StorageService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GoogleService-Info.plist",
+			);
+			target = B3CF32392F8FDB8900604781 /* StorageService */;
+		};
 		B3E923122F4B3234000990D4 /* Exceptions for "Navigation" folder in "Navigation" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -61,6 +76,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B3E923122F4B3234000990D4 /* Exceptions for "Navigation" folder in "Navigation" target */,
+				B385E5FA2FDBF28200EF23A5 /* Exceptions for "Navigation" folder in "StorageService" target */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -72,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0762CDB3FBED29F5C5F473F8 /* Pods_StorageService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,26 +98,21 @@
 			files = (
 				B3CF32422F8FDB8900604781 /* StorageService.framework in Frameworks */,
 				B35C375E2FA3BCF9009D550C /* iOSIntPackage in Frameworks */,
+				4439DE458FF0F3624125AAFD /* Pods_Navigation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B35C375C2FA3BCF9009D550C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B3E922F72F4B3234000990D4 = {
 			isa = PBXGroup;
 			children = (
 				B3E923022F4B3234000990D4 /* Navigation */,
 				B3CF323B2F8FDB8900604781 /* StorageService */,
-				B35C375C2FA3BCF9009D550C /* Frameworks */,
 				B3E923012F4B3234000990D4 /* Products */,
+				EC57CB3D5374D2E2C0FF6442 /* Pods */,
+				DF3A9A88057D2989E2E84518 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +123,26 @@
 				B3CF323A2F8FDB8900604781 /* StorageService.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DF3A9A88057D2989E2E84518 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6C7C5081B4D2306916B1C39 /* Pods_Navigation.framework */,
+				1985B7EE47267EE90FC94C8C /* Pods_StorageService.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC57CB3D5374D2E2C0FF6442 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6EF2422235238760F78DF3F9 /* Pods-Navigation.debug.xcconfig */,
+				B2B8E91600E3BB1F1F5C947C /* Pods-Navigation.release.xcconfig */,
+				CC8FC75324CAA5F0180E416D /* Pods-StorageService.debug.xcconfig */,
+				48F8D1456DE2BCA884DFE1BF /* Pods-StorageService.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +162,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3CF32442F8FDB8900604781 /* Build configuration list for PBXNativeTarget "StorageService" */;
 			buildPhases = (
+				6739D6F84F264D5AE8C059D6 /* [CP] Check Pods Manifest.lock */,
 				B3CF32352F8FDB8900604781 /* Headers */,
 				B3CF32362F8FDB8900604781 /* Sources */,
 				B3CF32372F8FDB8900604781 /* Frameworks */,
@@ -143,8 +176,6 @@
 				B3CF323B2F8FDB8900604781 /* StorageService */,
 			);
 			name = StorageService;
-			packageProductDependencies = (
-			);
 			productName = StorageService;
 			productReference = B3CF323A2F8FDB8900604781 /* StorageService.framework */;
 			productType = "com.apple.product-type.framework";
@@ -153,10 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3E923132F4B3234000990D4 /* Build configuration list for PBXNativeTarget "Navigation" */;
 			buildPhases = (
+				44EBC2A0042D1BD0267270EC /* [CP] Check Pods Manifest.lock */,
 				B3E922FC2F4B3234000990D4 /* Sources */,
 				B3E922FD2F4B3234000990D4 /* Frameworks */,
 				B3E922FE2F4B3234000990D4 /* Resources */,
 				B3CF32472F8FDB8900604781 /* Embed Frameworks */,
+				6AD32B206758C885EB5E6E3E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -233,6 +266,74 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		44EBC2A0042D1BD0267270EC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Navigation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6739D6F84F264D5AE8C059D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StorageService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6AD32B206758C885EB5E6E3E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B3CF32362F8FDB8900604781 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -265,6 +366,7 @@
 /* Begin XCBuildConfiguration section */
 		B3CF32452F8FDB8900604781 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC8FC75324CAA5F0180E416D /* Pods-StorageService.debug.xcconfig */;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -303,6 +405,7 @@
 		};
 		B3CF32462F8FDB8900604781 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48F8D1456DE2BCA884DFE1BF /* Pods-StorageService.release.xcconfig */;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -341,6 +444,7 @@
 		};
 		B3E923142F4B3234000990D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EF2422235238760F78DF3F9 /* Pods-Navigation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -372,6 +476,7 @@
 		};
 		B3E923152F4B3234000990D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2B8E91600E3BB1F1F5C947C /* Pods-Navigation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -438,7 +543,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -501,7 +606,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
