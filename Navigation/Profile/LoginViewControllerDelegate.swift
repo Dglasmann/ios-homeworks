@@ -6,5 +6,16 @@
 //
 
 protocol LoginViewControllerDelegate {
-    func check(login: String, password: String) throws 
+    
+    func checkCredentials(
+        email: String,
+        password: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    )
+    
+    func signUp(
+        email: String,
+        password: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    )
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -68,7 +69,6 @@ class LoginViewController: UIViewController {
         let emailTextField = UITextField()
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "Email or phone"
-        emailTextField.text = "admin"
         emailTextField.font = UIFont.systemFont(ofSize: 16)
         emailTextField.textColor = .black
         emailTextField.tintColor = .systemBlue
@@ -88,7 +88,6 @@ class LoginViewController: UIViewController {
         let passwordTextField = UITextField()
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Password"
-        passwordTextField.text = "admin123"
         passwordTextField.font = UIFont.systemFont(ofSize: 16)
         passwordTextField.textColor = .black
         passwordTextField.tintColor = .systemBlue
@@ -293,29 +292,74 @@ class LoginViewController: UIViewController {
     
     private func logInButtonPressed() {
         
-        let login = emailTextField.text ?? ""
+        let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
-        do {
-            try loginDelegate?.check(login: login, password: password)
-            
-            switch userService.user(for: login) {
-            case .success(let user):
-                //используем preconditionFailure, т.к coordinator не должен быть nil при успешном логине
-                guard let coordinator = self.coordinator else {
-                    preconditionFailure("Coordinator не должен быть nil")
-                }
-                coordinator.showProfile(user: user)
-            case .failure(let error):
-                showAlert(message: error.localizedDescription)
-            }
+        guard !email.isEmpty else {
+            showAlert(message: "Введите email")
+            return
+        }
+        
+        guard !password.isEmpty else {
+            showAlert(message: "Введите пароль")
+            return
+        }
+        
+        loginDelegate?.checkCredentials(email: email, password: password) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
 
-            
-        } catch let error as AuthError {
-                showAlert(message: error.localizedDescription)
-            } catch {
-                showAlert(message: "Произошла неизвестная ошибка")
+                    switch result {
+                    case .success:
+                        // Сценарий d: успешный вход
+                        self.openProfile(for: email)
+
+                    case .failure(let error):
+                        let nsError = error as NSError
+                        let code = AuthErrorCode(rawValue: nsError.code)
+
+                        switch code {
+                        case .userNotFound, .invalidCredential:
+                            self.signUp(email: email, password: password)
+
+                        case .wrongPassword:
+                            self.showAlert(message: "Неверный пароль")
+
+                        default:
+                            self.showAlert(message: error.localizedDescription)
+                        }
+                    }
+                }
             }
+    }
+    
+    private func signUp(email: String, password: String) {
+        loginDelegate?.signUp(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    self.openProfile(for: email)
+                case .failure(let error):
+                    let code = AuthErrorCode(rawValue: (error as NSError).code)
+                    if code == .emailAlreadyInUse {
+                        self.showAlert(message: "Неверный пароль")
+                    } else {
+                        self.showAlert(message: error.localizedDescription)
+                    }
+                }
+                
+            }
+        }
+    }
+    private func openProfile(for login: String) {
+        guard let coordinator = self.coordinator else {
+            preconditionFailure("coordinator should not be null")
+        }
+        let avatar = UIImage(named: "Avatar") ?? UIImage()
+        let user = User(login: login, fullName: "Test user", avatar: avatar, status: "Normas")
+        coordinator.showProfile(user: user)
+
     }
     
     @objc private func dismissKeyboard() {
