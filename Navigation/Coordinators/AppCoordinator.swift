@@ -50,7 +50,16 @@ final class AppCoordinator {
             tag: 2
         )
         
-        tabBarController.viewControllers = [feedNavController, profileNavController, mediaNavController]
+        let favouritesNavController = UINavigationController()
+        let favouritesVC = FavouritesViewController()
+        favouritesNavController.setViewControllers([favouritesVC], animated: true)
+        favouritesNavController.tabBarItem = UITabBarItem(
+            title: "Избранное",
+            image: UIImage(systemName: "star"),
+            tag: 3
+        )
+        
+        tabBarController.viewControllers = [feedNavController, profileNavController, mediaNavController,favouritesNavController]
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }

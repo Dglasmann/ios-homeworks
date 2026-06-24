@@ -56,12 +56,18 @@ class PostTableViewCell: UITableViewCell {
         return viewsLabel
     }()
     
+    
+    //MARK: - Double tap
+    
+    var onDoubleTap: (() -> Void)?
+    
     //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier:String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupConstraints()
+        setupDoubleTap()
     }
     
     required init?(coder: NSCoder) {
@@ -109,6 +115,19 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
         
+    }
+    
+    private func setupDoubleTap() {
+        let doubleTap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleDoubleTap)
+        )
+        doubleTap.numberOfTapsRequired = 2
+        contentView.addGestureRecognizer(doubleTap)
+    }
+    
+    @objc private func handleDoubleTap() {
+        onDoubleTap?()
     }
     
     

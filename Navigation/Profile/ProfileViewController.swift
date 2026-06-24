@@ -266,7 +266,14 @@ extension ProfileViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for:   indexPath) as? PostTableViewCell else {
                 return UITableViewCell()
             }
+            let post = posts[indexPath.row]
             cell.configure(with: posts[indexPath.row])
+            cell.onDoubleTap = {
+                CoreDataService.shared.savePost(post)
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+                print("Сохранили в избранное \(post.author)")
+            }
             return cell
             
         default:
