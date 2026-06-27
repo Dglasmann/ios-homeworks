@@ -269,10 +269,11 @@ extension ProfileViewController: UITableViewDataSource {
             let post = posts[indexPath.row]
             cell.configure(with: posts[indexPath.row])
             cell.onDoubleTap = {
-                CoreDataService.shared.savePost(post)
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-                print("Сохранили в избранное \(post.author)")
+                CoreDataService.shared.savePost(post) {
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(.success)
+                    print("Сохранили в избранное \(post.author)")
+                }
             }
             return cell
             

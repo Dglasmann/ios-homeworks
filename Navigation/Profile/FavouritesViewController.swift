@@ -63,8 +63,8 @@ extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         let post = posts[indexPath.row]
-        CoreDataService.shared.deletePost(post)
         posts.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        CoreDataService.shared.deletePost(post)
     }
 }
