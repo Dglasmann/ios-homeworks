@@ -12,6 +12,10 @@ import CoreData
 final class CoreDataService {
     static let shared = CoreDataService()
     
+    var mainContext: NSManagedObjectContext {
+        viewContext
+    }
+    
     private init() {}
     
     private lazy var persistentContainer: NSPersistentContainer = {
@@ -36,6 +40,20 @@ final class CoreDataService {
     }()
     
     //MARK: - Create
+    func makeFetchedResultsController(author: String? = nil) -> NSFetchedResultsController<FavouritePost> {
+        let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
+        if let author = author, !author.isEmpty {
+            request.predicate = NSPredicate(format: "author CONTAINTS %@", author)
+        }
+        
+        return NSFetchedResultsController(
+            fetchRequest: request,
+            managedObjectContext: viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+    }
     
     func savePost(_ post: PostModel, completeion: (() -> Void)? = nil) {
         
@@ -46,27 +64,24 @@ final class CoreDataService {
                 DispatchQueue.main.async { completeion?() }
                 return
             }
+            let favourite = FavouritePost(context: self.backgroundContext)
+            favourite.author = post.author
+            favourite.descriptionText = post.description
+            favourite.image = post.image
+            favourite.views = Int64(post.views)
+            favourite.likes = Int64(post.likes)
             
-        }
-        
-        
-        let favourite = FavouritePost(context: self.backgroundContext)
-        favourite.author = post.author
-        favourite.descriptionText = post.description
-        favourite.image = post.image
-        favourite.views = Int64(post.views)
-        favourite.likes = Int64(post.likes)
-        
-        self.save(self.backgroundContext)
-        DispatchQueue.main.async {
-            completeion?()
+            self.save(self.backgroundContext)
+            DispatchQueue.main.async {
+                completeion?()
+            }
         }
     }
     
     //MARK: - Read
     func fetchPosts(author: String) -> [PostModel] {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
-        request.predicate = NSPredicate(format: "author == %@", author)
+        request.predicate = NSPredicate(format: "author CONTAINS %@", author)
         do {
             let result = try viewContext.fetch(request)
             return result.map { PostModel(

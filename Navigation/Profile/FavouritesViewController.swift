@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 final class FavouritesViewController: UIViewController {
     
     private var posts: [PostModel] = []
+    private var fetchedResultsController: NSFetchedResultsController<FavouritePost>!
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -26,12 +28,25 @@ final class FavouritesViewController: UIViewController {
         title = "Избранное"
         setupNavigationBar()
         setupViews()
+        setupFetchedResultsController(author: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         posts = CoreDataService.shared.fetchPosts()
         tableView.reloadData()
+    }
+    
+    private func setupFetchedResultsController(author: String?) {
+        fetchedResultsController = CoreDataService.shared.makeFetchedResultsController(author: author)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+            tableView.reloadData()
+        } catch {
+            print("FRC fetch error: \(error.localizedDescription)")
+        }
     }
     
     private func setupNavigationBar() {
@@ -76,8 +91,7 @@ final class FavouritesViewController: UIViewController {
             guard let self = self else { return }
             let author = alert?.textFields?.first?.text ?? ""
             guard !author.isEmpty else { return }
-            self.posts = CoreDataService.shared.fetchPosts(author: author)
-            self.tableView.reloadData()
+            self.setupFetchedResultsController(author: author)
         }
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
@@ -87,22 +101,21 @@ final class FavouritesViewController: UIViewController {
     }
     
     @objc private func clearFilter() {
-        posts = CoreDataService.shared.fetchPosts()
-        tableView.reloadData()
+        setupFetchedResultsController(author: nil)
     }
 }
 
 extension FavouritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell else {
             return UITableViewCell()
         }
-        
+        let favourite = fetchedResultsController.object(at: indexPath)
         cell.configure(with: posts[indexPath.row])
         return cell
     }
@@ -118,16 +131,51 @@ extension FavouritesViewController: UITableViewDelegate {
             style: .destructive,
             title: "Удалить"
         ) { [weak self] _, _, completion in
-            guard let self = self else {
-                completion(false)
-                return
-            }
-            let post = self.posts[indexPath.row]
-            self.posts.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            guard let self = self else { completion(false); return }
+            let favourite = self.fetchedResultsController.object(at: indexPath)
+            let post = PostModel(
+                author: favourite.author,
+                description: favourite.descriptionText,
+                image: favourite.image,
+                likes: Int(favourite.likes),
+                views: Int(favourite.views)
+            )
             CoreDataService.shared.deletePost(post)
             completion(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension FavouritesViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<any NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<any NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        case .update:
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
+                let favourite = fetchedResultsController.object(at: indexPath)
+                cell.configure(with: favourite)
+            }
+        case .move:
+            if let indexPath = indexPath { tableView.deleteRows(at: [indexPath], with: .fade) }
+            if let newIndexPath = newIndexPath { tableView.insertRows(at: [newIndexPath], with: .fade) }
+        @unknown default:
+            break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<any NSFetchRequestResult>) {
+        tableView.endUpdates()
     }
 }
