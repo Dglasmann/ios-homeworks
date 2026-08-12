@@ -10,7 +10,7 @@ import Foundation
 class FeedViewModel {
     
     //MARK: - State
-    enum State {
+    nonisolated enum State: Equatable {
         case initial
         case correct
         case incorrect

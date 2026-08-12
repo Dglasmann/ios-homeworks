@@ -10,8 +10,17 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
-    var loginDelegate: LoginViewControllerDelegate?
+    var loginDelegate: LoginViewControllerDelegate? {
+        didSet {
+            guard let loginDelegate else { return }
+            viewModel = LoginViewModel(loginDelegate: loginDelegate)
+            bindViewModel()
+        }
+    }
+    
+    
     weak var coordinator: ProfileCoordinator?
+    private var viewModel: LoginViewModel?
     private let userService: UserService =   {
     let avatar = UIImage(named: "avatar") ?? UIImage()
 
@@ -125,28 +134,6 @@ class LoginViewController: UIViewController {
     }()
     
     //кнопка Log in
-//    private lazy var logInButton: UIButton = {
-//        let logInButton = UIButton(type: .system)
-//        logInButton.translatesAutoresizingMaskIntoConstraints = false
-//        logInButton.setTitle("Log in", for: .normal)
-//        logInButton.setTitleColor(.white, for: .normal)
-//        logInButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-//        logInButton.backgroundColor = UIColor(red: 0.000, green: 0.569, blue: 0.808, alpha: 1.000)
-//        
-//        if let bluePixel = UIImage(named: "blue_pixel") {
-//            logInButton.setBackgroundImage(bluePixel, for: .normal)
-//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .selected)
-//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .highlighted)
-//            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .disabled)
-//        }
-//        logInButton.layer.cornerRadius = 10
-//        logInButton.clipsToBounds = true
-//        
-//        logInButton.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-//        
-//        return logInButton
-//    }()
-    
     private lazy var logInButton: CustomButton = {
         let logInButton = CustomButton(
             title: "Log in",
@@ -291,67 +278,9 @@ class LoginViewController: UIViewController {
     //MARK: - Actions
     
     private func logInButtonPressed() {
-        
-        let email = emailTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        
-        guard !email.isEmpty else {
-            showAlert(message: "Введите email")
-            return
-        }
-        
-        guard !password.isEmpty else {
-            showAlert(message: "Введите пароль")
-            return
-        }
-        
-        loginDelegate?.checkCredentials(email: email, password: password) { [weak self] result in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-
-                    switch result {
-                    case .success:
-                        // Сценарий d: успешный вход
-                        self.openProfile(for: email)
-
-                    case .failure(let error):
-                        let nsError = error as NSError
-                        let code = AuthErrorCode(rawValue: nsError.code)
-
-                        switch code {
-                        case .userNotFound, .invalidCredential:
-                            self.signUp(email: email, password: password)
-
-                        case .wrongPassword:
-                            self.showAlert(message: "Неверный пароль")
-
-                        default:
-                            self.showAlert(message: error.localizedDescription)
-                        }
-                    }
-                }
-            }
+        viewModel?.login(email: emailTextField.text, password: passwordTextField.text)
     }
     
-    private func signUp(email: String, password: String) {
-        loginDelegate?.signUp(email: email, password: password) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                switch result {
-                case .success:
-                    self.openProfile(for: email)
-                case .failure(let error):
-                    let code = AuthErrorCode(rawValue: (error as NSError).code)
-                    if code == .emailAlreadyInUse {
-                        self.showAlert(message: "Неверный пароль")
-                    } else {
-                        self.showAlert(message: error.localizedDescription)
-                    }
-                }
-                
-            }
-        }
-    }
     private func openProfile(for login: String) {
         guard let coordinator = self.coordinator else {
             preconditionFailure("coordinator should not be null")
@@ -386,6 +315,25 @@ class LoginViewController: UIViewController {
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+    
+    private func bindViewModel() {
+        viewModel?.onStateDidChange = {[weak self] state in
+            DispatchQueue.main.async {
+                self?.render(state: state)
+            }
+        }
+    }
+    
+    private func render(state: LoginViewModel.State) {
+        switch state {
+        case .idle, .loading:
+            break
+        case .success(let login):
+            openProfile(for: login)
+        case .failure(let message):
+            showAlert(message: message)
+        }
     }
 }
 
