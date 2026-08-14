@@ -5,6 +5,10 @@ target 'Navigation' do
 
   pod 'FirebaseCore'
   pod 'Firebase/Auth'
+
+  target 'NavigationTests' do
+    inherit! :search_paths
+  end
 end
 
 target 'StorageService' do
