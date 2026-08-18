@@ -136,7 +136,7 @@ extension FavouritesViewController: UITableViewDelegate {
             let post = PostModel(
                 author: favourite.author,
                 description: favourite.descriptionText,
-                image: favourite.image,
+                image: UIImage(data: favourite.image ?? Data()) ?? UIImage(),
                 likes: Int(favourite.likes),
                 views: Int(favourite.views)
             )

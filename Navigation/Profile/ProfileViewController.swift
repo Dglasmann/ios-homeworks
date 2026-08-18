@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
     
     private let user: User
     private let photos = PhotoStorage.photos
-    private let posts = PostStorage.posts
+    private var posts = PostStorage.posts
     private var sessionTimer: Timer?
     private var sessionSeconds: Int = 0
     weak var coordinator: ProfileCoordinator?
@@ -77,6 +77,9 @@ class ProfileViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosTableViewCell")
         return tableView
@@ -304,6 +307,71 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             coordinator?.showPhotos()
+        }
+    }
+}
+
+extension ProfileViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: any UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard indexPath.section == 1 else {
+             return []
+        }
+        
+        let post = posts[indexPath.row]
+        let imageProvider = NSItemProvider(object: post.image)
+        let imageItem = UIDragItem(itemProvider: imageProvider)
+        imageItem.localObject = post
+        
+        let textProvider = NSItemProvider(object: post.description as NSString)
+        let textItem = UIDragItem(itemProvider: textProvider)
+        
+        return [imageItem, textItem]
+    }
+}
+
+extension ProfileViewController: UITableViewDropDelegate {
+
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        session.canLoadObjects(ofClass: UIImage.self) ||
+        session.canLoadObjects(ofClass: NSString.self)
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        dropSessionDidUpdate session: UIDropSession,
+        withDestinationIndexPath destinationIndexPath: IndexPath?
+    ) -> UITableViewDropProposal {
+        UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+    }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath = coordinator.destinationIndexPath
+            ?? IndexPath(row: posts.count, section: 1)
+
+        coordinator.session.loadObjects(ofClass: UIImage.self) { [weak self] imageItems in
+            guard let self = self, let image = imageItems.first as? UIImage else { return }
+
+            coordinator.session.loadObjects(ofClass: NSString.self) { textItems in
+                let description = (textItems.first as? String) ?? ""
+
+                let newPost = PostModel(
+                    author: "Drag&Drop",
+                    description: description,
+                    image: image,
+                    likes: 0,
+                    views: 0
+                )
+
+                PostStorage.posts.append(newPost)
+                self.posts = PostStorage.posts
+
+                let insertRow = destinationIndexPath.row < self.posts.count
+                    ? destinationIndexPath.row
+                    : self.posts.count - 1
+                let insertIndexPath = IndexPath(row: insertRow, section: 1)
+
+                self.tableView.insertRows(at: [insertIndexPath], with: .automatic)
+            }
         }
     }
 }
