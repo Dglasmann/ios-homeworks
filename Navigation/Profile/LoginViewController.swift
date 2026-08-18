@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import LocalAuthentication
 
 class LoginViewController: UIViewController {
     
+    
+    private let localAuthorizationService = LocalAuthorizationService()
     var loginDelegate: LoginViewControllerDelegate? {
         didSet {
             guard let loginDelegate else { return }
@@ -151,6 +154,15 @@ class LoginViewController: UIViewController {
         }
         return logInButton
     }()
+    
+    private lazy var biometricButton: CustomButton = {
+        let button = CustomButton(
+            title: "Войти по биометрии",
+            backgroundColor: .systemGray,
+            tapAction: {[weak self] in self?.biometricButtonPressed()  }
+        )
+        return button
+    }()
     //MARK: - Lifecycle
     
     
@@ -208,12 +220,28 @@ class LoginViewController: UIViewController {
         contentView.addSubview(logoImageView)
         contentView.addSubview(textFieldsContainer)
         contentView.addSubview(logInButton)
-        
+        contentView.addSubview(biometricButton)
+                               
         textFieldsContainer.addSubview(emailTextField)
         textFieldsContainer.addSubview(separator)
         textFieldsContainer.addSubview(passwordTextField)
+        
+        setupBiometricButton()
     }
     
+    private func setupBiometricButton() {
+        switch localAuthorizationService.biometryType {
+        case .faceID:
+            biometricButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+            biometricButton.isHidden = false
+        case .touchID:
+            biometricButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+            biometricButton.isHidden = false
+        case .none:
+            biometricButton.isHidden = true
+        }
+    }
+        
     private func setupConstraints() {
         NSLayoutConstraint.activate([
         
@@ -266,7 +294,12 @@ class LoginViewController: UIViewController {
         logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
         logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         logInButton.heightAnchor.constraint(equalToConstant: 50),
-        logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        
+        biometricButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
+        biometricButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        biometricButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+        biometricButton.heightAnchor.constraint(equalToConstant: 50),
+        biometricButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
     }
     
@@ -279,6 +312,36 @@ class LoginViewController: UIViewController {
     
     private func logInButtonPressed() {
         viewModel?.login(email: emailTextField.text, password: passwordTextField.text)
+    }
+    
+    private func biometricButtonPressed() {
+        localAuthorizationService.authorizeIfPossible { [weak self] success, error in
+            guard let self else { return }
+            if success {
+                self.openProfile(for: "admin")
+            } else {
+                self.showAlert(message: self.biometricErrorMessage(for: error))
+            }
+            
+        }
+    }
+    
+    private func biometricErrorMessage(for error: Error?) -> String {
+        guard let laError = error as? LAError else {
+            return "Не удалось авторизоваться по биометрии"
+        }
+        switch laError.code {
+        case .biometryNotEnrolled:
+            return "На устройстве не настроена биометрия"
+        case .biometryNotAvailable:
+            return "Биометрия недоступна на этом устройстве"
+        case .biometryLockout:
+            return "Биометрия заблокирована, введите пароль устройства"
+        case .userCancel, .userFallback:
+            return "Авторизация отменена"
+        default:
+            return laError.localizedDescription
+        }
     }
     
     private func openProfile(for login: String) {
