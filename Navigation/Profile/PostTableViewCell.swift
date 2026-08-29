@@ -133,7 +133,7 @@ class PostTableViewCell: UITableViewCell {
     
     func configure(with post: PostModel) {
             authorLabel.text = post.author
-            postImageView.image = UIImage(named: post.image)
+        postImageView.image = post.image
             descriptionLabel.text = post.description
             likesLabel.text = "Likes: \(post.likes)"
             viewsLabel.text = "Views: \(post.views)"
@@ -143,7 +143,7 @@ class PostTableViewCell: UITableViewCell {
         let model = PostModel(
             author: favourite.author,
             description: favourite.descriptionText,
-            image: favourite.image,
+            image: UIImage(data: favourite.image ?? Data()) ?? UIImage(),
             likes: Int(favourite.likes),
             views: Int(favourite.views)
         )

@@ -13,7 +13,7 @@ public class FavouritePost: NSManagedObject {
     
     @NSManaged public var author: String
     @NSManaged public var descriptionText: String
-    @NSManaged public var image: String
+    @NSManaged public var image: Data?
     @NSManaged public var views: Int64
     @NSManaged public var likes: Int64
     

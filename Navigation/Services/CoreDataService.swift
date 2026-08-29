@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 final class CoreDataService {
     static let shared = CoreDataService()
@@ -67,7 +68,7 @@ final class CoreDataService {
             let favourite = FavouritePost(context: self.backgroundContext)
             favourite.author = post.author
             favourite.descriptionText = post.description
-            favourite.image = post.image
+            favourite.image = post.image.pngData()
             favourite.views = Int64(post.views)
             favourite.likes = Int64(post.likes)
             
@@ -87,7 +88,7 @@ final class CoreDataService {
             return result.map { PostModel(
                 author: $0.author,
                 description: $0.descriptionText,
-                image: $0.image,
+                image: UIImage(data: $0.image ?? Data()) ?? UIImage(),
                 likes: Int($0.likes),
                 views: Int($0.views)
             )
@@ -106,7 +107,7 @@ final class CoreDataService {
                 PostModel(
                     author: $0.author,
                     description: $0.descriptionText,
-                    image: $0.image,
+                    image: UIImage(data: $0.image ?? Data()) ?? UIImage(),
                     likes: Int($0.likes),
                     views: Int($0.views)
                 )
