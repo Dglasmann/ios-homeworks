@@ -400,17 +400,6 @@ class LoginViewController: UIViewController {
     }
 }
 
-    extension UIImage {
-        func withAlpha(_ alpha: CGFloat) -> UIImage {
-            UIGraphicsBeginImageContextWithOptions(size, false, scale)
-            draw(at: .zero, blendMode: .normal, alpha: alpha)
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage ?? self
-            
-        }
-    }
-
     //это чтобы клавиатура переходила к passwordTextField с emailTextField и пряталась при нажатии на return
     extension LoginViewController: UITextFieldDelegate {
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {

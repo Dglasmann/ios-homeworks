@@ -8,13 +8,7 @@
 
 import LocalAuthentication
 
-class LocalAuthorizationService {
-    
-    enum BiometryType {
-        case faceID
-        case touchID
-        case none
-    }
+class LocalAuthorizationService: LocalAuthorizationServiceProtocol {
     
     var biometryType: BiometryType {
         let context = LAContext()
@@ -36,7 +30,7 @@ class LocalAuthorizationService {
         let context = LAContext()
         var error: NSError?
         
-        let reason = "Войдите с помощью биометрии"
+        let reason = L10n.Login.biometryReason
         
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
             authorizationFinished(false, error)

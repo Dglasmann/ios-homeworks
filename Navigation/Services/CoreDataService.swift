@@ -62,7 +62,7 @@ final class CoreDataService {
             guard let self = self else { return }
             
             if self.isFavourite(post, in: self.backgroundContext) {
-                DispatchQueue.main.async { completeion?() }
+                DispatchQueue.main.async { completion?() }
                 return
             }
             let favourite = FavouritePost(context: self.backgroundContext)
@@ -85,14 +85,7 @@ final class CoreDataService {
         request.predicate = NSPredicate(format: "author CONTAINS %@", author)
         do {
             let result = try viewContext.fetch(request)
-            return result.map { PostModel(
-                author: $0.author,
-                description: $0.descriptionText,
-                image: UIImage(data: $0.image ?? Data()) ?? UIImage(),
-                likes: Int($0.likes),
-                views: Int($0.views)
-            )
-            }
+            return result.map(PostModel.init(from:))
         } catch {
             print("Fatal error: \(error.localizedDescription)")
             return []
@@ -103,15 +96,7 @@ final class CoreDataService {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
         do {
             let result = try viewContext.fetch(request)
-            return result.map {
-                PostModel(
-                    author: $0.author,
-                    description: $0.descriptionText,
-                    image: UIImage(data: $0.image ?? Data()) ?? UIImage(),
-                    likes: Int($0.likes),
-                    views: Int($0.views)
-                )
-            }
+            return result.map(PostModel.init(from:))
         } catch {
             print("Fetch error: \(error.localizedDescription)")
             return []

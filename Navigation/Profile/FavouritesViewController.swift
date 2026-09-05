@@ -133,14 +133,7 @@ extension FavouritesViewController: UITableViewDelegate {
         ) { [weak self] _, _, completion in
             guard let self = self else { completion(false); return }
             let favourite = self.fetchedResultsController.object(at: indexPath)
-            let post = PostModel(
-                author: favourite.author,
-                description: favourite.descriptionText,
-                image: UIImage(data: favourite.image ?? Data()) ?? UIImage(),
-                likes: Int(favourite.likes),
-                views: Int(favourite.views)
-            )
-            CoreDataService.shared.deletePost(post)
+            CoreDataService.shared.deletePost(PostModel(from: favourite))
             completion(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -165,7 +158,7 @@ extension FavouritesViewController: NSFetchedResultsControllerDelegate {
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
                 let favourite = fetchedResultsController.object(at: indexPath)
-                cell.configure(with: favourite)
+                cell.configure(with: PostModel(from: favourite))
             }
         case .move:
             if let indexPath = indexPath { tableView.deleteRows(at: [indexPath], with: .fade) }

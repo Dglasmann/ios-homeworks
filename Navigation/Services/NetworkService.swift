@@ -6,37 +6,53 @@
 //
 import Foundation
 
-struct NetworkService {
-    static func request(for configuration: AppConfiguration) {
-        let url: URL
-        switch configuration {
-            
-        case .people(let peopleURL):
-            url = peopleURL
-        case .planets(let planetsURL):
-            url = planetsURL
-        case .starships(let starshipsURL):
-            url = starshipsURL
+
+enum NetworkError: LocalizedError {
+    case emptyData
+    case decodingFailed(Error)
+    case transport(Error)
+    
+    var errorDescription: String? {
+        switch self {
+        case .emptyData: return L10n.Network.emptyData
+        case .decodingFailed: return L10n.Network.decodingFailed
+        case .transport(let error): return error.localizedDescription
         }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let error {
-                print("Ошибка: \(error.localizedDescription)")
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Заголовки: \(httpResponse.allHeaderFields)")
-                print("Код ответа: \(httpResponse.statusCode)")
-            }
-            
-            if let data, let stringData = String(data: data, encoding: .utf8) {
-                print("Данные: \(stringData)")
-                
-            }
-        }
-        task.resume()
-        
     }
 }
+
+
+final class NetworkService: NetworkServiceProtocol {
+    private let session: URLSession
+    
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
+    func request<T: Decodable>(
+        _ url: URL,
+        as type: T.Type,
+        completion: @escaping (Result<T, any Error>) -> Void
+    )  {
+        session.dataTask(with: url) { data, _, error in
+            let result: Result<T, Error>
+            
+            if let error {
+                result = .failure(NetworkError.transport(error))
+            } else if let data {
+                do {
+                    result = .success(try JSONDecoder().decode(T.self, from: data))
+                }
+                catch {
+                    result = .failure(NetworkError.decodingFailed(error))
+                }
+            } else {
+                result = .failure(NetworkError.emptyData)
+            }
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }.resume()
+    }
+}
+
