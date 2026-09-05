@@ -75,20 +75,6 @@ final class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    //    private let setStatusButton: UIButton = {
-    //        let setStatusButton = UIButton(type: .system)
-    //        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-    //        setStatusButton.backgroundColor = .systemBlue
-    //        setStatusButton.setTitle("Set status", for: .normal)
-    //        setStatusButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .regular) // задал свой размер шрифта, так как не было по макету
-    //        setStatusButton.setTitleColor(.white, for: .normal)
-    //        setStatusButton.layer.cornerRadius = 14 // поставил 14 вместо 4, потому что на макете сильно закруглен, а с 4 так не сделаешь
-    //        setStatusButton.layer.shadowColor = UIColor.black.cgColor
-    //        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-    //        setStatusButton.layer.shadowRadius = 4
-    //        setStatusButton.layer.shadowOpacity = 0.7
-    //        return setStatusButton
-    //    }()
     private lazy var setStatusButton: CustomButton = {
         let setStatusButton = CustomButton(
         title: "Set status",

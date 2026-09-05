@@ -348,7 +348,7 @@ class LoginViewController: UIViewController {
         guard let coordinator = self.coordinator else {
             preconditionFailure("coordinator should not be null")
         }
-        let avatar = UIImage(named: "Avatar") ?? UIImage()
+        let avatar = UIImage(named: "avatar") ?? UIImage()
         let user = User(login: login, fullName: "Test user", avatar: avatar, status: "Normas")
         coordinator.showProfile(user: user)
 

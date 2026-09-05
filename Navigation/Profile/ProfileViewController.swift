@@ -38,18 +38,6 @@ class ProfileViewController: UIViewController {
         return dimmedOverlay
     }()
     
-//    private lazy var closeButton: UIButton = {
-//        let closeButton = UIButton()
-//        closeButton.translatesAutoresizingMaskIntoConstraints = false
-//        closeButton.setImage(UIImage(systemName: "xmark")?.withConfiguration(
-//            UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
-//        ), for: .normal)
-//        closeButton.tintColor = .white
-//        closeButton.alpha = 0
-//        closeButton.addTarget(self, action: #selector(closeAvatarAnimation), for: .touchUpInside)
-//        return closeButton
-//    }()
-    
     private lazy var closeButton: CustomButton = {
         let closeButton = CustomButton(
             title: "",
@@ -91,12 +79,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        #if DEBUG
-        view.backgroundColor = .red
-        #else
-        view.backgroundColor = .green
-        #endif
-        title = "Profile"
+        view.backgroundColor = .systemBackground
         setupViews()
         setupConstraints()
     }

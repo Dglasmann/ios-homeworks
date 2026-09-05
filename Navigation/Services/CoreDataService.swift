@@ -45,7 +45,7 @@ final class CoreDataService {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
         if let author = author, !author.isEmpty {
-            request.predicate = NSPredicate(format: "author CONTAINTS %@", author)
+            request.predicate = NSPredicate(format: "author CONTAINS %@", author)
         }
         
         return NSFetchedResultsController(
@@ -56,7 +56,7 @@ final class CoreDataService {
         )
     }
     
-    func savePost(_ post: PostModel, completeion: (() -> Void)? = nil) {
+    func savePost(_ post: PostModel, completion: (() -> Void)? = nil) {
         
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }
@@ -74,7 +74,7 @@ final class CoreDataService {
             
             self.save(self.backgroundContext)
             DispatchQueue.main.async {
-                completeion?()
+                completion?()
             }
         }
     }
@@ -120,7 +120,7 @@ final class CoreDataService {
     
     //MARK: - Delete
     
-    func deletePost(_ post: PostModel, completeion: (() -> Void)? = nil) {
+    func deletePost(_ post: PostModel, completion: (() -> Void)? = nil) {
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }
             let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
@@ -138,7 +138,7 @@ final class CoreDataService {
                 print("Delete error: \(error.localizedDescription)")
             }
             DispatchQueue.main.async {
-                completeion?()
+                completion?()
             }
         }
        
