@@ -12,27 +12,27 @@ final class FeedCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    private let moduleFactory: ModuleFactoryProtocol
+    
+    init(navigationController: UINavigationController, moduleFactory: ModuleFactoryProtocol) {
         self.navigationController = navigationController
+        self.moduleFactory = moduleFactory
     }
     
     func start() {
-        let viewModel = FeedViewModel()
-        let feedVC = FeedViewController(viewModel: viewModel)
-        feedVC.coordinator = self
-        navigationController.setViewControllers([feedVC], animated: true)
+        let feed = moduleFactory.makeFeed(coordinator: self)
+        navigationController.setViewControllers([feed], animated: false)
         
     }
     
     func showPost(_ post: Post) {
-        let postVC = PostViewController()
-        postVC.post = post
-        postVC.coordinator = self
-        navigationController.pushViewController(postVC, animated: true)
+        navigationController.pushViewController(
+            moduleFactory.makePost(post, coordinator: self),
+            animated: true
+        )
     }
     
     func showInfo() {
-        let infoVC = InfoViewController()
-        navigationController.present(infoVC, animated: true)
+        navigationController.present(moduleFactory.makeInfo(), animated: true)
     }
 }

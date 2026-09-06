@@ -11,7 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var appCoordinator: AppCoordinator?
+    private var appCoordinator: AppCoordinator?
     
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -22,11 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let appCoordinator = AppCoordinator(window: window)
+        // Один контейнер сервисов на весь жц приложения
+        let services = ServiceContainer()
+        let moduleFactory = ModuleFactory(services: services)
+        
+        let appCoordinator = AppCoordinator(
+            window: window,
+            moduleFactory: moduleFactory,
+            services: services
+        )
         appCoordinator.start()
         
-        self.appCoordinator = appCoordinator
         self.window = window
+        self.appCoordinator = appCoordinator
         
         
     }

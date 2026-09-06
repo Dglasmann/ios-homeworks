@@ -12,26 +12,36 @@ final class ProfileCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    private let moduleFactory: ModuleFactoryProtocol
+    private let userService: UserService
+    
+    init(navigationController: UINavigationController, moduleFactory: ModuleFactoryProtocol, userService: UserService) {
         self.navigationController = navigationController
-    }
-    func start() {
-        let loginFactory = MyLoginFactory()
-        let loginVC = LoginViewController()
-        loginVC.loginDelegate = loginFactory.makeLoginInspector()
-        loginVC.coordinator = self
-        navigationController.setViewControllers([loginVC], animated: true)
+        self.moduleFactory = moduleFactory
+        self.userService = userService
     }
     
-    func showProfile(user: User) {
-        let profileVC = ProfileViewController(user: user)
-        profileVC.coordinator = self
-        navigationController.pushViewController(profileVC, animated: true)
+    func start() {
+        let login = moduleFactory.makeLogin(coordinator: self)
+        navigationController.setViewControllers([login], animated: false)
+    }
+    
+    
+    /// Показывает профиль по логину. Пользователь берётся из UserService
+    func showProfile(for login: String) {
+        switch userService.user(for: login) {
+        case .success(let user):
+            navigationController.pushViewController(
+                moduleFactory.makeProfile(user: user, coordinator: self),
+                animated: true
+            )
+        case .failure(let error):
+            assertionFailure(error.localizedDescription)
+        }
     }
     
     func showPhotos() {
-        let photosVC = PhotosViewController()
-        navigationController.pushViewController(photosVC, animated: true)
+        navigationController.pushViewController(moduleFactory.makePhotos(), animated: true)
     }
     
 }
