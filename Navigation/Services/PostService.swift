@@ -10,7 +10,7 @@ import UIKit
 final class PostService: PostServiceProtocol {
     private var storage: [PostModel]
     
-    init(storage: [PostModel]) {
+    init(storage: [PostModel] = PostService.defaultPosts) {
         self.storage = storage
     }
     

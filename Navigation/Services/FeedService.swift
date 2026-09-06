@@ -6,11 +6,11 @@
 //  Проверка секретного слова.
 //
 
-final class FeedService: FFeedServiceProtocol {
+final class FeedService: FeedServiceProtocol {
     
     private let secretWord: String
     
-    init(secretWord: String) {
+    init(secretWord: String = "secretik") {
         self.secretWord = secretWord
     }
     

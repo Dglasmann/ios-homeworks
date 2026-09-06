@@ -13,14 +13,22 @@ import UIKit
 final class CoreDataService {
     static let shared = CoreDataService()
     
+    private let inMemory: Bool
+    
     var mainContext: NSManagedObjectContext {
         viewContext
     }
     
-    private init() {}
+    init(inMemory: Bool = false) {
+        self.inMemory = inMemory
+    }
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "FavouritesModel")
+        if inMemory {
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        }
+        
         container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("CoreData load error: \(error.localizedDescription)")
@@ -41,7 +49,7 @@ final class CoreDataService {
     }()
     
     //MARK: - Create
-    func makeFetchedResultsController(author: String? = nil) -> NSFetchedResultsController<FavouritePost> {
+    func makeFetchedResultsController(author: String?) -> NSFetchedResultsController<FavouritePost> {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
         if let author = author, !author.isEmpty {
@@ -80,9 +88,11 @@ final class CoreDataService {
     }
     
     //MARK: - Read
-    func fetchPosts(author: String) -> [PostModel] {
+    func fetchPosts(author: String? = nil) -> [PostModel] {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
-        request.predicate = NSPredicate(format: "author CONTAINS %@", author)
+        if let author, !author.isEmpty {
+            request.predicate = NSPredicate(format: "author CONTAINS[cd] %@", author)
+        }
         do {
             let result = try viewContext.fetch(request)
             return result.map(PostModel.init(from:))
@@ -92,16 +102,6 @@ final class CoreDataService {
         }
     }
     
-    func fetchPosts() -> [PostModel] {
-        let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
-        do {
-            let result = try viewContext.fetch(request)
-            return result.map(PostModel.init(from:))
-        } catch {
-            print("Fetch error: \(error.localizedDescription)")
-            return []
-        }
-    }
     
     //MARK: - Delete
     

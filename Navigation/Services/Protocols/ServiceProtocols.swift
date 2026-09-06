@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol FFeedServiceProtocol {
+protocol FeedServiceProtocol {
     func check(word: String) -> Bool
 }
 
