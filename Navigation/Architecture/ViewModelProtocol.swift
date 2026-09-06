@@ -15,7 +15,7 @@ protocol ViewModelProtocol: AnyObject {
     
     var state: State { get }
     
-    var onStateDidChange: ((State) -> Void?) { get set }
+    var onStateDidChange: ((State) -> Void)? { get set }
     
     func updateState(viewInput: ViewInput)
 }

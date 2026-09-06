@@ -8,13 +8,14 @@
 import XCTest
 @testable import Navigation
 
+@MainActor
 final class FeedViewModelTests: XCTestCase {
     
     var viewModel: FeedViewModel!
     
     override func setUp() {
         super.setUp()
-        viewModel = FeedViewModel()
+        viewModel = FeedViewModel(feedService: FeedService(), coordinator: nil)
     }
     
     override func tearDown() {
@@ -24,7 +25,7 @@ final class FeedViewModelTests: XCTestCase {
     
     func testCheckGuess_correctWord_setsCorrectState() {
         //when
-        viewModel.checkGuess(word: "secretik")
+        viewModel.updateState(viewInput: .checkGuess(word: "secretik"))
         
         //then
         XCTAssertEqual(viewModel.state, .correct)
@@ -32,7 +33,7 @@ final class FeedViewModelTests: XCTestCase {
     
     func testCheckGuess_incorrectWord_setsIncorrectState() {
         //when
-        viewModel.checkGuess(word: "wrong")
+        viewModel.updateState(viewInput: .checkGuess(word: "wrong"))
         
         //then
         XCTAssertEqual(viewModel.state, .incorrect)
@@ -40,7 +41,7 @@ final class FeedViewModelTests: XCTestCase {
     
     func testCheckGuess_emptyWord_stateStaysInitial() {
         //when
-        viewModel.checkGuess(word: "")
+        viewModel.updateState(viewInput: .checkGuess(word: ""))
         
         //then
         XCTAssertEqual(viewModel.state, .initial)

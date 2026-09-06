@@ -8,15 +8,15 @@
 import UIKit
 import StorageService
 
-class PostViewController: UIViewController {
+final class PostViewController: UIViewController {
     
     var post: Post?
     weak var coordinator: FeedCoordinator?
     
-    private lazy var  label : UILabel = {
+    private lazy var label : UILabel = {
         let label = UILabel()
         label.text = "Детали поста"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = AppFont.postAuthor
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -27,7 +27,7 @@ class PostViewController: UIViewController {
         setupUI()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Info",
+            title: L10n.Feed.info,
             style: .plain,
             target: self,
             action: #selector(showInfo))
@@ -35,8 +35,8 @@ class PostViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .systemTeal
-        title = post?.title ?? "Пост"
+        view.backgroundColor = AppColor.background
+        title = post?.title ?? L10n.Feed.postDetails
         
         view.addSubview(label)
         

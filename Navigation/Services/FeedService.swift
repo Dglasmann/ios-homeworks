@@ -6,7 +6,7 @@
 //  Проверка секретного слова.
 //
 
-final class FeedService: FeedServiceProtocol {
+nonisolated final class FeedService: FeedServiceProtocol {
     
     private let secretWord: String
     

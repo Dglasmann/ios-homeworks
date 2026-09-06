@@ -31,9 +31,8 @@ final class ModuleFactory: ModuleFactoryProtocol {
     }
     
     func makeFeed(coordinator: FeedCoordinator) -> UIViewController {
-        let viewController = FeedViewController(viewModel: FeedViewModel())
-        viewController.coordinator = coordinator
-        return viewController
+        let viewModel = FeedViewModel(feedService: services.feedService, coordinator: coordinator)
+        return FeedViewController(viewModel: viewModel)
     }
     
     func makePost(_ post: StorageService.Post, coordinator: FeedCoordinator) -> UIViewController {

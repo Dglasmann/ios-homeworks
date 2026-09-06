@@ -9,9 +9,9 @@ import UIKit
 import StorageService
 
 class FeedViewController: UIViewController {
-    let post = Post(title: "Мой первый пост")
+    
+    private let post = Post(title: L10n.Feed.postDetails)
     private let viewModel: FeedViewModel
-    weak var coordinator: FeedCoordinator?
     
     init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
@@ -44,8 +44,8 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var checkGuessButton = CustomButton(
-        title: "Проверить",
-        backgroundColor: .systemGreen,
+        title: L10n.Feed.check,
+        backgroundColor: AppColor.accent,
         tapAction: {[weak self] in self?.checkGuess()}
     )
     
@@ -60,14 +60,14 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var firstButton = CustomButton(
-        title: "Открыть пост 1",
-        backgroundColor: .systemBlue,
+        title: L10n.Feed.openFirstPost,
+        backgroundColor: AppColor.accent,
         tapAction: {[weak self] in self?.showPost() }
     )
     
     private lazy var secondButton = CustomButton(
-        title: "Открыть пост 2",
-        backgroundColor: .systemBlue,
+        title: L10n.Feed.openSecondPost,
+        backgroundColor: AppColor.accent,
         tapAction: {[weak self] in self?.showPost() }
     )
     
@@ -97,13 +97,13 @@ class FeedViewController: UIViewController {
     }
     
     private func checkGuess() {
-        viewModel.checkGuess(word: guessTextField.text)
+        viewModel.updateState(viewInput: .checkGuess(word: guessTextField.text))
     }
     
     
     private func setupUI() {
-        view.backgroundColor = .systemBackground
-        title = "Лента"
+        view.backgroundColor = AppColor.background
+        title = L10n.Feed.title
         
         stackView.addArrangedSubview(firstButton)
         stackView.addArrangedSubview(secondButton)
@@ -114,17 +114,15 @@ class FeedViewController: UIViewController {
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 200),
-            
             firstButton.heightAnchor.constraint(equalToConstant: 50),
             secondButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        stackView.constrainWidth(to: view)
     }
     
     private func showPost() {
-        coordinator?.showPost(post)
+        viewModel.updateState(viewInput: .openPost(post))
     }
     
     

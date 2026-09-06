@@ -6,56 +6,56 @@
 //
 
 import Foundation
+import StorageService
 
-class FeedViewModel {
+final class FeedViewModel: ViewModelProtocol {
+    
+    
+    enum ViewInput {
+        case checkGuess(word: String?)
+        case openPost(Post)
+    }
+    
     
     //MARK: - State
-    nonisolated enum State: Equatable {
+    enum State: Equatable {
         case initial
         case correct
         case incorrect
     }
+    
     
     //MARK: - Bindings
     var onStateDidChange: ((State) -> Void)?
     
     //MARK: - Private
     
-    private let feedModel: FeedModel
     private(set) var state: State = .initial {
         didSet {
             onStateDidChange?(state)
         }
     }
     
+    private let feedService: FeedServiceProtocol
+    
+    private weak var coordinator: FeedCoordinator?
+    
     //MARK: - Init
-    init(feedModel: FeedModel = FeedModel()) {
-        self.feedModel = feedModel
-        subscribeToModel()
+    init(feedService: FeedServiceProtocol, coordinator: FeedCoordinator? = nil) {
+        self.feedService = feedService
+        self.coordinator = coordinator
     }
     
     //MARK: - Input
-    func checkGuess(word: String?) {
-        guard let word = word, !word.isEmpty else { return }
-        feedModel.check(word: word)
+    func updateState(viewInput: ViewInput) {
+        switch viewInput {
+        case .checkGuess(let word):
+            guard let word, !word.isEmpty else { return }
+            state = feedService.check(word: word) ? .correct : .incorrect
+            
+        case .openPost(let post):
+            coordinator?.showPost(post)
+        }
     }
+}
     
-    private func subscribeToModel() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleCheckResult(_:)),
-            name: .feedCheckResult,
-            object: nil
-        )
-    }
-    
-    
-    @objc private func handleCheckResult(_ notification: Notification) {
-        guard let isCorrect = notification.userInfo?["isCorrect"] as? Bool else { return }
-        state = isCorrect ? .correct : .incorrect
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
- }
