@@ -16,7 +16,7 @@ protocol ModuleFactoryProtocol {
     func makeProfile(user: User, coordinator: ProfileCoordinator) -> UIViewController
     func makePhotos() -> UIViewController
     func makeFavourites() -> UIViewController
-    func makeMediaMenu(coordinatoe: MediaCoordinator) -> UIViewController
+    func makeMediaMenu(coordinator: MediaCoordinator) -> UIViewController
     func makeAudioPlayer() -> UIViewController
     func makeVideoList() -> UIViewController
     func makeAudioRecorder() -> UIViewController
@@ -43,7 +43,7 @@ final class ModuleFactory: ModuleFactoryProtocol {
     }
     
     func makeInfo() -> UIViewController {
-        InfoViewController()
+        InfoViewController(networkService: services.networkService)
     }
     
     func makeLogin(coordinator: ProfileCoordinator) -> UIViewController {
@@ -72,11 +72,13 @@ final class ModuleFactory: ModuleFactoryProtocol {
     }
     
     func makeFavourites() -> UIViewController {
-        FavouritesViewController(viewModel: FavouritesViewModel(favouritesService: services.favouritesService)
+        FavouritesViewController(viewModel: FavouritesViewModel(favouritesService: services.favouritesService))
     }
     
     func makeMediaMenu(coordinator: MediaCoordinator) -> UIViewController {
-        MediaMenuViewController()
+        let viewController = MediaMenuViewController()
+        viewController.coordinator = coordinator
+        return viewController
     }
     
     func makeAudioPlayer() -> UIViewController {

@@ -11,7 +11,6 @@ import CoreData
 import UIKit
 
 final class CoreDataService {
-    static let shared = CoreDataService()
     
     private let inMemory: Bool
     

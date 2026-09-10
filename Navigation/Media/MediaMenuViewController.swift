@@ -8,37 +8,33 @@ import UIKit
 
 class MediaMenuViewController: UIViewController {
     
+    weak var coordinator: MediaCoordinator?
+    
     private lazy var audioButton: CustomButton = {
         CustomButton(
-            title: "Аудиоплеер",
-            backgroundColor: .systemBlue,
+            title: L10n.Media.audioPlayer,
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in
-                self?.navigationController?.pushViewController(
-                    AudioPlayerViewController(),
-                    animated: true)
+                self?.coordinator?.showAudioPlayer()
             }
         )
     }()
     
     private lazy var videoButton: CustomButton = {
         CustomButton(
-            title: "Видеоплеер",
-            backgroundColor: .systemBlue,
+            title: L10n.Media.videoPlayer,
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in
-                self?.navigationController?.pushViewController(
-                    VideoListViewController(),
-                    animated: true)
+                self?.coordinator?.showVideoList()
             }
         )
     }()
     private lazy var recorderButton: CustomButton = {
         CustomButton(
-            title: "Запись аудио",
-            backgroundColor: .systemBlue,
+            title: L10n.Media.recorder,
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in
-                self?.navigationController?.pushViewController(
-                    AudioRecorderViewController(),
-                    animated: true)
+                self?.coordinator?.showAudioRecorder()
             }
         )
     }()
