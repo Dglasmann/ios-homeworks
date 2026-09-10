@@ -9,228 +9,249 @@ import UIKit
 import FirebaseAuth
 import LocalAuthentication
 
-class LoginViewController: UIViewController {
-    
-    
-    private let localAuthorizationService = LocalAuthorizationService()
-    var loginDelegate: LoginViewControllerDelegate? {
-        didSet {
-            guard let loginDelegate else { return }
-            viewModel = LoginViewModel(loginDelegate: loginDelegate)
-            bindViewModel()
-        }
+final class LoginViewController: UIViewController {
+ 
+    // MARK: - Dependencies
+ 
+    private let viewModel: LoginViewModel
+ 
+    // MARK: - Init
+ 
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
-    
-    
-    weak var coordinator: ProfileCoordinator?
-    private var viewModel: LoginViewModel?
-    private let userService: UserService =   {
-    let avatar = UIImage(named: "avatar") ?? UIImage()
-
-        
-        #if DEBUG
-        return TestUserService(
-            user: User(
-                login: "admin",
-                fullName: "Test User",
-                avatar: avatar,
-                status: "Debug mode"
-            )
-        )
-        
-        #else
-        return CurrentUserService(
-            user: User(
-                login: "admin",
-                fullName: "Ivan Ivanov",
-                avatar: avatar,
-                status: "Working hard"
-            )
-        )
-        #endif
-    }()
-      
-    //MARK: - Subviews
-    
+ 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+ 
+    // MARK: - Subviews
+ 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         return scrollView
     }()
-    
+ 
     private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
         return contentView
     }()
-    
-    //logo vk, делаем по центру горизонтально
+ 
+    /// Логотип ВКонтакте, по центру горизонтально.
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "logo")
         imageView.contentMode = .scaleAspectFit
-        
         return imageView
     }()
-    
-    //textfield для ввода email или телефона
+ 
     private lazy var emailTextField: UITextField = {
-        let emailTextField = UITextField()
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.placeholder = "Email or phone"
-        emailTextField.font = UIFont.systemFont(ofSize: 16)
-        emailTextField.textColor = .black
-        emailTextField.tintColor = .systemBlue
-        emailTextField.autocapitalizationType = .none
-        emailTextField.autocorrectionType = .no
-        emailTextField.returnKeyType = .next
-        emailTextField.delegate = self
-        emailTextField.backgroundColor = .clear
-        emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        emailTextField.leftViewMode = .always
-        
-        return emailTextField
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = L10n.Login.emailPlaceholder
+        textField.font = AppFont.textField
+        textField.textColor = AppColor.primaryText
+        textField.tintColor = AppColor.accent
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.keyboardType = .emailAddress
+        textField.returnKeyType = .next
+        textField.delegate = self
+        textField.backgroundColor = .clear
+        textField.leftView = UIView(
+            frame: CGRect(x: 0, y: 0, width: AppLayout.spacing, height: 0)
+        )
+        textField.leftViewMode = .always
+        return textField
     }()
-    
-    //textfield для ввода пароля
+ 
     private lazy var passwordTextField: UITextField = {
-        let passwordTextField = UITextField()
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.placeholder = "Password"
-        passwordTextField.font = UIFont.systemFont(ofSize: 16)
-        passwordTextField.textColor = .black
-        passwordTextField.tintColor = .systemBlue
-        passwordTextField.autocapitalizationType = .none
-        passwordTextField.autocorrectionType = .no
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.returnKeyType = .done
-        passwordTextField.delegate = self
-        passwordTextField.backgroundColor = .clear
-        passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        passwordTextField.leftViewMode = .always
-        
-        return passwordTextField
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = L10n.Login.passwordPlaceholder
+        textField.font = AppFont.textField
+        textField.textColor = AppColor.primaryText
+        textField.tintColor = AppColor.accent
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.isSecureTextEntry = true
+        textField.returnKeyType = .done
+        textField.delegate = self
+        textField.backgroundColor = .clear
+        textField.leftView = UIView(
+            frame: CGRect(x: 0, y: 0, width: AppLayout.spacing, height: 0)
+        )
+        textField.leftViewMode = .always
+        return textField
     }()
-    
-    //добавляем разделитель между полями
+ 
+    /// Разделитель между полями ввода
     private lazy var separator: UIView = {
         let separator = UIView()
         separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.backgroundColor = .lightGray
+        separator.backgroundColor = AppColor.separator
         return separator
     }()
-    
-    //контнейнер для двух текстфилдов и разделителя
+ 
+    /// Контейнер для двух полей ввода и разделителя
     private lazy var textFieldsContainer: UIView = {
-        let textFieldContainer = UIView()
-        textFieldContainer.translatesAutoresizingMaskIntoConstraints = false
-        textFieldContainer.backgroundColor = .systemGray6
-        textFieldContainer.layer.borderColor = UIColor.lightGray.cgColor
-        textFieldContainer.layer.borderWidth = 0.5
-        textFieldContainer.layer.cornerRadius = 10
-        textFieldContainer.clipsToBounds = true
-        
-        return textFieldContainer
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = AppColor.secondaryBackground
+        container.layer.borderColor = AppColor.border.cgColor
+        container.layer.borderWidth = AppLayout.separatorHeight
+        container.layer.cornerRadius = AppLayout.cornerRadius
+        container.clipsToBounds = true
+        return container
     }()
-    
-    //кнопка Log in
+ 
     private lazy var logInButton: CustomButton = {
-        let logInButton = CustomButton(
-            title: "Log in",
-            backgroundColor: UIColor(red: 0.00, green: 0.569, blue: 0.808, alpha: 1.000),
-            tapAction: {
-                [weak self] in self?.logInButtonPressed()
-            }
-        )
-        
-        if let bluePixel = UIImage(named: "blue_pixel") {
-            logInButton.setBackgroundImage(bluePixel, for: .normal)
-            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .selected)
-            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .highlighted)
-            logInButton.setBackgroundImage(bluePixel.withAlpha(0.8), for: .disabled)
-        }
-        return logInButton
-    }()
-    
-    private lazy var biometricButton: CustomButton = {
         let button = CustomButton(
-            title: "Войти по биометрии",
-            backgroundColor: .systemGray,
-            tapAction: {[weak self] in self?.biometricButtonPressed()  }
+            title: L10n.Login.logIn,
+            backgroundColor: AppColor.buttonBackground,
+            tapAction: { [weak self] in self?.logInButtonPressed() }
         )
+ 
+        // Разные состояния кнопки различаются прозрачностью
+        if let bluePixel = UIImage(named: "blue_pixel") {
+            button.setBackgroundImage(bluePixel, for: .normal)
+            button.setBackgroundImage(bluePixel.withAlpha(0.8), for: .selected)
+            button.setBackgroundImage(bluePixel.withAlpha(0.8), for: .highlighted)
+            button.setBackgroundImage(bluePixel.withAlpha(0.8), for: .disabled)
+        }
         return button
     }()
-    //MARK: - Lifecycle
-    
-    
+ 
+    private lazy var biometricButton: CustomButton = {
+        CustomButton(
+            title: L10n.Login.biometry,
+            backgroundColor: .systemGray,
+            tapAction: { [weak self] in self?.biometricButtonPressed() }
+        )
+    }()
+ 
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = AppColor.textOnAccent
+        return indicator
+    }()
+ 
+    // MARK: - Lifecycle
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = AppColor.background
         navigationController?.navigationBar.isHidden = true
+ 
         setupViews()
         setupConstraints()
         setupGestures()
+        bindViewModel()
     }
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        
-        //обрабатываем появление клавиатуры, делаем подписку
+ 
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
-        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-        
     }
-    
+ 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+ 
         NotificationCenter.default.removeObserver(
             self,
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
-        
         NotificationCenter.default.removeObserver(
             self,
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
     }
-    
-    
-    //MARK: - setup
+ 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+ 
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+            return
+        }
+        textFieldsContainer.layer.borderColor = AppColor.border.cgColor
+    }
+ 
+    // MARK: - Binding
+ 
+    private func bindViewModel() {
+        viewModel.onStateDidChange = { [weak self] state in
+            DispatchQueue.main.async {
+                self?.render(state: state)
+            }
+        }
+    }
+ 
+    /// Единственное место, где View реагирует на изменения состояния
+    private func render(state: LoginViewModel.State) {
+        switch state {
+        case .idle:
+            activityIndicator.stopAnimating()
+            logInButton.isEnabled = true
+ 
+        case .loading:
+            activityIndicator.startAnimating()
+            logInButton.isEnabled = false
+ 
+        case .success(let login):
+            activityIndicator.stopAnimating()
+            logInButton.isEnabled = true
+            viewModel.didFinishLogin(with: login)
+ 
+        case .failure(let message):
+            activityIndicator.stopAnimating()
+            logInButton.isEnabled = true
+            showAlert(message: message)
+        }
+    }
+ 
+    // MARK: - Setup
+ 
     private func setupViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
+ 
         contentView.addSubview(logoImageView)
         contentView.addSubview(textFieldsContainer)
         contentView.addSubview(logInButton)
         contentView.addSubview(biometricButton)
-                               
+ 
         textFieldsContainer.addSubview(emailTextField)
         textFieldsContainer.addSubview(separator)
         textFieldsContainer.addSubview(passwordTextField)
-        
+ 
+        logInButton.addSubview(activityIndicator)
+ 
         setupBiometricButton()
     }
-    
+ 
     private func setupBiometricButton() {
-        switch localAuthorizationService.biometryType {
+        switch viewModel.biometryType {
         case .faceID:
             biometricButton.setImage(UIImage(systemName: "faceid"), for: .normal)
             biometricButton.isHidden = false
@@ -241,173 +262,140 @@ class LoginViewController: UIViewController {
             biometricButton.isHidden = true
         }
     }
-        
+ 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-        
-        //scrollview constraints (фигачим на весь экран)
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        
-        
-        //contentview constraints (привязываем к scrollview, ширина равна ширине экрана)
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-        
-        //logo vk (100x100, 120 pt от верха)
-        logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-        logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-        logoImageView.widthAnchor.constraint(equalToConstant: 100),
-        logoImageView.heightAnchor.constraint(equalToConstant: 100),
-        
-        //контейнер текстфилдов (слева и справа 16 pt, 120 pt под лого)
-        textFieldsContainer.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
-        textFieldsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        textFieldsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        
-        //email textfield (внутри контейнера высота 50)
-        emailTextField.topAnchor.constraint(equalTo: textFieldsContainer.topAnchor),
-        emailTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
-        emailTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
-        emailTextField.heightAnchor.constraint(equalToConstant: 50),
-        
-        //разделитель, возьмём 0.5 pt
-        separator.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
-        separator.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
-        separator.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
-        separator.heightAnchor.constraint(equalToConstant: 0.5),
-        
-       //password textfield (внутри контейнера высота 50)
-        passwordTextField.topAnchor.constraint(equalTo: separator.bottomAnchor),
-        passwordTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
-        passwordTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
-        passwordTextField.bottomAnchor.constraint(equalTo: textFieldsContainer.bottomAnchor),
-        passwordTextField.heightAnchor.constraint(equalToConstant: 50),
-        
-        //кнопка log in (слева и справа 16 pt, сверху под контейнером 16 pt, высота 50)
-        logInButton.topAnchor.constraint(equalTo: textFieldsContainer.bottomAnchor, constant: 16),
-        logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        logInButton.heightAnchor.constraint(equalToConstant: 50),
-        
-        biometricButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
-        biometricButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        biometricButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        biometricButton.heightAnchor.constraint(equalToConstant: 50),
-        biometricButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            // ScrollView на весь экран
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+ 
+            // ContentView определяет прокручиваемую область
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+ 
+            // Логотип
+            logoImageView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: AppLayout.spacingLarge
+            ),
+            logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: AppLayout.avatarSize),
+            logoImageView.heightAnchor.constraint(equalToConstant: AppLayout.avatarSize),
+ 
+            // Контейнер полей ввода
+            textFieldsContainer.topAnchor.constraint(
+                equalTo: logoImageView.bottomAnchor,
+                constant: AppLayout.spacingLarge
+            ),
+ 
+            emailTextField.topAnchor.constraint(equalTo: textFieldsContainer.topAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
+            emailTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
+            emailTextField.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
+ 
+            separator.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
+            separator.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
+            separator.heightAnchor.constraint(equalToConstant: AppLayout.separatorHeight),
+ 
+            passwordTextField.topAnchor.constraint(equalTo: separator.bottomAnchor),
+            passwordTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
+            passwordTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
+            passwordTextField.bottomAnchor.constraint(equalTo: textFieldsContainer.bottomAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
+ 
+            // Кнопка входа
+            logInButton.topAnchor.constraint(
+                equalTo: textFieldsContainer.bottomAnchor,
+                constant: AppLayout.spacing
+            ),
+            logInButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
+ 
+            activityIndicator.centerXAnchor.constraint(equalTo: logInButton.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: logInButton.centerYAnchor),
+ 
+            // Кнопка биометрии
+            biometricButton.topAnchor.constraint(
+                equalTo: logInButton.bottomAnchor,
+                constant: AppLayout.spacing
+            ),
+            biometricButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
+            biometricButton.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -AppLayout.spacing
+            )
         ])
+ 
+        // Ширина ограничена maxContentWidth и центрирована
+        textFieldsContainer.constrainWidth(to: contentView)
+        logInButton.constrainWidth(to: contentView)
+        biometricButton.constrainWidth(to: contentView)
     }
-    
+ 
     private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
-    //MARK: - Actions
-    
+ 
+    // MARK: - Actions
+ 
     private func logInButtonPressed() {
-        viewModel?.login(email: emailTextField.text, password: passwordTextField.text)
+        viewModel.updateState(
+            viewInput: .login(email: emailTextField.text, password: passwordTextField.text)
+        )
     }
-    
+ 
     private func biometricButtonPressed() {
-        localAuthorizationService.authorizeIfPossible { [weak self] success, error in
-            guard let self else { return }
-            if success {
-                self.openProfile(for: "admin")
-            } else {
-                self.showAlert(message: self.biometricErrorMessage(for: error))
-            }
-            
-        }
+        viewModel.updateState(viewInput: .biometricLogin)
     }
-    
-    private func biometricErrorMessage(for error: Error?) -> String {
-        guard let laError = error as? LAError else {
-            return "Не удалось авторизоваться по биометрии"
-        }
-        switch laError.code {
-        case .biometryNotEnrolled:
-            return "На устройстве не настроена биометрия"
-        case .biometryNotAvailable:
-            return "Биометрия недоступна на этом устройстве"
-        case .biometryLockout:
-            return "Биометрия заблокирована, введите пароль устройства"
-        case .userCancel, .userFallback:
-            return "Авторизация отменена"
-        default:
-            return laError.localizedDescription
-        }
-    }
-    
-    private func openProfile(for login: String) {
-        guard let coordinator = self.coordinator else {
-            preconditionFailure("coordinator should not be null")
-        }
-        let avatar = UIImage(named: "avatar") ?? UIImage()
-        let user = User(login: login, fullName: "Test user", avatar: avatar, status: "Normas")
-        coordinator.showProfile(user: user)
-
-    }
-    
+ 
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+ 
+    /// Поднимаем содержимое над клавиатурой, чтобы поля не перекрывались
     @objc private func keyboardWillShow(notification: NSNotification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let keyboardFrame = notification.userInfo?[
+            UIResponder.keyboardFrameEndUserInfoKey
+        ] as? CGRect else { return }
+ 
         let insets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
         scrollView.contentInset = insets
-        scrollView.scrollIndicatorInsets = insets
+        scrollView.verticalScrollIndicatorInsets = insets
     }
-    
+ 
     @objc private func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
-        scrollView.scrollIndicatorInsets = .zero
+        scrollView.verticalScrollIndicatorInsets = .zero
     }
-    
+ 
     private func showAlert(message: String) {
         let alert = UIAlertController(
-            title: "Ошибка",
+            title: L10n.Common.error,
             message: message,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: L10n.Common.ok, style: .default))
         present(alert, animated: true)
     }
-    
-    private func bindViewModel() {
-        viewModel?.onStateDidChange = {[weak self] state in
-            DispatchQueue.main.async {
-                self?.render(state: state)
-            }
+}
+ 
+// MARK: - UITextFieldDelegate
+ 
+extension LoginViewController: UITextFieldDelegate {
+ 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            passwordTextField.resignFirstResponder()
         }
-    }
-    
-    private func render(state: LoginViewModel.State) {
-        switch state {
-        case .idle, .loading:
-            break
-        case .success(let login):
-            openProfile(for: login)
-        case .failure(let message):
-            showAlert(message: message)
-        }
+        return true
     }
 }
-
-    //это чтобы клавиатура переходила к passwordTextField с emailTextField и пряталась при нажатии на return
-    extension LoginViewController: UITextFieldDelegate {
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField == emailTextField {
-                passwordTextField.becomeFirstResponder()
-            } else if textField == passwordTextField {
-                passwordTextField.resignFirstResponder()
-            }
-            return true
-        }
-    }
+ 

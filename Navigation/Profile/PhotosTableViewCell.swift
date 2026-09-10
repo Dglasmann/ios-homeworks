@@ -16,9 +16,9 @@ class PhotosTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Photos"
-        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
-        titleLabel.textColor = .black
+        titleLabel.text = L10n.Profile.photos
+        titleLabel.font = AppFont.sectionTitle
+        titleLabel.textColor = AppColor.primaryText
         return titleLabel
     }()
     
@@ -27,7 +27,7 @@ class PhotosTableViewCell: UITableViewCell {
         let rightArrowImageView = UIImageView()
         rightArrowImageView.translatesAutoresizingMaskIntoConstraints = false
         rightArrowImageView.image = UIImage(systemName: "arrow.right")
-        rightArrowImageView.tintColor = .black
+        rightArrowImageView.tintColor = AppColor.primaryText
         rightArrowImageView.contentMode = .scaleAspectFit
         return rightArrowImageView
     }()
@@ -81,20 +81,20 @@ class PhotosTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             //photos - 12 сверху и слева
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: AppLayout.spacingSmall + 4),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppLayout.spacingSmall + 4),
             
             //стрелка - 12 справа, centerY = titleLabel.centerY
-            rightArrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            rightArrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppLayout.spacingSmall + 4),
             rightArrowImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             rightArrowImageView.widthAnchor.constraint(equalToConstant: 24),
             rightArrowImageView.heightAnchor.constraint(equalToConstant: 24),
             
             //стек с фотками - 12 под заголовком, слева, справа и снизу
-            photosStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            photosStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            photosStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            photosStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            photosStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: AppLayout.spacingSmall + 4),
+            photosStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppLayout.spacingSmall + 4),
+            photosStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppLayout.spacingSmall + 4),
+            photosStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -AppLayout.spacingSmall + 4),
             
             //высота каждой фотки = ее ширине
             photoImageViews[0].heightAnchor.constraint(equalTo: photoImageViews[0].widthAnchor),
@@ -105,11 +105,10 @@ class PhotosTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with photos: [String]) {
+    func configure(with photos: [UIImage]) {
         for (index, imageView) in photoImageViews.enumerated() {
-            if index < photos.count {
-                imageView.image = UIImage(named: photos[index])
+            imageView.image = index < photos.count ? photos[index] : nil
             }
         }
     }
-}
+

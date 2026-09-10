@@ -15,6 +15,8 @@ enum AppLayout {
     
     static let spacing: CGFloat = 16
     
+    static let spacingLarge: CGFloat = 32
+    
     //MARK: - Размеры
     
     static let controlHeight: CGFloat = 50

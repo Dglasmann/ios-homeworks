@@ -14,8 +14,8 @@ class PostTableViewCell: UITableViewCell {
     private let authorLabel : UILabel = {
         let authorLabel = UILabel()
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        authorLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        authorLabel.textColor = .black
+        authorLabel.font = AppFont.postAuthor
+        authorLabel.textColor = AppColor.primaryText
         authorLabel.numberOfLines = 2
         return authorLabel
     }()
@@ -25,7 +25,7 @@ class PostTableViewCell: UITableViewCell {
         let postImageView = UIImageView()
         postImageView.translatesAutoresizingMaskIntoConstraints = false
         postImageView.contentMode = .scaleAspectFit
-        postImageView.backgroundColor = .black
+        postImageView.backgroundColor = AppColor.secondaryBackground
         postImageView.clipsToBounds = true
         return postImageView
     }()
@@ -33,8 +33,8 @@ class PostTableViewCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        descriptionLabel.textColor = .systemGray
+        descriptionLabel.font = AppFont.body
+        descriptionLabel.textColor = AppColor.secondaryText
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
     }()
@@ -42,16 +42,16 @@ class PostTableViewCell: UITableViewCell {
     private let likesLabel: UILabel = {
         let likesLabel = UILabel()
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
-        likesLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        likesLabel.textColor = .black
+        likesLabel.font = AppFont.counter
+        likesLabel.textColor = AppColor.primaryText
         return likesLabel
     }()
     
     private let viewsLabel: UILabel = {
         let viewsLabel = UILabel()
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewsLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        viewsLabel.textColor = .black
+        viewsLabel.font = AppFont.counter
+        viewsLabel.textColor = AppColor.primaryText
         viewsLabel.textAlignment = .right
         return viewsLabel
     }()
@@ -99,6 +99,12 @@ class PostTableViewCell: UITableViewCell {
             postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             postImageView.heightAnchor.constraint(equalTo: postImageView.widthAnchor),
             
+            {
+                let maxHeight = postImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 500)
+                maxHeight.priority = UILayoutPriority(999)
+                return maxHeight
+            }(),
+            
             //описание - под картинкой 16, слева и справа 16
             descriptionLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -135,8 +141,8 @@ class PostTableViewCell: UITableViewCell {
         authorLabel.text = post.author
         postImageView.image = post.image
         descriptionLabel.text = post.description
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        likesLabel.text = L10n.Profile.likes(post.likes)
+        viewsLabel.text = L10n.Profile.views(post.views)
     }
     
 }

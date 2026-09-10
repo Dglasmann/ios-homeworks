@@ -9,6 +9,8 @@ import XCTest
 import FirebaseAuth
 @testable import Navigation
 
+
+@MainActor
 final class LoginViewModelTests: XCTestCase {
     
     var delegateMock: LoginViewControllerDelegateMock!
@@ -17,7 +19,11 @@ final class LoginViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         delegateMock = LoginViewControllerDelegateMock()
-        viewModel = LoginViewModel(loginDelegate: delegateMock)
+        viewModel = LoginViewModel(
+            loginDelegate: delegateMock,
+            biometricService: BiometricServiceMock(),
+            coordinator: nil
+        )
     }
     
     override  func tearDown() {
@@ -28,7 +34,7 @@ final class LoginViewModelTests: XCTestCase {
     
     func testLogin_emptyEmail_setsFailureStateAndDoesNotCallDelegate() {
         //when
-        viewModel.login(email: "", password: "123456")
+        viewModel.updateState(viewInput: .login(email: "", password: "123456"))
         
         //then
         XCTAssertEqual(viewModel.state, .failure(message: "Введите email"))
@@ -37,7 +43,7 @@ final class LoginViewModelTests: XCTestCase {
     
     func testLogin_emptyPassword_setsFailureStateAndDoesNotCallDelegate() {
         //when
-        viewModel.login(email: "test@test.com", password: "")
+        viewModel.updateState(viewInput: .login(email: "test@test.com", password: ""))
         
         //then
         XCTAssertEqual(viewModel.state, .failure(message: "Введите пароль"))
@@ -49,7 +55,7 @@ final class LoginViewModelTests: XCTestCase {
         delegateMock.checkCredentialsResult = .success(())
         
         //when
-        viewModel.login(email: "test@test.com", password: "123456")
+        viewModel.updateState(viewInput: .login(email: "test@test.com", password: "123456"))
         
         //then
         XCTAssertEqual(viewModel.state, .success(login: "test@test.com"))
@@ -62,7 +68,7 @@ final class LoginViewModelTests: XCTestCase {
         delegateMock.checkCredentialsResult = .failure(error)
         
         //when
-        viewModel.login(email: "test@test.com", password: "wrong")
+        viewModel.updateState(viewInput: .login(email: "test@test.com", password: "wrong"))
         
         //then
         XCTAssertEqual(viewModel.state, .failure(message: "Неверный пароль"))
@@ -75,8 +81,7 @@ final class LoginViewModelTests: XCTestCase {
         delegateMock.signUpResult = .success(())
         
         //when
-        viewModel.login(email: "new@test.com", password: "123456")
-        
+        viewModel.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
         //then
         XCTAssertEqual(delegateMock.signUpCallCount, 1)
         XCTAssertEqual(viewModel.state, .success(login: "new@test.com"))

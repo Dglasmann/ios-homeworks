@@ -76,12 +76,7 @@ class FeedViewController: UIViewController {
         setupUI()
         bindViewModel()
     }
-    
-    private func bindViewModel() {
-        viewModel.onStateDidChange = { [weak self] state in
-            self?.render(state: state)
-        }
-    }
+
     
     private func render(state: FeedViewModel.State) {
         switch state {

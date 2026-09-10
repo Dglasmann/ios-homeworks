@@ -47,16 +47,24 @@ final class ModuleFactory: ModuleFactoryProtocol {
     }
     
     func makeLogin(coordinator: ProfileCoordinator) -> UIViewController {
-        let viewController = LoginViewController()
-        viewController.loginDelegate = services.loginInspector
-        viewController.coordinator = coordinator
-        return viewController
+        let viewModel = LoginViewModel(
+            loginDelegate: services.loginInspector,
+            biometricService: services.localAuthorizationService,
+            coordinator: coordinator
+        )
+        return LoginViewController(viewModel: viewModel)
     }
     
     func makeProfile(user: User, coordinator: ProfileCoordinator) -> UIViewController {
-        let viewController = ProfileViewController(user: user)
-        viewController.coordinator = coordinator
-        return viewController
+        let viewModel = ProfileViewModel(
+            user: user,
+            postService: services.postService,
+            photoService: services.photoService,
+            favouritesService: services.favouritesService,
+            coordinator: coordinator
+        )
+        
+        return ProfileViewController(viewModel: viewModel)
     }
     
     func makePhotos() -> UIViewController {
