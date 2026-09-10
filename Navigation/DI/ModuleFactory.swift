@@ -68,11 +68,11 @@ final class ModuleFactory: ModuleFactoryProtocol {
     }
     
     func makePhotos() -> UIViewController {
-        PhotosViewController()
+        PhotosViewController(viewModel: PhotosViewModel(photoService: services.photoService))
     }
     
     func makeFavourites() -> UIViewController {
-        FavouritesViewController()
+        FavouritesViewController(viewModel: FavouritesViewModel(favouritesService: services.favouritesService)
     }
     
     func makeMediaMenu(coordinator: MediaCoordinator) -> UIViewController {
