@@ -16,14 +16,21 @@ extension UIView {
         inset: CGFloat = AppLayout.spacing,
         maxWidth: CGFloat = AppLayout.maxContentWidth
     ) {
-        let width = widthAnchor.constraint(equalToConstant: maxWidth)
-        width.priority = .defaultHigh
-        
+        // Жёсткий потолок ширины на широких экранах (iPad, ландшафт)
+        let maxWidthConstraint = widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
+
+        let fillWidthConstraint = widthAnchor.constraint(
+            equalTo: container.widthAnchor,
+            constant: -inset * 2
+        )
+        fillWidthConstraint.priority = .defaultHigh
+
         NSLayoutConstraint.activate([
             leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: inset),
             trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -inset),
+            maxWidthConstraint,
+            fillWidthConstraint,
             centerXAnchor.constraint(equalTo: container.centerXAnchor)
-            
         ])
     }
 }
