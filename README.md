@@ -22,7 +22,6 @@
 |---|---|
 | ![](Screenshots/ipad_portrait.png) | ![](Screenshots/ipad_landscape.png) |
 
-> Скриншоты сложите в папку `Screenshots/` и закоммитьте.
 
 ## Возможности
 
