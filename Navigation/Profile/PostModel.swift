@@ -17,8 +17,7 @@ struct PostModel {
 
 extension PostModel {
     
-    
-    //создает доменную модель из core-data сущности
+    // создает доменную модель из core-data сущности
     nonisolated init(from entity: FavouritePost) {
         self.init(
             author: entity.author,

@@ -31,5 +31,4 @@ final class FavouritesService: FavouritesServiceProtocol {
         coreDataService.makeFetchedResultsController(author: author)
     }
     
-    
 }

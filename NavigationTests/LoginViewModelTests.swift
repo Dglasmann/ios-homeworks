@@ -7,84 +7,142 @@
 
 import XCTest
 import FirebaseAuth
+import LocalAuthentication
 @testable import Navigation
 
 @MainActor
 final class LoginViewModelTests: XCTestCase {
-    
-    var delegateMock: LoginViewControllerDelegateMock!
-    var viewModel: LoginViewModel!
-    
+
+    private var delegateMock: LoginViewControllerDelegateMock!
+    private var biometricMock: BiometricServiceMock!
+    private var sut: LoginViewModel!
+
     override func setUp() {
         super.setUp()
         delegateMock = LoginViewControllerDelegateMock()
-        viewModel = LoginViewModel(
+        biometricMock = BiometricServiceMock()
+        sut = LoginViewModel(
             loginDelegate: delegateMock,
-            biometricService: BiometricServiceMock(),
+            biometricService: biometricMock,
             coordinator: nil
         )
     }
-    
-    override  func tearDown() {
+
+    override func tearDown() {
+        sut = nil
+        biometricMock = nil
         delegateMock = nil
-        viewModel = nil
         super.tearDown()
     }
-    
-    func testLogin_emptyEmail_setsFailureStateAndDoesNotCallDelegate() {
-        
-        // when
-        viewModel.updateState(viewInput: .login(email: "", password: "123456"))
-        
-        // then
-        XCTAssertEqual(viewModel.state, .failure(message: "Введите email"))
+
+    // MARK: - Валидация
+
+    func test_login_withEmptyEmail_setsFailureAndDoesNotCallDelegate() {
+        sut.updateState(viewInput: .login(email: "", password: "123456"))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.emptyEmail))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 0)
     }
-    
-    func testLogin_emptyPassword_setsFailureStateAndDoesNotCallDelegate() {
-        
-        // when
-        viewModel.updateState(viewInput: .login(email: "test@test.com", password: ""))
-        
-        // then
-        XCTAssertEqual(viewModel.state, .failure(message: "Введите пароль"))
+
+    func test_login_withEmptyPassword_setsFailureAndDoesNotCallDelegate() {
+        sut.updateState(viewInput: .login(email: "test@test.com", password: ""))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.emptyPassword))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 0)
     }
-    
-    func testLogin_success_setsSuccessState() {
-        // given
+
+    func test_login_withNilFields_setsFailure() {
+        sut.updateState(viewInput: .login(email: nil, password: nil))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.emptyEmail))
+    }
+
+    // MARK: - Вход
+
+    func test_login_whenCredentialsValid_setsSuccess() {
         delegateMock.checkCredentialsResult = .success(())
-        
-        // when
-        viewModel.updateState(viewInput: .login(email: "test@test.com", password: "123456"))
-        
-        // then
-        XCTAssertEqual(viewModel.state, .success(login: "test@test.com"))
+
+        sut.updateState(viewInput: .login(email: "test@test.com", password: "123456"))
+
+        XCTAssertEqual(sut.state, .success(login: "test@test.com"))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 1)
     }
-    
-    func testLogin_wrongPassword_setsFailureState() {
-        // given
+
+    func test_login_withWrongPassword_setsFailure() {
         let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.wrongPassword.rawValue)
         delegateMock.checkCredentialsResult = .failure(error)
-        
-        // when
-        viewModel.updateState(viewInput: .login(email: "test@test.com", password: "wrong"))
-        
-        // then
-        XCTAssertEqual(viewModel.state, .failure(message: "Неверный пароль"))
+
+        sut.updateState(viewInput: .login(email: "test@test.com", password: "wrong"))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.wrongPassword))
+        XCTAssertEqual(delegateMock.signUpCallCount, 0)
     }
-    
-    func testLogin_userNotFound_triggersSignUp() {
-        // given
-        let notFoundError = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
-        delegateMock.checkCredentialsResult = .failure(notFoundError)
+
+    // MARK: - Автоматическая регистрация
+
+    func test_login_whenUserNotFound_triggersSignUp() {
+        let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
+        delegateMock.checkCredentialsResult = .failure(error)
         delegateMock.signUpResult = .success(())
-        
-        // when
-        viewModel.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
-        // then
+
+        sut.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
+
         XCTAssertEqual(delegateMock.signUpCallCount, 1)
-        XCTAssertEqual(viewModel.state, .success(login: "new@test.com"))
+        XCTAssertEqual(sut.state, .success(login: "new@test.com"))
+    }
+
+    func test_login_withInvalidCredential_triggersSignUp() {
+        let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.invalidCredential.rawValue)
+        delegateMock.checkCredentialsResult = .failure(error)
+        delegateMock.signUpResult = .success(())
+
+        sut.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
+
+        XCTAssertEqual(delegateMock.signUpCallCount, 1)
+        XCTAssertEqual(sut.state, .success(login: "new@test.com"))
+    }
+
+    func test_signUp_whenEmailAlreadyInUse_setsWrongPasswordFailure() {
+        let notFound = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
+        let inUse = NSError(domain: AuthErrorDomain, code: AuthErrorCode.emailAlreadyInUse.rawValue)
+        delegateMock.checkCredentialsResult = .failure(notFound)
+        delegateMock.signUpResult = .failure(inUse)
+
+        sut.updateState(viewInput: .login(email: "existing@test.com", password: "wrong"))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.wrongPassword))
+    }
+
+    // MARK: - Биометрия
+
+    func test_biometricLogin_whenAuthorized_setsSuccess() {
+        biometricMock.stubbedResult = (true, nil)
+
+        sut.updateState(viewInput: .biometricLogin)
+
+        XCTAssertEqual(sut.state, .success(login: "admin"))
+        XCTAssertEqual(biometricMock.authorizeCallCount, 1)
+    }
+
+    func test_biometricLogin_whenCancelled_setsFailure() {
+        biometricMock.stubbedResult = (false, LAError(.userCancel))
+
+        sut.updateState(viewInput: .biometricLogin)
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.biometryCancelled))
+    }
+
+    func test_biometricLogin_whenNotEnrolled_setsFailure() {
+        biometricMock.stubbedResult = (false, LAError(.biometryNotEnrolled))
+
+        sut.updateState(viewInput: .biometricLogin)
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.biometryNotEnrolled))
+    }
+
+    func test_biometryType_isTakenFromService() {
+        biometricMock.stubbedBiometryType = .touchID
+
+        XCTAssertEqual(sut.biometryType, .touchID)
     }
 }

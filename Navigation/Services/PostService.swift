@@ -18,7 +18,6 @@ final class PostService: PostServiceProtocol {
         storage
     }
     
-    
     @discardableResult
     func addPost(_ post: PostModel, at index: Int) -> PostModel {
         let safeIndex = min(max(index, 0), storage.count)
@@ -26,7 +25,7 @@ final class PostService: PostServiceProtocol {
         return post
     }
     
-    //MARK: - Demo data
+    // MARK: - Demo data
     private static let defaultPosts: [PostModel] = [
         PostModel(
             author: "vedmak.official",
