@@ -11,40 +11,35 @@ import XCTest
 @MainActor
 final class FeedViewModelTests: XCTestCase {
     
-    var viewModel: FeedViewModel!
+    private var sut: FeedService!
     
     override func setUp() {
         super.setUp()
-        viewModel = FeedViewModel(feedService: FeedService(), coordinator: nil)
+        sut = FeedService(secretWord: "secretik")
     }
     
     override func tearDown() {
-        viewModel = nil
+        sut = nil
         super.tearDown()
     }
     
     func testCheckGuess_correctWord_setsCorrectState() {
-        //when
-        viewModel.updateState(viewInput: .checkGuess(word: "secretik"))
-        
-        //then
-        XCTAssertEqual(viewModel.state, .correct)
+        XCTAssertTrue(sut.check(word: "secretik"))
     }
     
-    func testCheckGuess_incorrectWord_setsIncorrectState() {
-        //when
-        viewModel.updateState(viewInput: .checkGuess(word: "wrong"))
-        
-        //then
-        XCTAssertEqual(viewModel.state, .incorrect)
+    func test_check_withCorrectWord_returnsTrue() {
+        XCTAssertTrue(sut.check(word: "secretik"))
     }
-    
-    func testCheckGuess_emptyWord_stateStaysInitial() {
-        //when
-        viewModel.updateState(viewInput: .checkGuess(word: ""))
-        
-        //then
-        XCTAssertEqual(viewModel.state, .initial)
+
+    func test_check_withIncorrectWord_returnsFalse() {
+        XCTAssertFalse(sut.check(word: "wrong"))
+    }
+
+    func test_check_isCaseSensitive() {
+        XCTAssertFalse(sut.check(word: "Secretik"))
+    }
+
+    func test_check_withEmptyString_returnsFalse() {
+        XCTAssertFalse(sut.check(word: ""))
     }
 }
-

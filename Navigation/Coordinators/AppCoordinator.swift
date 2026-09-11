@@ -12,19 +12,21 @@ final class AppCoordinator {
     private let moduleFactory: ModuleFactoryProtocol
     private let services: ServiceContainerProtocol
     
-    
     init(window: UIWindow, moduleFactory: ModuleFactoryProtocol, services: ServiceContainerProtocol) {
         self.window = window
         self.moduleFactory = moduleFactory
         self.services = services
     }
     
-    
     func start() {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = AppColor.accent
         
-        let tabs: [(coordinator: Coordinator, title: String, icon: String)] = [
+        let tabs: [(
+            coordinator: Coordinator,
+            title: String,
+            icon: String
+        )] = [
             (FeedCoordinator(navigationController: UINavigationController(), moduleFactory: moduleFactory),
              L10n.TabBar.feed, "house"),
             (ProfileCoordinator(

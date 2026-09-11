@@ -18,7 +18,7 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
     func addChild(_ child: Coordinator) {
-        guard !childCoordinators.contains(where: {$0 === child }) else { return }
+        guard !childCoordinators.contains(where: { $0 === child }) else { return }
         childCoordinators.append(child)
     }
     

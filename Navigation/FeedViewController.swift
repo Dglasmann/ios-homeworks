@@ -77,6 +77,13 @@ class FeedViewController: UIViewController {
         bindViewModel()
     }
 
+    private func bindViewModel() {
+        viewModel.onStateDidChange = { [weak self] state in
+            DispatchQueue.main.async {
+                self?.render(state: state)
+            }
+        }
+    }
     
     private func render(state: FeedViewModel.State) {
         switch state {

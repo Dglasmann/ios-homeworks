@@ -9,7 +9,6 @@ import XCTest
 import FirebaseAuth
 @testable import Navigation
 
-
 @MainActor
 final class LoginViewModelTests: XCTestCase {
     
@@ -33,19 +32,21 @@ final class LoginViewModelTests: XCTestCase {
     }
     
     func testLogin_emptyEmail_setsFailureStateAndDoesNotCallDelegate() {
-        //when
+        
+        // when
         viewModel.updateState(viewInput: .login(email: "", password: "123456"))
         
-        //then
+        // then
         XCTAssertEqual(viewModel.state, .failure(message: "Введите email"))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 0)
     }
     
     func testLogin_emptyPassword_setsFailureStateAndDoesNotCallDelegate() {
-        //when
+        
+        // when
         viewModel.updateState(viewInput: .login(email: "test@test.com", password: ""))
         
-        //then
+        // then
         XCTAssertEqual(viewModel.state, .failure(message: "Введите пароль"))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 0)
     }
@@ -54,35 +55,35 @@ final class LoginViewModelTests: XCTestCase {
         // given
         delegateMock.checkCredentialsResult = .success(())
         
-        //when
+        // when
         viewModel.updateState(viewInput: .login(email: "test@test.com", password: "123456"))
         
-        //then
+        // then
         XCTAssertEqual(viewModel.state, .success(login: "test@test.com"))
         XCTAssertEqual(delegateMock.checkCredentialsCallCount, 1)
     }
     
     func testLogin_wrongPassword_setsFailureState() {
-        //given
+        // given
         let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.wrongPassword.rawValue)
         delegateMock.checkCredentialsResult = .failure(error)
         
-        //when
+        // when
         viewModel.updateState(viewInput: .login(email: "test@test.com", password: "wrong"))
         
-        //then
+        // then
         XCTAssertEqual(viewModel.state, .failure(message: "Неверный пароль"))
     }
     
     func testLogin_userNotFound_triggersSignUp() {
-        //given
+        // given
         let notFoundError = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
         delegateMock.checkCredentialsResult = .failure(notFoundError)
         delegateMock.signUpResult = .success(())
         
-        //when
+        // when
         viewModel.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
-        //then
+        // then
         XCTAssertEqual(delegateMock.signUpCallCount, 1)
         XCTAssertEqual(viewModel.state, .success(login: "new@test.com"))
     }

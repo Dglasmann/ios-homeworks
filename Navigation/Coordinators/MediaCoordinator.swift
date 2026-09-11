@@ -21,7 +21,7 @@ final class MediaCoordinator: Coordinator {
     }
     
     func start() {
-        let menu = moduleFactory.makeMediaMenu(coordinatoe: self)
+        let menu = moduleFactory.makeMediaMenu(coordinator: self)
         navigationController.setViewControllers([menu], animated: false)
     }
     
@@ -38,4 +38,3 @@ final class MediaCoordinator: Coordinator {
     }
     
 }
-

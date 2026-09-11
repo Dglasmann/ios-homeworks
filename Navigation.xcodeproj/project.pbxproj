@@ -243,6 +243,7 @@
 				B3E922FE2F4B3234000990D4 /* Resources */,
 				B3CF32472F8FDB8900604781 /* Embed Frameworks */,
 				6AD32B206758C885EB5E6E3E /* [CP] Embed Pods Frameworks */,
+				B38E9A8C3053F09D00F77A03 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -397,6 +398,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Navigation/Pods-Navigation-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B38E9A8C3053F09D00F77A03 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f \"${PODS_ROOT}/SwiftLint/swiftlint\" ]; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\" --config \"${SRCROOT}/.swiftlint.yml\"\nelse\n  echo \"warning: SwiftLint не установлен, выполните pod install\"\nfi\n";
 		};
 		E367F13AE92570A1A54AAF49 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

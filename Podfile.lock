@@ -46,10 +46,12 @@ PODS:
     - GoogleUtilities/Privacy
   - GTMSessionFetcher/Core (5.3.0)
   - RecaptchaInterop (101.0.0)
+  - SwiftLint (0.65.1)
 
 DEPENDENCIES:
   - Firebase/Auth
   - FirebaseCore
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -63,6 +65,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - RecaptchaInterop
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Firebase: 7cc10425300768ec86292688af5cb228f0604bde
@@ -75,7 +78,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: 4f2618a4a1e762a1ee134a1e2323bba9843e06da
   GTMSessionFetcher: 127211aeec0b1e904fc49f4f6f895dcc535b0ecf
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  SwiftLint: 7d51ad56923e88694cee5ca806dbbab30f85eaaa
 
-PODFILE CHECKSUM: 3d09fddf06a0f463b4bd210c334e6524bbbad045
+PODFILE CHECKSUM: d366deaefc055916c3cea94efa4daa65ad942cb7
 
 COCOAPODS: 1.16.2

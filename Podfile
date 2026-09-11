@@ -5,6 +5,7 @@ target 'Navigation' do
 
   pod 'FirebaseCore'
   pod 'Firebase/Auth'
+  pod 'SwiftLint' 
 
   target 'NavigationTests' do
     inherit! :search_paths
