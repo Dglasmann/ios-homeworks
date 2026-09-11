@@ -130,26 +130,3 @@ open Navigation.xcworkspace
 
 Пакет `iOSIntPackage` подключён через Swift Package Manager и подтянется
 автоматически при первом открытии проекта.
-
-Для работы авторизации нужен свой `GoogleService-Info.plist` из консоли
-Firebase — положите его в `Navigation/`.
-
-## Тесты
-
-```bash
-xcodebuild test -workspace Navigation.xcworkspace \
-                -scheme Navigation \
-                -destination 'platform=iOS Simulator,name=iPhone 16'
-```
-
-Покрыты: `FeedService`, `PostService`, `FavouritesService` (in-memory Core Data),
-`ProfileViewModel`, `LoginViewModel`. UI-слой намеренно не покрывается
-unit-тестами.
-
-## Что можно доработать
-
-- Загрузка контента из Firebase Realtime Database вместо локальных данных
-- Экран редактирования профиля
-- Истории друзей
-- Пагинация ленты
-- UI-тесты основных сценариев
