@@ -6,7 +6,6 @@
 //
 import Foundation
 
-
 enum NetworkError: LocalizedError {
     case emptyData
     case decodingFailed(Error)
@@ -21,7 +20,6 @@ enum NetworkError: LocalizedError {
     }
 }
 
-
 final class NetworkService: NetworkServiceProtocol {
     private let session: URLSession
     
@@ -33,7 +31,7 @@ final class NetworkService: NetworkServiceProtocol {
         _ url: URL,
         as type: T.Type,
         completion: @escaping (Result<T, any Error>) -> Void
-    )  {
+    ) {
         session.dataTask(with: url) { data, _, error in
             let result: Result<T, Error>
             
@@ -42,8 +40,7 @@ final class NetworkService: NetworkServiceProtocol {
             } else if let data {
                 do {
                     result = .success(try JSONDecoder().decode(T.self, from: data))
-                }
-                catch {
+                } catch {
                     result = .failure(NetworkError.decodingFailed(error))
                 }
             } else {
@@ -55,4 +52,3 @@ final class NetworkService: NetworkServiceProtocol {
         }.resume()
     }
 }
-

@@ -264,61 +264,85 @@ final class LoginViewController: UIViewController {
     }
  
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate(
+            scrollViewConstraints()
+            + logoConstraints()
+            + textFieldsConstraints()
+            + buttonConstraints()
+        )
+
+        // Ширина ограничена maxContentWidth и центрирована
+        textFieldsContainer.constrainWidth(to: contentView)
+        logInButton.constrainWidth(to: contentView)
+        biometricButton.constrainWidth(to: contentView)
+    }
+
+    private func scrollViewConstraints() -> [NSLayoutConstraint] {
+        [
             // ScrollView на весь экран
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
- 
+
             // ContentView определяет прокручиваемую область
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
- 
-            // Логотип
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ]
+    }
+
+    private func logoConstraints() -> [NSLayoutConstraint] {
+        [
             logoImageView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: AppLayout.spacingLarge
             ),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: AppLayout.avatarSize),
-            logoImageView.heightAnchor.constraint(equalToConstant: AppLayout.avatarSize),
- 
-            // Контейнер полей ввода
+            logoImageView.heightAnchor.constraint(equalToConstant: AppLayout.avatarSize)
+        ]
+    }
+
+    private func textFieldsConstraints() -> [NSLayoutConstraint] {
+        [
             textFieldsContainer.topAnchor.constraint(
                 equalTo: logoImageView.bottomAnchor,
                 constant: AppLayout.spacingLarge
             ),
- 
+
             emailTextField.topAnchor.constraint(equalTo: textFieldsContainer.topAnchor),
             emailTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
             emailTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
             emailTextField.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
- 
+
             separator.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
             separator.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
             separator.heightAnchor.constraint(equalToConstant: AppLayout.separatorHeight),
- 
+
             passwordTextField.topAnchor.constraint(equalTo: separator.bottomAnchor),
             passwordTextField.leadingAnchor.constraint(equalTo: textFieldsContainer.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: textFieldsContainer.trailingAnchor),
             passwordTextField.bottomAnchor.constraint(equalTo: textFieldsContainer.bottomAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
- 
+            passwordTextField.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight)
+        ]
+    }
+
+    private func buttonConstraints() -> [NSLayoutConstraint] {
+        [
             // Кнопка входа
             logInButton.topAnchor.constraint(
                 equalTo: textFieldsContainer.bottomAnchor,
                 constant: AppLayout.spacing
             ),
             logInButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
- 
+
             activityIndicator.centerXAnchor.constraint(equalTo: logInButton.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: logInButton.centerYAnchor),
- 
+
             // Кнопка биометрии
             biometricButton.topAnchor.constraint(
                 equalTo: logInButton.bottomAnchor,
@@ -329,12 +353,7 @@ final class LoginViewController: UIViewController {
                 equalTo: contentView.bottomAnchor,
                 constant: -AppLayout.spacing
             )
-        ])
- 
-        // Ширина ограничена maxContentWidth и центрирована
-        textFieldsContainer.constrainWidth(to: contentView)
-        logInButton.constrainWidth(to: contentView)
-        biometricButton.constrainWidth(to: contentView)
+        ]
     }
  
     private func setupGestures() {

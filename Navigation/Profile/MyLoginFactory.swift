@@ -10,5 +10,4 @@ struct MyLoginFactory: LoginFactory {
         LoginInspector(checkerService: CheckerService())
     }
     
-    
 }

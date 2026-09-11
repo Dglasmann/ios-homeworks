@@ -5,7 +5,6 @@
 //  Created by Sasha Soldatov on 16.08.2026.
 //
 
-
 import LocalAuthentication
 
 class LocalAuthorizationService: LocalAuthorizationServiceProtocol {

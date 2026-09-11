@@ -45,6 +45,4 @@ final class ServiceContainer: ServiceContainerProtocol {
         #endif
     }()
     
-    
 }
-

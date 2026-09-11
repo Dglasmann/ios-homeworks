@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol CheckerServiceProtocol {
     func checkCredentials(
         email: String,

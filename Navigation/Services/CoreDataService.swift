@@ -5,7 +5,6 @@
 //  Created by Sasha Soldatov on 24.06.2026.
 //
 
-
 import Foundation
 import CoreData
 import UIKit
@@ -47,7 +46,7 @@ final class CoreDataService {
         return backgroundContext
     }()
     
-    //MARK: - Create
+    // MARK: - Create
     func makeFetchedResultsController(author: String?) -> NSFetchedResultsController<FavouritePost> {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
@@ -86,7 +85,7 @@ final class CoreDataService {
         }
     }
     
-    //MARK: - Read
+    // MARK: - Read
     func fetchPosts(author: String? = nil) -> [PostModel] {
         let request: NSFetchRequest<FavouritePost> = FavouritePost.fetchRequest()
         if let author, !author.isEmpty {
@@ -101,8 +100,7 @@ final class CoreDataService {
         }
     }
     
-    
-    //MARK: - Delete
+    // MARK: - Delete
     
     func deletePost(_ post: PostModel, completion: (() -> Void)? = nil) {
         backgroundContext.perform { [weak self] in

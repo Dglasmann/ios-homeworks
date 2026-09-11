@@ -154,8 +154,17 @@ final class ProfileHeaderView: UIView {
             constant: -AppLayout.spacing
         )
         bottomConstraint.priority = UILayoutPriority(999)
- 
-        NSLayoutConstraint.activate([
+
+        NSLayoutConstraint.activate(
+            avatarAndNameConstraints()
+            + statusConstraints()
+            + buttonConstraints()
+            + [bottomConstraint]
+        )
+    }
+
+    private func avatarAndNameConstraints() -> [NSLayoutConstraint] {
+        [
             // Аватар: квадрат avatarSize в левом верхнем углу
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: AppLayout.spacing),
             avatarImageView.leadingAnchor.constraint(
@@ -164,7 +173,7 @@ final class ProfileHeaderView: UIView {
             ),
             avatarImageView.widthAnchor.constraint(equalToConstant: AppLayout.avatarSize),
             avatarImageView.heightAnchor.constraint(equalToConstant: AppLayout.avatarSize),
- 
+
             // Имя пользователя справа от аватара
             fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
             fullNameLabel.leadingAnchor.constraint(
@@ -175,7 +184,7 @@ final class ProfileHeaderView: UIView {
                 equalTo: trailingAnchor,
                 constant: -AppLayout.spacing
             ),
- 
+
             // Таймер сессии под именем
             timerLabel.topAnchor.constraint(
                 equalTo: fullNameLabel.bottomAnchor,
@@ -188,8 +197,12 @@ final class ProfileHeaderView: UIView {
             timerLabel.trailingAnchor.constraint(
                 lessThanOrEqualTo: trailingAnchor,
                 constant: -AppLayout.spacing
-            ),
- 
+            )
+        ]
+    }
+
+    private func statusConstraints() -> [NSLayoutConstraint] {
+        [
             // Статус — над полем ввода
             statusLabel.topAnchor.constraint(
                 greaterThanOrEqualTo: timerLabel.bottomAnchor,
@@ -201,7 +214,7 @@ final class ProfileHeaderView: UIView {
                 equalTo: statusTextField.topAnchor,
                 constant: -AppLayout.spacingSmall
             ),
- 
+
             // Поле ввода статуса
             statusTextField.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(
@@ -212,8 +225,12 @@ final class ProfileHeaderView: UIView {
                 equalTo: avatarImageView.bottomAnchor,
                 constant: -AppLayout.spacingSmall
             ),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
- 
+            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+        ]
+    }
+
+    private func buttonConstraints() -> [NSLayoutConstraint] {
+        [
             // Кнопка сохранения статуса на всю ширину
             setStatusButton.topAnchor.constraint(
                 equalTo: statusTextField.bottomAnchor,
@@ -227,10 +244,8 @@ final class ProfileHeaderView: UIView {
                 equalTo: trailingAnchor,
                 constant: -AppLayout.spacing
             ),
-            setStatusButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
- 
-            bottomConstraint
-        ])
+            setStatusButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight)
+        ]
     }
  
     // MARK: - Actions

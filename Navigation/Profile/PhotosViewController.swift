@@ -10,7 +10,7 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
-    //MARK: - Data
+    // MARK: - Data
     private var photos: [UIImage] = []
     private let imageProcessor = ImageProcessor()
     private let viewModel: PhotosViewModel
@@ -24,7 +24,7 @@ class PhotosViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
  
-    //MARK: - Subviews
+    // MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -45,7 +45,7 @@ class PhotosViewController: UIViewController {
         return indicator
         }()
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = AppColor.background
@@ -80,7 +80,7 @@ class PhotosViewController: UIViewController {
         }
     }
     
-    //MARK: - Bindings
+    // MARK: - Bindings
     
     private func bindViewModel() {
         viewModel.onStateDidChange = { [weak self] state in
@@ -102,7 +102,7 @@ class PhotosViewController: UIViewController {
         }
     }
     
-    //MARK: - Setup
+    // MARK: - Setup
     private func setupViews() {
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
@@ -120,9 +120,8 @@ class PhotosViewController: UIViewController {
         ])
     }
     
-   
 }
-//MARK: - Extensions
+// MARK: - Extensions
 extension PhotosViewController: UICollectionViewDataSource {
  
     func collectionView(

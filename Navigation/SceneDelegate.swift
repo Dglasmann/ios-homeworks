@@ -5,7 +5,6 @@
 //  Created by Sasha Soldatov on 22.02.2026.
 //
 
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -16,7 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
@@ -35,7 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
         self.appCoordinator = appCoordinator
-        
         
     }
     

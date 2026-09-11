@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension UIImage {
     func withAlpha(_ alpha: CGFloat) -> UIImage {
         

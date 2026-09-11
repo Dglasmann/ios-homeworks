@@ -30,5 +30,4 @@ class CheckerService: CheckerServiceProtocol {
         }
     }
     
-    
 }

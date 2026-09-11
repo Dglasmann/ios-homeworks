@@ -13,7 +13,7 @@ final class PostViewController: UIViewController {
     var post: Post?
     weak var coordinator: FeedCoordinator?
     
-    private lazy var label : UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Детали поста"
         label.font = AppFont.postAuthor
@@ -50,5 +50,3 @@ final class PostViewController: UIViewController {
         coordinator?.showInfo()
     }
 }
-
-

@@ -9,7 +9,7 @@ import LocalAuthentication
 
 final class LoginViewModel: ViewModelProtocol {
 
-    //MARK: - State
+    // MARK: - State
     enum State: Equatable {
         case idle
         case loading
@@ -22,7 +22,7 @@ final class LoginViewModel: ViewModelProtocol {
         case biometricLogin
     }
 
-    //MARK: - Bindings
+    // MARK: - Bindings
     var onStateDidChange: ((State) -> Void)?
 
     private(set) var state: State = .idle {
@@ -31,15 +31,19 @@ final class LoginViewModel: ViewModelProtocol {
         }
     }
 
-    //MARK: - Dependencies
+    // MARK: - Dependencies
     
     private let loginDelegate: LoginViewControllerDelegate
     private let biometricService: LocalAuthorizationServiceProtocol
     private weak var coordinator: ProfileCoordinator?
     
-    //MARK: - Init
+    // MARK: - Init
     
-    init(loginDelegate: LoginViewControllerDelegate, biometricService: LocalAuthorizationServiceProtocol, coordinator: ProfileCoordinator? = nil) {
+    init(
+        loginDelegate: LoginViewControllerDelegate,
+        biometricService: LocalAuthorizationServiceProtocol,
+        coordinator: ProfileCoordinator? = nil
+    ) {
         self.loginDelegate = loginDelegate
         self.biometricService = biometricService
         self.coordinator = coordinator
@@ -49,7 +53,7 @@ final class LoginViewModel: ViewModelProtocol {
         biometricService.biometryType
     }
 
-    //MARK: - ViewModelProtocol
+    // MARK: - ViewModelProtocol
     
     func updateState(viewInput: ViewInput) {
         switch viewInput {
@@ -64,7 +68,7 @@ final class LoginViewModel: ViewModelProtocol {
         coordinator?.showProfile(for: login)
     }
     
-    //MARK: - Private
+    // MARK: - Private
     
     private func handleLogin(email: String?, password: String?) {
         

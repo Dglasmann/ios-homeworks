@@ -31,7 +31,7 @@ class AudioRecorderViewController: UIViewController {
         CustomButton(
             title: "● Запись",
             backgroundColor: .systemRed,
-            tapAction: {[weak self] in self?.recordTapped() }
+            tapAction: { [weak self] in self?.recordTapped() }
         )
     }()
     
@@ -39,14 +39,13 @@ class AudioRecorderViewController: UIViewController {
         let playButton = CustomButton(
             title: "▶︎ Воспроизвести",
             backgroundColor: .systemBlue,
-            tapAction: {[weak self]  in self?.playTapped()}
+            tapAction: { [weak self]  in self?.playTapped() }
         )
         playButton.isEnabled = false
         return playButton
     }()
     
     private lazy var isRecording = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

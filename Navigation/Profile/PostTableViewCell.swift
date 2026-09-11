@@ -5,13 +5,11 @@
 //  Created by Sasha Soldatov on 09.03.2026.
 //
 
-
 import UIKit
 class PostTableViewCell: UITableViewCell {
     
-    
-    //MARK: - Subviews
-    private let authorLabel : UILabel = {
+    // MARK: - Subviews
+    private let authorLabel: UILabel = {
         let authorLabel = UILabel()
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.font = AppFont.postAuthor
@@ -19,7 +17,6 @@ class PostTableViewCell: UITableViewCell {
         authorLabel.numberOfLines = 2
         return authorLabel
     }()
-    
     
     private let postImageView: UIImageView = {
         let postImageView = UIImageView()
@@ -56,14 +53,13 @@ class PostTableViewCell: UITableViewCell {
         return viewsLabel
     }()
     
-    
-    //MARK: - Double tap
+    // MARK: - Double tap
     
     var onDoubleTap: (() -> Void)?
     
-    //MARK: - Init
+    // MARK: - Init
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier:String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupConstraints()
@@ -74,7 +70,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError()
     }
     
-    //MARK: - Setup
+    // MARK: - Setup
     private func setupViews() {
         selectionStyle = .none
         contentView.addSubview(authorLabel)
@@ -84,16 +80,15 @@ class PostTableViewCell: UITableViewCell {
         contentView.addSubview(viewsLabel)
     }
     
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            //заголовок - сверху 16, слева и справа 16
+            // заголовок - сверху 16, слева и справа 16
             authorLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            //изображение - под заголовком 16, на всю ширину и квадратное (height=width=screenWidth)
+            // изображение - под заголовком 16, на всю ширину и квадратное (height=width=screenWidth)
             postImageView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 16),
             postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -105,20 +100,20 @@ class PostTableViewCell: UITableViewCell {
                 return maxHeight
             }(),
             
-            //описание - под картинкой 16, слева и справа 16
+            // описание - под картинкой 16, слева и справа 16
             descriptionLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            //лайки - под описанием 16, слева и снизу 16
+            // лайки - под описанием 16, слева и снизу 16
             likesLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             likesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             likesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            //просмотры - под описанием 16, справа и снизу 16
+            // просмотры - под описанием 16, справа и снизу 16
             viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16),
             viewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
         
     }
@@ -135,7 +130,6 @@ class PostTableViewCell: UITableViewCell {
     @objc private func handleDoubleTap() {
         onDoubleTap?()
     }
-    
     
     func configure(with post: PostModel) {
         authorLabel.text = post.author

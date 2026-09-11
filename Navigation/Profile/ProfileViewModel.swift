@@ -9,15 +9,14 @@ import UIKit
 
 final class ProfileViewModel: ViewModelProtocol {
     
-    
-    //MARK: - State
+    // MARK: - State
     enum State: Equatable {
         case loaded
         case postSaved
         case sessionTimeUpdated(String)
     }
     
-    //MARK: - Viewinput
+    // MARK: - Viewinput
     
     enum ViewInput {
         case viewDidLoad
@@ -28,7 +27,7 @@ final class ProfileViewModel: ViewModelProtocol {
         case screenDidDisappear
     }
     
-    //MARK: - Bindings
+    // MARK: - Bindings
     
     var onStateDidChange: ((State) -> Void)?
     
@@ -38,24 +37,22 @@ final class ProfileViewModel: ViewModelProtocol {
         }
     }
    
-    
-    //MARK: - Data
+    // MARK: - Data
     
     let user: User
     private(set) var posts: [PostModel] = []
     private(set) var previewPhotos: [UIImage] = []
     
-    //MARK: - Dependencies
+    // MARK: - Dependencies
     private let postService: PostServiceProtocol
     private let photoService: PhotoServiceProtocol
     private let favouritesService: FavouritesServiceProtocol
     private weak var coordinator: ProfileCoordinator?
     
-    
     private var sessionTimer: Timer?
     private var sessionSeconds: Int = 0
     
-    //MARK: - Init
+    // MARK: - Init
     
     init(
         user: User,
@@ -74,7 +71,6 @@ final class ProfileViewModel: ViewModelProtocol {
     deinit {
         stopSessionTimer()
     }
-    
     
     func updateState(viewInput: ViewInput) {
         switch viewInput {

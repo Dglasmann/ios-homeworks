@@ -41,7 +41,6 @@ final class PhotosViewModel: ViewModelProtocol {
         }
     }
     
-    
     // Применяет сепию ко всем фотографиям в фоне
     private func applyFilter() {
         state = .loading
@@ -59,4 +58,3 @@ final class PhotosViewModel: ViewModelProtocol {
     }
 }
     
-

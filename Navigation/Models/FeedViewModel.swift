@@ -10,25 +10,22 @@ import StorageService
 
 final class FeedViewModel: ViewModelProtocol {
     
-    
     enum ViewInput {
         case checkGuess(word: String?)
         case openPost(Post)
     }
     
-    
-    //MARK: - State
+    // MARK: - State
     enum State: Equatable {
         case initial
         case correct
         case incorrect
     }
     
-    
-    //MARK: - Bindings
+    // MARK: - Bindings
     var onStateDidChange: ((State) -> Void)?
     
-    //MARK: - Private
+    // MARK: - Private
     
     private(set) var state: State = .initial {
         didSet {
@@ -40,13 +37,13 @@ final class FeedViewModel: ViewModelProtocol {
     
     private weak var coordinator: FeedCoordinator?
     
-    //MARK: - Init
+    // MARK: - Init
     init(feedService: FeedServiceProtocol, coordinator: FeedCoordinator? = nil) {
         self.feedService = feedService
         self.coordinator = coordinator
     }
     
-    //MARK: - Input
+    // MARK: - Input
     func updateState(viewInput: ViewInput) {
         switch viewInput {
         case .checkGuess(let word):

@@ -17,10 +17,10 @@ class VideoListViewController: UIViewController {
         Video(title: "Video 1", youtubeID: "aqz-KE-bpKQ"),
         Video(title: "Video 2", youtubeID: "psuRGfAaju4"),
         Video(title: "Video 3", youtubeID: "0Fpyl88vDcA"),
-        Video(title: "Video 4", youtubeID: "VQKMoT-6XSg"),
+        Video(title: "Video 4", youtubeID: "VQKMoT-6XSg")
     ]
     
-    //MARK: - Subviews
+    // MARK: - Subviews
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -40,7 +40,7 @@ class VideoListViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 

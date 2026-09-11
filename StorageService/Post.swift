@@ -5,7 +5,6 @@
 //  Created by Sasha Soldatov on 22.02.2026.
 //
 
-
 public struct Post {
     public let title: String
     

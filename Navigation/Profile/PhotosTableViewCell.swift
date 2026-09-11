@@ -9,10 +9,9 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
-    //MARK: - Subviews
+    // MARK: - Subviews
     
-    
-    //заголовок Photos, 24 шрифт, bold, black
+    // заголовок Photos, 24 шрифт, bold, black
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +21,7 @@ class PhotosTableViewCell: UITableViewCell {
         return titleLabel
     }()
     
-    //стрелка вправо
+    // стрелка вправо
     private let rightArrowImageView: UIImageView = {
         let rightArrowImageView = UIImageView()
         rightArrowImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +31,7 @@ class PhotosTableViewCell: UITableViewCell {
         return rightArrowImageView
     }()
     
-    //стек с фотками, spacing 8
+    // стек с фотками, spacing 8
     private let photosStackView: UIStackView = {
         let photosStackView = UIStackView()
         photosStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +44,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private var photoImageViews: [UIImageView] = []
     
-    //MARK: - Init
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -56,7 +55,7 @@ class PhotosTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Setup
+    // MARK: - Setup
     
     private func setupViews() {
         selectionStyle = .none
@@ -77,30 +76,29 @@ class PhotosTableViewCell: UITableViewCell {
         }
     }
     
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            //photos - 12 сверху и слева
+            // photos - 12 сверху и слева
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: AppLayout.spacingSmall + 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppLayout.spacingSmall + 4),
             
-            //стрелка - 12 справа, centerY = titleLabel.centerY
+            // стрелка - 12 справа, centerY = titleLabel.centerY
             rightArrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppLayout.spacingSmall + 4),
             rightArrowImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             rightArrowImageView.widthAnchor.constraint(equalToConstant: 24),
             rightArrowImageView.heightAnchor.constraint(equalToConstant: 24),
             
-            //стек с фотками - 12 под заголовком, слева, справа и снизу
+            // стек с фотками - 12 под заголовком, слева, справа и снизу
             photosStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: AppLayout.spacingSmall + 4),
             photosStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppLayout.spacingSmall + 4),
             photosStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppLayout.spacingSmall + 4),
             photosStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -AppLayout.spacingSmall + 4),
             
-            //высота каждой фотки = ее ширине
+            // высота каждой фотки = ее ширине
             photoImageViews[0].heightAnchor.constraint(equalTo: photoImageViews[0].widthAnchor),
             photoImageViews[1].heightAnchor.constraint(equalTo: photoImageViews[1].widthAnchor),
             photoImageViews[2].heightAnchor.constraint(equalTo: photoImageViews[2].widthAnchor),
-            photoImageViews[3].heightAnchor.constraint(equalTo: photoImageViews[3].widthAnchor),
+            photoImageViews[3].heightAnchor.constraint(equalTo: photoImageViews[3].widthAnchor)
         
         ])
     }
@@ -111,4 +109,3 @@ class PhotosTableViewCell: UITableViewCell {
             }
         }
     }
-

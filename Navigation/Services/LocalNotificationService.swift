@@ -10,7 +10,7 @@ import UserNotifications
 
 final class LocalNotificationService: NSObject {
     
-    //MARK: - Constants
+    // MARK: - Constants
     
     private enum Constants {
         
@@ -51,7 +51,7 @@ final class LocalNotificationService: NSObject {
         dateComponents.minute = 0
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        // let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         
         let request = UNNotificationRequest(
             identifier: Constants.updatesNotificationId,

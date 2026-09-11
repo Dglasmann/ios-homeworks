@@ -21,12 +21,12 @@ class AudioPlayerViewController: UIViewController {
         Track(fileName: "track2", title: "Track 2"),
         Track(fileName: "track3", title: "Track 3"),
         Track(fileName: "track4", title: "Track 4"),
-        Track(fileName: "track5", title: "Track 5"),
+        Track(fileName: "track5", title: "Track 5")
     ]
     
     private var currentIndex = 0
     
-    //MARK: - Subviews
+    // MARK: - Subviews
     
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -70,8 +70,7 @@ class AudioPlayerViewController: UIViewController {
             })
     }()
     
-    
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +82,7 @@ class AudioPlayerViewController: UIViewController {
         prepareTrack(at: currentIndex)
     }
     
-    
-    //MARK: - Setup
+    // MARK: - Setup
     
     private func setupViews() {
         view.addSubview(titleLabel)
@@ -118,10 +116,9 @@ class AudioPlayerViewController: UIViewController {
             nextButton.topAnchor.constraint(equalTo: stopButton.bottomAnchor, constant: 16),
             nextButton.leadingAnchor.constraint(equalTo: previousButton.trailingAnchor, constant: 16),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
     
     private func prepareTrack(at index: Int) {
         let track = tracks[index]

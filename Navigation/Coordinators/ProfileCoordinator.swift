@@ -26,7 +26,6 @@ final class ProfileCoordinator: Coordinator {
         navigationController.setViewControllers([login], animated: false)
     }
     
-    
     /// Показывает профиль по логину. Пользователь берётся из UserService
     func showProfile(for login: String) {
         switch userService.user(for: login) {

@@ -26,7 +26,6 @@ final class FavouritesViewModel: NSObject, ViewModelProtocol {
     var onDidChangeContent: (() -> Void)?
     var onChange: ((NSFetchedResultsChangeType, IndexPath?, IndexPath?) -> Void)?
 
-    
     private(set) var state: State = .loaded {
         didSet {
             onStateDidChange?(state)
@@ -63,8 +62,7 @@ final class FavouritesViewModel: NSObject, ViewModelProtocol {
             reload(author: nil)
         case .delete(let indexPath):
             guard let post = post(at: indexPath) else { return }
-            favouritesService.delete(post) {
-                [weak self] in
+            favouritesService.delete(post) { [weak self] in
                 self?.updateEmptyState()
             }
         }

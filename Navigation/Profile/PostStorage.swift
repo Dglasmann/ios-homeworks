@@ -7,7 +7,7 @@
 import UIKit
 
 struct PostStorage {
-    static var posts : [PostModel] = [
+    static var posts: [PostModel] = [
     PostModel(
         author: "vedmak.official",
         description: "Новые кадры со съемок второго сезона Ведьмаке.",
@@ -35,6 +35,6 @@ struct PostStorage {
         image: UIImage(named: "post4") ?? UIImage(),
         likes: 5840,
         views: 13402
-    ),
+    )
     ]
 }

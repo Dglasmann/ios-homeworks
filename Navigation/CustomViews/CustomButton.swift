@@ -8,7 +8,6 @@ import UIKit
 
 class CustomButton: UIButton {
     
-
     private var tapAction: (() -> Void)?
     init(
         title: String,

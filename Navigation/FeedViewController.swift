@@ -46,7 +46,7 @@ class FeedViewController: UIViewController {
     private lazy var checkGuessButton = CustomButton(
         title: L10n.Feed.check,
         backgroundColor: AppColor.accent,
-        tapAction: {[weak self] in self?.checkGuess()}
+        tapAction: { [weak self] in self?.checkGuess() }
     )
     
     private lazy var resultLabel: UILabel = {
@@ -62,13 +62,13 @@ class FeedViewController: UIViewController {
     private lazy var firstButton = CustomButton(
         title: L10n.Feed.openFirstPost,
         backgroundColor: AppColor.accent,
-        tapAction: {[weak self] in self?.showPost() }
+        tapAction: { [weak self] in self?.showPost() }
     )
     
     private lazy var secondButton = CustomButton(
         title: L10n.Feed.openSecondPost,
         backgroundColor: AppColor.accent,
-        tapAction: {[weak self] in self?.showPost() }
+        tapAction: { [weak self] in self?.showPost() }
     )
     
     override func viewDidLoad() {
@@ -102,7 +102,6 @@ class FeedViewController: UIViewController {
         viewModel.updateState(viewInput: .checkGuess(word: guessTextField.text))
     }
     
-    
     private func setupUI() {
         view.backgroundColor = AppColor.background
         title = L10n.Feed.title
@@ -126,6 +125,5 @@ class FeedViewController: UIViewController {
     private func showPost() {
         viewModel.updateState(viewInput: .openPost(post))
     }
-    
     
 }
