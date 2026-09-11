@@ -7,7 +7,7 @@
 
 import LocalAuthentication
 
-class LocalAuthorizationService: LocalAuthorizationServiceProtocol {
+final class LocalAuthorizationService: LocalAuthorizationServiceProtocol {
     
     var biometryType: BiometryType {
         let context = LAContext()

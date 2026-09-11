@@ -8,20 +8,19 @@
 import UIKit
 import AVFoundation
 
-class AudioPlayerViewController: UIViewController {
+final class AudioPlayerViewController: UIViewController {
     private var player: AVAudioPlayer?
     
     private struct Track {
         let fileName: String
-        let title: String
     }
-    
+
     private let tracks: [Track] = [
-        Track(fileName: "track1", title: "Track 1"),
-        Track(fileName: "track2", title: "Track 2"),
-        Track(fileName: "track3", title: "Track 3"),
-        Track(fileName: "track4", title: "Track 4"),
-        Track(fileName: "track5", title: "Track 5")
+        Track(fileName: "track1"),
+        Track(fileName: "track2"),
+        Track(fileName: "track3"),
+        Track(fileName: "track4"),
+        Track(fileName: "track5")
     ]
     
     private var currentIndex = 0
@@ -31,41 +30,41 @@ class AudioPlayerViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.font = AppFont.button
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
-        titleLabel.textColor = .label
+        titleLabel.textColor = AppColor.primaryText
         return titleLabel
     }()
     
     private lazy var playPauseButton: CustomButton = {
         CustomButton(
-            title: "▶︎ Play",
-            backgroundColor: .systemBlue,
+            title: "▶︎ \(L10n.Media.play)",
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in self?.playPauseTapped()
             })
     }()
-    
+
     private lazy var stopButton: CustomButton = {
         CustomButton(
-            title: "■ Stop",
-            backgroundColor: .systemBlue,
+            title: "■ \(L10n.Media.stop)",
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in self?.stopTapped()
             })
     }()
-    
+
     private lazy var previousButton: CustomButton = {
         CustomButton(
-            title: "⏮ Prev",
-            backgroundColor: .systemBlue,
+            title: "⏮ \(L10n.Media.previous)",
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in self?.previousTapped()
             })
     }()
-    
+
     private lazy var nextButton: CustomButton = {
         CustomButton(
-            title: "Next ⏭",
-            backgroundColor: .systemBlue,
+            title: "\(L10n.Media.next) ⏭",
+            backgroundColor: AppColor.accent,
             tapAction: {[weak self] in self?.nextTapped()
             })
     }()
@@ -74,8 +73,8 @@ class AudioPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Audio player"
+        view.backgroundColor = AppColor.background
+        title = L10n.Media.audioPlayer
         setupViews()
         setupConstraints()
         setupAudioSession()
@@ -123,17 +122,17 @@ class AudioPlayerViewController: UIViewController {
     private func prepareTrack(at index: Int) {
         let track = tracks[index]
         guard let path = Bundle.main.path(forResource: track.fileName, ofType: "mp3") else {
-            titleLabel.text = "Файл \(track.fileName) не найден"
+            titleLabel.text = L10n.Media.trackLoadFailed
             return
         }
         let url = URL(fileURLWithPath: path)
         do {
             player = try AVAudioPlayer(contentsOf: url)
             player?.prepareToPlay()
-            titleLabel.text = track.title
+            titleLabel.text = L10n.Media.trackName(index + 1)
             updatePlayPauseTitle()
         } catch {
-            titleLabel.text = "Ошибка при загрузке трека"
+            titleLabel.text = L10n.Media.trackLoadFailed
             print(error.localizedDescription)
         }
     }
@@ -181,7 +180,7 @@ class AudioPlayerViewController: UIViewController {
     
     private func updatePlayPauseTitle() {
         let isPlaying = player?.isPlaying ?? false
-        let label = isPlaying ? "Pause" : "▶︎ Play"
+        let label = isPlaying ? "⏸ \(L10n.Media.pause)" : "▶︎ \(L10n.Media.play)"
         playPauseButton.setTitle(label, for: .normal)
     }
 }

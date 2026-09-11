@@ -19,13 +19,13 @@ extension AuthError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .emptyLogin:
-            return "Введите логин"
+            return L10n.Login.emptyEmail
         case .emptyPassword:
-            return "Введите пароль"
+            return L10n.Login.emptyPassword
         case .invalidCredentials:
-            return "Неверный логин или пароль"
+            return L10n.Login.invalidCredentials
         case .userNotFound:
-            return "Пользователь не найден"
+            return L10n.Login.userNotFound
         }
     }
 }

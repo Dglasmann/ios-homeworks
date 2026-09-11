@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class AudioRecorderViewController: UIViewController {
+final class AudioRecorderViewController: UIViewController {
     
     private var recorder: AVAudioRecorder?
     private var player: AVAudioPlayer?
@@ -22,23 +22,24 @@ class AudioRecorderViewController: UIViewController {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.textAlignment = .center
-        statusLabel.font = .systemFont(ofSize: 16)
-        statusLabel.text = "Готов к записи"
+        statusLabel.font = AppFont.counter
+        statusLabel.textColor = AppColor.primaryText
+        statusLabel.text = L10n.Media.readyToRecord
         return statusLabel
     }()
     
     private lazy var recordButton: CustomButton = {
         CustomButton(
-            title: "● Запись",
+            title: "● \(L10n.Media.record)",
             backgroundColor: .systemRed,
             tapAction: { [weak self] in self?.recordTapped() }
         )
     }()
-    
+
     private lazy var playButton: CustomButton = {
         let playButton = CustomButton(
-            title: "▶︎ Воспроизвести",
-            backgroundColor: .systemBlue,
+            title: "▶︎ \(L10n.Media.playRecording)",
+            backgroundColor: AppColor.accent,
             tapAction: { [weak self]  in self?.playTapped() }
         )
         playButton.isEnabled = false
@@ -49,8 +50,8 @@ class AudioRecorderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Recorder"
+        view.backgroundColor = AppColor.background
+        title = L10n.Media.recorder
         setupViews()
         setupConstraints()
         requestMicrophoneAccess()
@@ -84,10 +85,10 @@ class AudioRecorderViewController: UIViewController {
         AVAudioSession.sharedInstance().requestRecordPermission {[weak self] granted in
             DispatchQueue.main.async {
                 if granted {
-                    self?.statusLabel.text = "Доступ к микрофону разрешен"
+                    self?.statusLabel.text = L10n.Media.microphoneGranted
                     self?.setupRecorder()
                 } else {
-                    self?.statusLabel.text = "Доступ к микрофону запрещен"
+                    self?.statusLabel.text = L10n.Media.microphoneDenied
                     self?.recordButton.isEnabled = false
                 }
             }
@@ -110,7 +111,7 @@ class AudioRecorderViewController: UIViewController {
             recorder = try AVAudioRecorder(url: recordingURL, settings: settings)
             recorder?.prepareToRecord()
         } catch {
-            statusLabel.text = "Ошибка настройки рекордера"
+            statusLabel.text = L10n.Media.recorderSetupFailed
             print(error.localizedDescription)
         }
     }
@@ -120,14 +121,14 @@ class AudioRecorderViewController: UIViewController {
         if isRecording {
             recorder.stop()
             isRecording = false
-            recordButton.setTitle("● Запись", for: .normal)
-            statusLabel.text = "Запись сохранена"
+            recordButton.setTitle("● \(L10n.Media.record)", for: .normal)
+            statusLabel.text = L10n.Media.recordingSaved
             playButton.isEnabled = true
         } else {
             recorder.record()
             isRecording = true
-            recordButton.setTitle("■ Остановить запись", for: .normal)
-            statusLabel.text = "Идет запись..."
+            recordButton.setTitle("■ \(L10n.Media.stopRecording)", for: .normal)
+            statusLabel.text = L10n.Media.recording
             playButton.isEnabled = false
         }
     }
@@ -136,9 +137,9 @@ class AudioRecorderViewController: UIViewController {
         do {
             player = try AVAudioPlayer(contentsOf: recordingURL)
             player?.play()
-            statusLabel.text = "Воспроизведение..."
+            statusLabel.text = L10n.Media.playingBack
         } catch {
-            statusLabel.text = "Нечего воспроизводить:("
+            statusLabel.text = L10n.Media.nothingToPlay
             print(error.localizedDescription)
         }
     }

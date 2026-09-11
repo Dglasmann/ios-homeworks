@@ -15,7 +15,7 @@ final class PostViewController: UIViewController {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Детали поста"
+        label.text = L10n.Feed.postDetails
         label.font = AppFont.postAuthor
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

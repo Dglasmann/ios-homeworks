@@ -8,7 +8,7 @@
 import UIKit
 import iOSIntPackage
 
-class PhotosViewController: UIViewController {
+final class PhotosViewController: UIViewController {
     
     // MARK: - Data
     private var photos: [UIImage] = []

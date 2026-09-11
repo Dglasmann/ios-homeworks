@@ -30,7 +30,7 @@ extension UITableView {
     
     func dequeue<T: UITableViewCell>(_ cellType: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for: indexPath) as? T else {
-            fatalError("Не зарегистрирована ячейка \(cellType.reuseIdentifier)")
+            fatalError("Cell is not registered: \(cellType.reuseIdentifier)")
         }
         return cell
     }
@@ -46,7 +46,7 @@ extension UICollectionView {
     func dequeue<T: UICollectionViewCell>(_ cellType: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withReuseIdentifier: cellType.reuseIdentifier, for:
                                                 indexPath) as? T else {
-            fatalError("Не зарегистрирована ячейка \(cellType.reuseIdentifier)")
+            fatalError("Cell is not registered: \(cellType.reuseIdentifier)")
         }
         return cell
     }

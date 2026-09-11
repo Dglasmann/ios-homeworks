@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class MediaMenuViewController: UIViewController {
+final class MediaMenuViewController: UIViewController {
     
     weak var coordinator: MediaCoordinator?
     
@@ -41,8 +41,8 @@ class MediaMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Медиа"
+        view.backgroundColor = AppColor.background
+        title = L10n.Media.title
         
         let stack = UIStackView(arrangedSubviews: [audioButton, videoButton, recorderButton])
         stack.axis = .vertical

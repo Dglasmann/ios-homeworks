@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
     
     // MARK: - Subviews
     private let authorLabel: UILabel = {

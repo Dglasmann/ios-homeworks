@@ -26,7 +26,7 @@ final class LocalNotificationService: NSObject {
         UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert]) { [weak self] granted, error in
             
             if let error = error {
-                print("Ошибка получения разрешения на уведомления: \(error.localizedDescription)")
+                print("Notification authorization error: \(error.localizedDescription)")
                 return
             }
             
@@ -39,8 +39,8 @@ final class LocalNotificationService: NSObject {
     
     private func scheduleDailyUpdatesNotification() {
         let content = UNMutableNotificationContent()
-        content.title = "ВКонтакте"
-        content.body = "Посмотрите последние обновления"
+        content.title = L10n.Notifications.title
+        content.body = L10n.Notifications.body
         content.sound = .default
         content.badge = 1
         
@@ -61,7 +61,7 @@ final class LocalNotificationService: NSObject {
         
         UNUserNotificationCenter.current().add(request) { error in
             if let error {
-                print("Ошибка регистрации уведомления: \(error.localizedDescription)")
+                print("Notification scheduling error: \(error.localizedDescription)")
             }
             
         }
@@ -72,7 +72,7 @@ final class LocalNotificationService: NSObject {
         
         let openUpdatesAction = UNNotificationAction(
             identifier: Constants.openUpdatesActionId,
-            title: "Открыть обновления",
+            title: L10n.Notifications.openAction,
             options: [.foreground]
         )
         
@@ -97,7 +97,7 @@ extension LocalNotificationService: UNUserNotificationCenterDelegate {
     ) {
         switch response.actionIdentifier {
         case Constants.openUpdatesActionId:
-            print("Пользователь нажал 'Открыть обновления' - переходим на экран новостей")
+            print("User tapped 'Open updates' — navigate to the news screen")
         default:
             break
         }

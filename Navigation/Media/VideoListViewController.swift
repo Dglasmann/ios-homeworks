@@ -6,18 +6,17 @@
 //
 
 import UIKit
-class VideoListViewController: UIViewController {
+final class VideoListViewController: UIViewController {
     
     private struct Video {
-        let title: String
         let youtubeID: String
     }
-    
+
     private let videos: [Video] = [
-        Video(title: "Video 1", youtubeID: "aqz-KE-bpKQ"),
-        Video(title: "Video 2", youtubeID: "psuRGfAaju4"),
-        Video(title: "Video 3", youtubeID: "0Fpyl88vDcA"),
-        Video(title: "Video 4", youtubeID: "VQKMoT-6XSg")
+        Video(youtubeID: "aqz-KE-bpKQ"),
+        Video(youtubeID: "psuRGfAaju4"),
+        Video(youtubeID: "0Fpyl88vDcA"),
+        Video(youtubeID: "VQKMoT-6XSg")
     ]
     
     // MARK: - Subviews
@@ -33,8 +32,8 @@ class VideoListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Videos"
+        view.backgroundColor = AppColor.background
+        title = L10n.Media.videoList
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -53,7 +52,7 @@ extension VideoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = videos[indexPath.row].title
+        cell.textLabel?.text = L10n.Media.videoName(indexPath.row + 1)
         cell.accessoryType = .disclosureIndicator
         return cell
     }

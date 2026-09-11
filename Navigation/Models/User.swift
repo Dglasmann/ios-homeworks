@@ -7,7 +7,7 @@
 
 import UIKit
 
-class User {
+final class User {
     let login: String
     let fullName: String
     let avatar: UIImage

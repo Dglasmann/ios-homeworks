@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class CheckerService: CheckerServiceProtocol {
+final class CheckerService: CheckerServiceProtocol {
     func checkCredentials(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {

@@ -8,7 +8,7 @@
 import UIKit
 import StorageService
 
-class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController {
     
     private let post = Post(title: L10n.Feed.postDetails)
     private let viewModel: FeedViewModel
@@ -35,7 +35,7 @@ class FeedViewController: UIViewController {
     private lazy var guessTextField: UITextField = {
         let guessTextField = UITextField()
         guessTextField.translatesAutoresizingMaskIntoConstraints = false
-        guessTextField.placeholder = "Введите секретное слово"
+        guessTextField.placeholder = L10n.Feed.guessPlaceholder
         guessTextField.borderStyle = .roundedRect
         guessTextField.autocapitalizationType = .none
         guessTextField.autocorrectionType = .no
@@ -53,7 +53,7 @@ class FeedViewController: UIViewController {
         let resultLabel = UILabel()
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
         resultLabel.textAlignment = .center
-        resultLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        resultLabel.font = AppFont.counter
         resultLabel.text = ""
         
         return resultLabel
@@ -90,10 +90,10 @@ class FeedViewController: UIViewController {
         case .initial:
             resultLabel.text = ""
         case .correct:
-            resultLabel.text = "Верно!"
+            resultLabel.text = L10n.Feed.correct
             resultLabel.textColor = .systemGreen
         case .incorrect:
-            resultLabel.text = "Неверно :("
+            resultLabel.text = L10n.Feed.incorrect
             resultLabel.textColor = .systemRed
         }
     }
@@ -116,8 +116,8 @@ class FeedViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            firstButton.heightAnchor.constraint(equalToConstant: 50),
-            secondButton.heightAnchor.constraint(equalToConstant: 50)
+            firstButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
+            secondButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight)
         ])
         stackView.constrainWidth(to: view)
     }

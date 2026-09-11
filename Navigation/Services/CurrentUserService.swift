@@ -5,7 +5,7 @@
 //  Created by Sasha Soldatov on 23.04.2026.
 //
 
-class CurrentUserService: UserService {
+final class CurrentUserService: UserService {
     private let user: User
     
     init(user: User) {

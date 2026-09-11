@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class VideoPlayerViewController: UIViewController {
+final class VideoPlayerViewController: UIViewController {
     
     private let youtubeID: String
     
@@ -30,8 +30,9 @@ class VideoPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Чёрный фон — намеренный леттербокс под 16:9 видео, корректен в обеих темах.
         view.backgroundColor = .black
-        title = "Player"
+        title = L10n.Media.videoPlayer
         view.addSubview(webView)
         
         NSLayoutConstraint.activate([
