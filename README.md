@@ -2,7 +2,7 @@
 
 Учебный проект для профессии «iOS-разработчик». Приложение воспроизводит
 основные сценарии мобильного клиента социальной сети: авторизация, лента,
-профиль с постами и фотогалереей, медиараздел и избранное.
+профиль с постами и фотогалереей и избранное. Добавлен также функционал редактирования профиля и выхода из учетной записи.
 
 ## Скриншоты
 
@@ -81,8 +81,7 @@ Navigation/
 ├── CustomViews/        CustomButton
 ├── DI/                 ServiceContainer, ModuleFactory
 ├── Extensions/         Reusable, UIImage+Alpha, UIView+AdaptiveWidth
-├── Media/              аудио, видео, диктофон
-├── Models/             User, PostModel, Planet, FavouritePost, BiometryType
+├── Models/             User, PostModel, FavouritePost, BiometryType
 ├── Profile/            Login, Profile, Photos, Favourites (View + ViewModel)
 ├── Resources/
 │   ├── Appearance/     AppColor, AppFont, AppLayout — стайлгайд
