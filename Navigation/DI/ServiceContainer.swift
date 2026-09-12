@@ -33,7 +33,16 @@ final class ServiceContainer: ServiceContainerProtocol {
     lazy var userService: UserService = {
         let avatar = UIImage(named: "avatar") ?? UIImage()
         return CurrentUserService(
-            user: User(login: "admin", fullName: "Ivan Ivanov", avatar: avatar, status: "Working hard")
+            user: User(
+                login: "admin",
+                fullName: "Timati Black",
+                avatar: avatar,
+                status: "Ну что-то тут что-то там",
+                profession: "swagger",
+                posts: 1400,
+                subscriptions: 477,
+                subscribers: 161000
+            )
         )
     }()
     

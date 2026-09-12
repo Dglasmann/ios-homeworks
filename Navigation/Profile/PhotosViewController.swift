@@ -56,19 +56,8 @@ final class PhotosViewController: UIViewController {
         bindViewModel()
         
         viewModel.updateState(viewInput: .viewDidLoad)
-        
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
-    
+
     override func viewWillTransition(
         to size: CGSize,
         with coordinator: any UIViewControllerTransitionCoordinator

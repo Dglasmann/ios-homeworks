@@ -14,7 +14,10 @@ final class ProfileCoordinator: Coordinator {
     
     private let moduleFactory: ModuleFactoryProtocol
     private let userService: UserService
-    
+
+    /// вызывается при выходе из профиля — AppCoordinator возвращает экран входа
+    var onLogout: (() -> Void)?
+
     init(navigationController: UINavigationController, moduleFactory: ModuleFactoryProtocol, userService: UserService) {
         self.navigationController = navigationController
         self.moduleFactory = moduleFactory
@@ -38,5 +41,15 @@ final class ProfileCoordinator: Coordinator {
     func showPhotos() {
         navigationController.pushViewController(moduleFactory.makePhotos(), animated: true)
     }
-    
+
+    /// экран редактирования — leaf без сервисов, поэтому собираем прямо здесь
+    func showEditProfile(user: User, onSave: @escaping (String, String, String) -> Void) {
+        let editViewController = EditProfileViewController(user: user)
+        editViewController.onSave = onSave
+        navigationController.pushViewController(editViewController, animated: true)
+    }
+
+    func logout() {
+        onLogout?()
+    }
 }

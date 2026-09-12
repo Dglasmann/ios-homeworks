@@ -50,18 +50,17 @@ final class ProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.state, .loaded)
     }
     
-    func test_doubleTapPost_savesToFavourites() {
+    func test_toggleSave_savesToFavourites() {
         sut.updateState(viewInput: .viewDidLoad)
-        sut.updateState(viewInput: .didDoubleTapPost(at: 0))
-        
+        sut.updateState(viewInput: .toggleSave(index: 0))
+
         XCTAssertEqual(favouritesService.savedPosts.first?.author, "a")
-        XCTAssertEqual(sut.state, .postSaved)
     }
 
-    func test_doubleTapPost_withInvalidIndex_doesNothing() {
+    func test_toggleSave_withInvalidIndex_doesNothing() {
         sut.updateState(viewInput: .viewDidLoad)
-        sut.updateState(viewInput: .didDoubleTapPost(at: 99))
-        
+        sut.updateState(viewInput: .toggleSave(index: 99))
+
         XCTAssertTrue(favouritesService.savedPosts.isEmpty)
     }
 }

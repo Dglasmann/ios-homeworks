@@ -1477,6 +1477,78 @@
         }
       }
     },
+    "profile.action.photo": {
+      "comment": "Действие: фото",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фото"
+          }
+        }
+      }
+    },
+    "profile.action.post": {
+      "comment": "Действие: запись",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Post"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись"
+          }
+        }
+      }
+    },
+    "profile.action.story": {
+      "comment": "Действие: история",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Story"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "История"
+          }
+        }
+      }
+    },
+    "profile.details": {
+      "comment": "Подробная информация профиля",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Details"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подробная информация"
+          }
+        }
+      }
+    },
     "profile.dragdrop.author": {
       "comment": "Автор поста, созданного через drag&drop",
       "extractionState": "manual",
@@ -1495,6 +1567,96 @@
         }
       }
     },
+    "profile.edit": {
+      "comment": "Кнопка редактирования профиля",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редактировать"
+          }
+        }
+      }
+    },
+    "profile.edit.namePlaceholder": {
+      "comment": "Плейсхолдер имени",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имя"
+          }
+        }
+      }
+    },
+    "profile.edit.professionPlaceholder": {
+      "comment": "Плейсхолдер профессии",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profession"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Профессия"
+          }
+        }
+      }
+    },
+    "profile.edit.save": {
+      "comment": "Кнопка сохранения профиля",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "profile.edit.title": {
+      "comment": "Заголовок экрана редактирования",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit profile"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редактирование"
+          }
+        }
+      }
+    },
     "profile.gallery.title": {
       "comment": "Заголовок экрана галереи",
       "extractionState": "manual",
@@ -1509,6 +1671,42 @@
           "stringUnit": {
             "state": "translated",
             "value": "Галерея"
+          }
+        }
+      }
+    },
+    "profile.logout": {
+      "comment": "Выход из профиля",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log out"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выход из профиля"
+          }
+        }
+      }
+    },
+    "profile.myPosts": {
+      "comment": "Заголовок секции моих записей",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My posts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои записи"
           }
         }
       }
@@ -1545,6 +1743,60 @@
           "stringUnit": {
             "state": "translated",
             "value": "На экране: %@"
+          }
+        }
+      }
+    },
+    "profile.stats.publications": {
+      "comment": "Счётчик публикаций",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "publications"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "публикаций"
+          }
+        }
+      }
+    },
+    "profile.stats.subscribers": {
+      "comment": "Счётчик подписчиков",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "followers"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "подписчиков"
+          }
+        }
+      }
+    },
+    "profile.stats.subscriptions": {
+      "comment": "Счётчик подписок",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "following"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "подписок"
           }
         }
       }

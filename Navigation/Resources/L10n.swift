@@ -55,6 +55,22 @@ enum L10n {
         static let setStatus = NSLocalizedString("profile.status.button", comment: "Кнопка сохранения статуса")
         static let dragDropAuthor = NSLocalizedString("profile.dragdrop.author", comment: "Автор поста, созданного через drag&drop")
 
+        static let edit = NSLocalizedString("profile.edit", comment: "Кнопка редактирования профиля")
+        static let details = NSLocalizedString("profile.details", comment: "Подробная информация профиля")
+        static let publications = NSLocalizedString("profile.stats.publications", comment: "Счётчик публикаций")
+        static let subscriptions = NSLocalizedString("profile.stats.subscriptions", comment: "Счётчик подписок")
+        static let subscribers = NSLocalizedString("profile.stats.subscribers", comment: "Счётчик подписчиков")
+        static let actionPost = NSLocalizedString("profile.action.post", comment: "Действие: запись")
+        static let actionStory = NSLocalizedString("profile.action.story", comment: "Действие: история")
+        static let actionPhoto = NSLocalizedString("profile.action.photo", comment: "Действие: фото")
+        static let myPosts = NSLocalizedString("profile.myPosts", comment: "Заголовок секции моих записей")
+        static let logout = NSLocalizedString("profile.logout", comment: "Выход из профиля")
+
+        static let editTitle = NSLocalizedString("profile.edit.title", comment: "Заголовок экрана редактирования")
+        static let namePlaceholder = NSLocalizedString("profile.edit.namePlaceholder", comment: "Плейсхолдер имени")
+        static let professionPlaceholder = NSLocalizedString("profile.edit.professionPlaceholder", comment: "Плейсхолдер профессии")
+        static let save = NSLocalizedString("profile.edit.save", comment: "Кнопка сохранения профиля")
+
         /// Таймер сессии. `%@` — время в формате мм:сс.
         static func sessionTime(_ time: String) -> String {
             String(format: NSLocalizedString("profile.session.time", comment: "Время, проведённое на экране"), time)

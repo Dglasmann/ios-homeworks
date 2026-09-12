@@ -69,10 +69,10 @@ final class ProfileViewController: UIViewController {
         tableView.dropDelegate = self
  
         // Высота шапки считается автоматически, чтобы она растягивалась
-        // при крупном системном шрифте. 220 — только оценка для расчёта скролла.
-        tableView.estimatedSectionHeaderHeight = 220
- 
-        tableView.register(PostTableViewCell.self)
+        // при крупном системном шрифте; 300 — оценка для расчёта скролла
+        tableView.estimatedSectionHeaderHeight = 300
+
+        tableView.register(FeedPostCell.self)
         tableView.register(PhotosTableViewCell.self)
         return tableView
     }()
@@ -84,24 +84,34 @@ final class ProfileViewController: UIViewController {
  
         view.backgroundColor = AppColor.background
         title = L10n.Profile.title
- 
+        setupLogoutButton()
+
         setupViews()
         setupConstraints()
         bindViewModel()
- 
+
         viewModel.updateState(viewInput: .viewDidLoad)
     }
- 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.updateState(viewInput: .screenDidAppear)
+
+    /// «гамбургер» справа сверху открывает меню с выходом из профиля
+    private func setupLogoutButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "line.3.horizontal"),
+            style: .plain,
+            target: self,
+            action: #selector(logoutTapped)
+        )
     }
- 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        viewModel.updateState(viewInput: .screenDidDisappear)
+
+    @objc private func logoutTapped() {
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: L10n.Profile.logout, style: .destructive) { [weak self] _ in
+            self?.viewModel.updateState(viewInput: .logout)
+        })
+        sheet.addAction(UIAlertAction(title: L10n.Common.cancel, style: .cancel))
+        present(sheet, animated: true)
     }
- 
+
     override func viewWillTransition(
         to size: CGSize,
         with coordinator: UIViewControllerTransitionCoordinator
@@ -131,12 +141,6 @@ final class ProfileViewController: UIViewController {
         switch state {
         case .loaded:
             tableView.reloadData()
- 
-        case .postSaved:
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
- 
-        case .sessionTimeUpdated(let text):
-            profileHeaderView?.setTimerText(text)
         }
     }
  
@@ -257,10 +261,11 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
  
         case 1:
-            let cell = tableView.dequeue(PostTableViewCell.self, for: indexPath)
-            cell.configure(with: viewModel.posts[indexPath.row])
-            cell.onDoubleTap = { [weak self] in
-                self?.viewModel.updateState(viewInput: .didDoubleTapPost(at: indexPath.row))
+            let cell = tableView.dequeue(FeedPostCell.self, for: indexPath)
+            guard let post = viewModel.post(at: indexPath.row) else { return cell }
+            cell.configure(with: post, isLiked: false, isSaved: viewModel.isSaved(at: indexPath.row))
+            cell.onBookmark = { [weak self] in
+                self?.viewModel.updateState(viewInput: .toggleSave(index: indexPath.row))
             }
             return cell
  
@@ -275,20 +280,46 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
  
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section == 0 else { return nil }
- 
-        let headerView = ProfileHeaderView()
-        headerView.configure(with: viewModel.user)
-        profileHeaderView = headerView
- 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
-        headerView.avatarImageView.addGestureRecognizer(tapGesture)
- 
-        return headerView
+        switch section {
+        case 0:
+            let headerView = ProfileHeaderView()
+            headerView.configure(with: viewModel.user)
+            headerView.onEdit = { [weak self] in
+                self?.viewModel.updateState(viewInput: .didTapEdit)
+            }
+            profileHeaderView = headerView
+
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
+            headerView.avatarImageView.addGestureRecognizer(tapGesture)
+            return headerView
+        case 1:
+            return makeSectionTitleHeader(L10n.Profile.myPosts)
+        default:
+            return nil
+        }
     }
- 
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == 0 ? UITableView.automaticDimension : 0
+        UITableView.automaticDimension
+    }
+
+    /// простой заголовок секции с текстом (для «Мои записи»)
+    private func makeSectionTitleHeader(_ title: String) -> UIView {
+        let container = UIView()
+        container.backgroundColor = AppColor.background
+        let label = UILabel()
+        label.text = title
+        label.font = AppFont.sectionTitle
+        label.textColor = AppColor.accent
+        label.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: container.topAnchor, constant: AppLayout.spacing),
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: AppLayout.spacing),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -AppLayout.spacing),
+            label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -AppLayout.spacingSmall)
+        ])
+        return container
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

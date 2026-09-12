@@ -63,6 +63,13 @@ final class AppCoordinator {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = AppColor.accent
 
+        let profileCoordinator = ProfileCoordinator(
+            navigationController: UINavigationController(),
+            moduleFactory: moduleFactory,
+            userService: services.userService
+        )
+        profileCoordinator.onLogout = { [weak self] in self?.logout() }
+
         let tabs: [Tab] = [
             Tab(
                 coordinator: FeedCoordinator(navigationController: UINavigationController(), moduleFactory: moduleFactory),
@@ -70,10 +77,7 @@ final class AppCoordinator {
                 icon: "house"
             ),
             Tab(
-                coordinator: ProfileCoordinator(
-                    navigationController: UINavigationController(),
-                    moduleFactory: moduleFactory,
-                    userService: services.userService),
+                coordinator: profileCoordinator,
                 title: L10n.TabBar.profile,
                 icon: "person"
             ),
@@ -97,6 +101,12 @@ final class AppCoordinator {
         }
 
         setRoot(tabBarController)
+    }
+
+    /// выход из профиля: завершаем сессию Firebase и возвращаем экран входа
+    private func logout() {
+        try? Auth.auth().signOut()
+        showAuth()
     }
 
     /// Меняет корневой контроллер окна с плавным кроссфейдом,
