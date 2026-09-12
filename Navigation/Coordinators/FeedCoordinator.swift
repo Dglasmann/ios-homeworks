@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import StorageService
 
 final class FeedCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
@@ -25,14 +24,10 @@ final class FeedCoordinator: Coordinator {
         
     }
     
-    func showPost(_ post: Post) {
+    func showPost(_ post: PostModel) {
         navigationController.pushViewController(
-            moduleFactory.makePost(post, coordinator: self),
+            moduleFactory.makePost(post),
             animated: true
         )
-    }
-    
-    func showInfo() {
-        navigationController.present(moduleFactory.makeInfo(), animated: true)
     }
 }

@@ -6,12 +6,10 @@
 //
 
 import UIKit
-import StorageService
 
 protocol ModuleFactoryProtocol {
     func makeFeed(coordinator: FeedCoordinator) -> UIViewController
-    func makePost(_ post: Post, coordinator: FeedCoordinator) -> UIViewController
-    func makeInfo() -> UIViewController
+    func makePost(_ post: PostModel) -> UIViewController
     func makeAuth(coordinator: AuthCoordinator) -> UIViewController
     func makeProfile(user: User, coordinator: ProfileCoordinator) -> UIViewController
     func makePhotos() -> UIViewController
@@ -35,17 +33,10 @@ final class ModuleFactory: ModuleFactoryProtocol {
         return FeedViewController(viewModel: viewModel)
     }
     
-    func makePost(_ post: StorageService.Post, coordinator: FeedCoordinator) -> UIViewController {
-        let viewController = PostViewController()
-        viewController.post = post
-        viewController.coordinator = coordinator
-        return viewController
+    func makePost(_ post: PostModel) -> UIViewController {
+        PostViewController(post: post)
     }
-    
-    func makeInfo() -> UIViewController {
-        InfoViewController(networkService: services.networkService)
-    }
-    
+
     func makeAuth(coordinator: AuthCoordinator) -> UIViewController {
         let viewModel = LoginViewModel(
             loginDelegate: services.loginInspector,

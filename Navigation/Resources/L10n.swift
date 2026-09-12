@@ -79,6 +79,15 @@ enum L10n {
         }
     }
 
+    // MARK: - Детали поста
+
+    enum Post {
+        /// строка счётчиков на экране деталей: лайки, комментарии, просмотры
+        static func stats(_ likes: Int, _ comments: Int, _ views: Int) -> String {
+            String(format: NSLocalizedString("post.stats", comment: "Счётчики на экране поста"), likes, comments, views)
+        }
+    }
+
     // MARK: - Лента
 
     enum Feed {

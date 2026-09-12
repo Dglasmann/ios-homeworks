@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import StorageService
 
 final class FeedViewModel: ViewModelProtocol {
 
@@ -79,7 +78,7 @@ final class FeedViewModel: ViewModelProtocol {
 
         case .openPost(let index):
             guard let post = post(at: index) else { return }
-            coordinator?.showPost(Post(title: post.author))
+            coordinator?.showPost(post)
         }
     }
 
