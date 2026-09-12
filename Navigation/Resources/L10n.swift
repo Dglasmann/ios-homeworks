@@ -25,6 +25,9 @@ enum L10n {
         static let emailPlaceholder = NSLocalizedString("login.email.placeholder", comment: "Плейсхолдер поля email")
         static let passwordPlaceholder = NSLocalizedString("login.password.placeholder", comment: "Плейсхолдер поля пароля")
         static let logIn = NSLocalizedString("login.button.title", comment: "Кнопка входа")
+        static let signUp = NSLocalizedString("login.button.signUp", comment: "Кнопка регистрации")
+        static let signInTab = NSLocalizedString("login.tab.signIn", comment: "Вкладка «Вход»")
+        static let signUpTab = NSLocalizedString("login.tab.signUp", comment: "Вкладка «Регистрация»")
         static let biometry = NSLocalizedString("login.biometry.button", comment: "Кнопка входа по биометрии")
         static let biometryReason = NSLocalizedString("login.biometry.reason", comment: "Причина запроса биометрии в системном диалоге")
 
@@ -33,6 +36,7 @@ enum L10n {
         static let wrongPassword = NSLocalizedString("login.error.wrongPassword", comment: "Ошибка: неверный пароль")
         static let invalidCredentials = NSLocalizedString("login.error.invalidCredentials", comment: "Ошибка: неверные учётные данные")
         static let userNotFound = NSLocalizedString("login.error.userNotFound", comment: "Ошибка: пользователь не найден")
+        static let emailInUse = NSLocalizedString("login.error.emailInUse", comment: "Ошибка: email уже зарегистрирован")
 
         static let biometryFailed = NSLocalizedString("login.error.biometryFailed", comment: "Общая ошибка биометрии")
         static let biometryNotEnrolled = NSLocalizedString("login.error.biometryNotEnrolled", comment: "Биометрия не настроена на устройстве")

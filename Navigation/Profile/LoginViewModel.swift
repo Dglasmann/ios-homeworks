@@ -19,6 +19,7 @@ final class LoginViewModel: ViewModelProtocol {
     
     enum ViewInput {
         case login(email: String?, password: String?)
+        case register(email: String?, password: String?)
         case biometricLogin
     }
 
@@ -59,6 +60,8 @@ final class LoginViewModel: ViewModelProtocol {
         switch viewInput {
         case .login(let email, let password):
             handleLogin(email: email, password: password)
+        case .register(let email, let password):
+            handleRegister(email: email, password: password)
         case .biometricLogin:
             handleBiometricLogin()
         }
@@ -83,17 +86,19 @@ final class LoginViewModel: ViewModelProtocol {
         }
         
         state = .loading
-        
+
         loginDelegate.checkCredentials(email: email, password: password) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success:
                 self.state = .success(login: email)
             case .failure(let error):
+                // в режиме входа не регистрируем автоматически: если аккаунта
+                // нет, подсказываем переключиться на «регистрацию»
                 let code = AuthErrorCode(rawValue: (error as NSError).code)
                 switch code {
                 case .userNotFound, .invalidCredential:
-                    self.signUp(email: email, password: password)
+                    self.state = .failure(message: L10n.Login.userNotFound)
                 case .wrongPassword:
                     self.state = .failure(message: L10n.Login.wrongPassword)
                 default:
@@ -102,19 +107,29 @@ final class LoginViewModel: ViewModelProtocol {
             }
         }
     }
-    
-    private func signUp(email: String, password: String) {
-        loginDelegate.signUp(email: email, password: password) { [weak self] result in
-            guard let self = self else { return }
 
+    /// явная регистрация нового пользователя (вкладка «регистрация»)
+    private func handleRegister(email: String?, password: String?) {
+        guard let email, !email.isEmpty else {
+            state = .failure(message: L10n.Login.emptyEmail)
+            return
+        }
+        guard let password, !password.isEmpty else {
+            state = .failure(message: L10n.Login.emptyPassword)
+            return
+        }
+
+        state = .loading
+
+        loginDelegate.signUp(email: email, password: password) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success:
                 self.state = .success(login: email)
-
             case .failure(let error):
                 let code = AuthErrorCode(rawValue: (error as NSError).code)
                 if code == .emailAlreadyInUse {
-                    self.state = .failure(message: L10n.Login.wrongPassword)
+                    self.state = .failure(message: L10n.Login.emailInUse)
                 } else {
                     self.state = .failure(message: error.localizedDescription)
                 }

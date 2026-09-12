@@ -523,6 +523,24 @@
         }
       }
     },
+    "login.button.signUp": {
+      "comment": "Кнопка регистрации",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать аккаунт"
+          }
+        }
+      }
+    },
     "login.button.title": {
       "comment": "Кнопка входа",
       "extractionState": "manual",
@@ -649,6 +667,24 @@
         }
       }
     },
+    "login.error.emailInUse": {
+      "comment": "Ошибка: email уже зарегистрирован",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This email is already registered"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот email уже зарегистрирован"
+          }
+        }
+      }
+    },
     "login.error.emptyEmail": {
       "comment": "Ошибка: не введён email",
       "extractionState": "manual",
@@ -753,6 +789,42 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пароль"
+          }
+        }
+      }
+    },
+    "login.tab.signIn": {
+      "comment": "Вкладка «Вход»",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход"
+          }
+        }
+      }
+    },
+    "login.tab.signUp": {
+      "comment": "Вкладка «Регистрация»",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign up"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Регистрация"
           }
         }
       }

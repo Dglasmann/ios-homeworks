@@ -78,39 +78,55 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(delegateMock.signUpCallCount, 0)
     }
 
-    // MARK: - Автоматическая регистрация
+    // MARK: - Вход: аккаунт не найден
 
-    func test_login_whenUserNotFound_triggersSignUp() {
+    func test_login_whenUserNotFound_setsFailureAndDoesNotSignUp() {
+        // в режиме входа авто-регистрации больше нет — только ошибка
         let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
         delegateMock.checkCredentialsResult = .failure(error)
-        delegateMock.signUpResult = .success(())
 
         sut.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
 
-        XCTAssertEqual(delegateMock.signUpCallCount, 1)
-        XCTAssertEqual(sut.state, .success(login: "new@test.com"))
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.userNotFound))
+        XCTAssertEqual(delegateMock.signUpCallCount, 0)
     }
 
-    func test_login_withInvalidCredential_triggersSignUp() {
+    func test_login_withInvalidCredential_setsFailureAndDoesNotSignUp() {
         let error = NSError(domain: AuthErrorDomain, code: AuthErrorCode.invalidCredential.rawValue)
         delegateMock.checkCredentialsResult = .failure(error)
-        delegateMock.signUpResult = .success(())
 
         sut.updateState(viewInput: .login(email: "new@test.com", password: "123456"))
 
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.userNotFound))
+        XCTAssertEqual(delegateMock.signUpCallCount, 0)
+    }
+
+    // MARK: - Регистрация
+
+    func test_register_whenSuccess_callsSignUpAndSetsSuccess() {
+        delegateMock.signUpResult = .success(())
+
+        sut.updateState(viewInput: .register(email: "new@test.com", password: "123456"))
+
         XCTAssertEqual(delegateMock.signUpCallCount, 1)
+        XCTAssertEqual(delegateMock.checkCredentialsCallCount, 0)
         XCTAssertEqual(sut.state, .success(login: "new@test.com"))
     }
 
-    func test_signUp_whenEmailAlreadyInUse_setsWrongPasswordFailure() {
-        let notFound = NSError(domain: AuthErrorDomain, code: AuthErrorCode.userNotFound.rawValue)
+    func test_register_withEmptyEmail_setsFailureAndDoesNotCallDelegate() {
+        sut.updateState(viewInput: .register(email: "", password: "123456"))
+
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.emptyEmail))
+        XCTAssertEqual(delegateMock.signUpCallCount, 0)
+    }
+
+    func test_register_whenEmailAlreadyInUse_setsFailure() {
         let inUse = NSError(domain: AuthErrorDomain, code: AuthErrorCode.emailAlreadyInUse.rawValue)
-        delegateMock.checkCredentialsResult = .failure(notFound)
         delegateMock.signUpResult = .failure(inUse)
 
-        sut.updateState(viewInput: .login(email: "existing@test.com", password: "wrong"))
+        sut.updateState(viewInput: .register(email: "existing@test.com", password: "123456"))
 
-        XCTAssertEqual(sut.state, .failure(message: L10n.Login.wrongPassword))
+        XCTAssertEqual(sut.state, .failure(message: L10n.Login.emailInUse))
     }
 
     // MARK: - Биометрия
