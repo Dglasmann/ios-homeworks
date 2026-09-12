@@ -2,57 +2,97 @@
 //  FeedViewModel.swift
 //  Navigation
 //
-//  Created by Sasha Soldatov on 11.05.2026.
+//  вьюмодель «Главной» — лента постов всех авторов из PostService.
+//  умеет сохранять пост в «Сохранённое» и открывать детали поста
 //
 
 import Foundation
 import StorageService
 
 final class FeedViewModel: ViewModelProtocol {
-    
-    enum ViewInput {
-        case checkGuess(word: String?)
-        case openPost(Post)
-    }
-    
+
     // MARK: - State
+
     enum State: Equatable {
-        case initial
-        case correct
-        case incorrect
+        case loaded
     }
-    
+
+    // MARK: - ViewInput
+
+    enum ViewInput {
+        case viewDidLoad
+        case toggleSave(index: Int)
+        case openPost(index: Int)
+    }
+
     // MARK: - Bindings
+
     var onStateDidChange: ((State) -> Void)?
-    
-    // MARK: - Private
-    
-    private(set) var state: State = .initial {
-        didSet {
-            onStateDidChange?(state)
-        }
+
+    private(set) var state: State = .loaded {
+        didSet { onStateDidChange?(state) }
     }
-    
-    private let feedService: FeedServiceProtocol
-    
+
+    // MARK: - Data
+
+    private(set) var posts: [PostModel] = []
+
+    // MARK: - Dependencies
+
+    private let postService: PostServiceProtocol
+    private let favouritesService: FavouritesServiceProtocol
     private weak var coordinator: FeedCoordinator?
-    
+
     // MARK: - Init
-    init(feedService: FeedServiceProtocol, coordinator: FeedCoordinator? = nil) {
-        self.feedService = feedService
+
+    init(
+        postService: PostServiceProtocol,
+        favouritesService: FavouritesServiceProtocol,
+        coordinator: FeedCoordinator?
+    ) {
+        self.postService = postService
+        self.favouritesService = favouritesService
         self.coordinator = coordinator
     }
-    
-    // MARK: - Input
+
+    // MARK: - Helpers
+
+    func post(at index: Int) -> PostModel? {
+        posts.indices.contains(index) ? posts[index] : nil
+    }
+
+    func isSaved(at index: Int) -> Bool {
+        guard let post = post(at: index) else { return false }
+        return favouritesService.isFavourite(post)
+    }
+
+    // MARK: - ViewModelProtocol
+
     func updateState(viewInput: ViewInput) {
         switch viewInput {
-        case .checkGuess(let word):
-            guard let word, !word.isEmpty else { return }
-            state = feedService.check(word: word) ? .correct : .incorrect
-            
-        case .openPost(let post):
-            coordinator?.showPost(post)
+        case .viewDidLoad:
+            posts = postService.posts()
+            state = .loaded
+
+        case .toggleSave(let index):
+            toggleSave(at: index)
+
+        case .openPost(let index):
+            guard let post = post(at: index) else { return }
+            coordinator?.showPost(Post(title: post.author))
+        }
+    }
+
+    // MARK: - Private
+
+    /// закладка работает как переключатель: если пост уже в «Сохранённом» —
+    /// убираем, иначе добавляем
+    private func toggleSave(at index: Int) {
+        guard let post = post(at: index) else { return }
+        if favouritesService.isFavourite(post) {
+            favouritesService.delete(post) { [weak self] in self?.state = .loaded }
+        } else {
+            favouritesService.save(post) { [weak self] in self?.state = .loaded }
         }
     }
 }
-    

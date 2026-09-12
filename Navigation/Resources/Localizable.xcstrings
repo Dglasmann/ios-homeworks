@@ -368,13 +368,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feed"
+            "value": "Home"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лента"
+            "value": "Главная"
           }
         }
       }

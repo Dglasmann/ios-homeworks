@@ -13,6 +13,30 @@ struct PostModel {
     let image: UIImage
     let likes: Int
     let views: Int
+    // поля для карточки ленты; у постов из core data их нет — идут дефолты
+    let authorRole: String
+    let comments: Int
+    let authorAvatar: UIImage?
+
+    init(
+        author: String,
+        description: String,
+        image: UIImage,
+        likes: Int,
+        views: Int,
+        authorRole: String = "",
+        comments: Int = 0,
+        authorAvatar: UIImage? = nil
+    ) {
+        self.author = author
+        self.description = description
+        self.image = image
+        self.likes = likes
+        self.views = views
+        self.authorRole = authorRole
+        self.comments = comments
+        self.authorAvatar = authorAvatar
+    }
 }
 
 extension PostModel {

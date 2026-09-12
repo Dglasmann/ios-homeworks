@@ -6,124 +6,86 @@
 //
 
 import UIKit
-import StorageService
 
 final class FeedViewController: UIViewController {
-    
-    private let post = Post(title: L10n.Feed.postDetails)
+
     private let viewModel: FeedViewModel
-    
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = AppColor.background
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 400
+        tableView.register(FeedPostCell.self)
+        return tableView
+    }()
+
     init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-    
-    private lazy var guessTextField: UITextField = {
-        let guessTextField = UITextField()
-        guessTextField.translatesAutoresizingMaskIntoConstraints = false
-        guessTextField.placeholder = L10n.Feed.guessPlaceholder
-        guessTextField.borderStyle = .roundedRect
-        guessTextField.autocapitalizationType = .none
-        guessTextField.autocorrectionType = .no
-        
-        return guessTextField
-    }()
-    
-    private lazy var checkGuessButton = CustomButton(
-        title: L10n.Feed.check,
-        backgroundColor: AppColor.accent,
-        tapAction: { [weak self] in self?.checkGuess() }
-    )
-    
-    private lazy var resultLabel: UILabel = {
-        let resultLabel = UILabel()
-        resultLabel.translatesAutoresizingMaskIntoConstraints = false
-        resultLabel.textAlignment = .center
-        resultLabel.font = AppFont.counter
-        resultLabel.text = ""
-        
-        return resultLabel
-    }()
-    
-    private lazy var firstButton = CustomButton(
-        title: L10n.Feed.openFirstPost,
-        backgroundColor: AppColor.accent,
-        tapAction: { [weak self] in self?.showPost() }
-    )
-    
-    private lazy var secondButton = CustomButton(
-        title: L10n.Feed.openSecondPost,
-        backgroundColor: AppColor.accent,
-        tapAction: { [weak self] in self?.showPost() }
-    )
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = AppColor.background
+        title = L10n.Feed.title
         setupUI()
         bindViewModel()
+        viewModel.updateState(viewInput: .viewDidLoad)
+    }
+
+    private func setupUI() {
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     private func bindViewModel() {
-        viewModel.onStateDidChange = { [weak self] state in
+        viewModel.onStateDidChange = { [weak self] _ in
             DispatchQueue.main.async {
-                self?.render(state: state)
+                self?.tableView.reloadData()
             }
         }
     }
-    
-    private func render(state: FeedViewModel.State) {
-        switch state {
-        case .initial:
-            resultLabel.text = ""
-        case .correct:
-            resultLabel.text = L10n.Feed.correct
-            resultLabel.textColor = .systemGreen
-        case .incorrect:
-            resultLabel.text = L10n.Feed.incorrect
-            resultLabel.textColor = .systemRed
+}
+
+// MARK: - UITableViewDataSource
+
+extension FeedViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.posts.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(FeedPostCell.self, for: indexPath)
+        guard let post = viewModel.post(at: indexPath.row) else { return cell }
+        cell.configure(with: post, isLiked: false, isSaved: viewModel.isSaved(at: indexPath.row))
+        cell.onBookmark = { [weak self] in
+            self?.viewModel.updateState(viewInput: .toggleSave(index: indexPath.row))
         }
+        return cell
     }
-    
-    private func checkGuess() {
-        viewModel.updateState(viewInput: .checkGuess(word: guessTextField.text))
+}
+
+// MARK: - UITableViewDelegate
+
+extension FeedViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.updateState(viewInput: .openPost(index: indexPath.row))
     }
-    
-    private func setupUI() {
-        view.backgroundColor = AppColor.background
-        title = L10n.Feed.title
-        
-        stackView.addArrangedSubview(firstButton)
-        stackView.addArrangedSubview(secondButton)
-        stackView.addArrangedSubview(guessTextField)
-        stackView.addArrangedSubview(checkGuessButton)
-        stackView.addArrangedSubview(resultLabel)
-        
-        view.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            firstButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
-            secondButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight)
-        ])
-        stackView.constrainWidth(to: view)
-    }
-    
-    private func showPost() {
-        viewModel.updateState(viewInput: .openPost(post))
-    }
-    
 }
