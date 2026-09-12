@@ -35,14 +35,14 @@ final class LoginViewModel: ViewModelProtocol {
     
     private let loginDelegate: LoginViewControllerDelegate
     private let biometricService: LocalAuthorizationServiceProtocol
-    private weak var coordinator: ProfileCoordinator?
-    
+    private weak var coordinator: AuthCoordinator?
+
     // MARK: - Init
-    
+
     init(
         loginDelegate: LoginViewControllerDelegate,
         biometricService: LocalAuthorizationServiceProtocol,
-        coordinator: ProfileCoordinator? = nil
+        coordinator: AuthCoordinator? = nil
     ) {
         self.loginDelegate = loginDelegate
         self.biometricService = biometricService
@@ -65,7 +65,7 @@ final class LoginViewModel: ViewModelProtocol {
     }
     
     func didFinishLogin(with login: String) {
-        coordinator?.showProfile(for: login)
+        coordinator?.didAuthenticate()
     }
     
     // MARK: - Private

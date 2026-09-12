@@ -21,24 +21,20 @@ final class ProfileCoordinator: Coordinator {
         self.userService = userService
     }
     
+    /// Профиль — стартовый экран вкладки. Авторизация уже пройдена в
+    /// AuthCoordinator, пользователь берётся из UserService.
     func start() {
-        let login = moduleFactory.makeLogin(coordinator: self)
-        navigationController.setViewControllers([login], animated: false)
-    }
-    
-    /// Показывает профиль по логину. Пользователь берётся из UserService
-    func showProfile(for login: String) {
-        switch userService.user(for: login) {
+        switch userService.user(for: "") {
         case .success(let user):
-            navigationController.pushViewController(
-                moduleFactory.makeProfile(user: user, coordinator: self),
-                animated: true
+            navigationController.setViewControllers(
+                [moduleFactory.makeProfile(user: user, coordinator: self)],
+                animated: false
             )
         case .failure(let error):
             assertionFailure(error.localizedDescription)
         }
     }
-    
+
     func showPhotos() {
         navigationController.pushViewController(moduleFactory.makePhotos(), animated: true)
     }

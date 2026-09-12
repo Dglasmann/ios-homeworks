@@ -1520,13 +1520,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Favourites"
+            "value": "Saved"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Избранное"
+            "value": "Сохранённые"
           }
         }
       }
@@ -1538,13 +1538,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feed"
+            "value": "Home"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лента"
+            "value": "Главная"
           }
         }
       }

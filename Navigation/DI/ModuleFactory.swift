@@ -12,14 +12,10 @@ protocol ModuleFactoryProtocol {
     func makeFeed(coordinator: FeedCoordinator) -> UIViewController
     func makePost(_ post: Post, coordinator: FeedCoordinator) -> UIViewController
     func makeInfo() -> UIViewController
-    func makeLogin(coordinator: ProfileCoordinator) -> UIViewController
+    func makeAuth(coordinator: AuthCoordinator) -> UIViewController
     func makeProfile(user: User, coordinator: ProfileCoordinator) -> UIViewController
     func makePhotos() -> UIViewController
     func makeFavourites() -> UIViewController
-    func makeMediaMenu(coordinator: MediaCoordinator) -> UIViewController
-    func makeAudioPlayer() -> UIViewController
-    func makeVideoList() -> UIViewController
-    func makeAudioRecorder() -> UIViewController
 }
 
 final class ModuleFactory: ModuleFactoryProtocol {
@@ -46,7 +42,7 @@ final class ModuleFactory: ModuleFactoryProtocol {
         InfoViewController(networkService: services.networkService)
     }
     
-    func makeLogin(coordinator: ProfileCoordinator) -> UIViewController {
+    func makeAuth(coordinator: AuthCoordinator) -> UIViewController {
         let viewModel = LoginViewModel(
             loginDelegate: services.loginInspector,
             biometricService: services.localAuthorizationService,
@@ -74,23 +70,4 @@ final class ModuleFactory: ModuleFactoryProtocol {
     func makeFavourites() -> UIViewController {
         FavouritesViewController(viewModel: FavouritesViewModel(favouritesService: services.favouritesService))
     }
-    
-    func makeMediaMenu(coordinator: MediaCoordinator) -> UIViewController {
-        let viewController = MediaMenuViewController()
-        viewController.coordinator = coordinator
-        return viewController
-    }
-    
-    func makeAudioPlayer() -> UIViewController {
-        AudioPlayerViewController()
-    }
-    
-    func makeVideoList() -> UIViewController {
-        VideoListViewController()
-    }
-    
-    func makeAudioRecorder() -> UIViewController {
-        AudioRecorderViewController()
-    }
-    
 }
