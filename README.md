@@ -110,7 +110,7 @@ Navigation/
 | Авторизация | Firebase Auth, LocalAuthentication |
 | Медиа | AVFoundation, AVAudioRecorder, WKWebView |
 | Многопоточность | GCD, `iOSIntPackage.ImageProcessor` |
-| Зависимости | CocoaPods (Firebase, SwiftLint), SPM (iOSIntPackage) |
+| Зависимости | Swift Package Manager (Firebase, SwiftLint, iOSIntPackage) |
 | Тесты | XCTest, in-memory Core Data, моки на протоколах |
 | Стиль кода | SwiftLint (0 предупреждений) |
 
