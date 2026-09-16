@@ -5,9 +5,6 @@ DerivedData/
 *.xcuserdatad/
 xcuserdata/
 
-# CocoaPods
-Pods/
-
 # macOS
 .DS_Store
 

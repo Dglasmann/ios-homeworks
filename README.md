@@ -119,11 +119,10 @@ Navigation/
 ```bash
 git clone git@github.com:Dglasmann/ios-homeworks.git
 cd ios-homeworks
-pod install
-open Navigation.xcworkspace
+open Navigation.xcodeproj
 ```
 
-Открывать нужно `.xcworkspace`, а не `.xcodeproj`.
+Зависимости подключены через Swift Package Manager.
 
 Пакет `iOSIntPackage` подключён через Swift Package Manager и подтянется
 автоматически при первом открытии проекта.
