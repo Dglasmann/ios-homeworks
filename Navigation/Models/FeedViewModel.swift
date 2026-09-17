@@ -2,8 +2,8 @@
 //  FeedViewModel.swift
 //  Navigation
 //
-//  вьюмодель «Главной» — лента постов всех авторов из PostService.
-//  умеет сохранять пост в «Сохранённое» и открывать детали поста
+//  Вью-модель «Главной» — лента постов из сети (Rick and Morty API).
+//  Умеет сохранять пост в «Сохранённое» и открывать детали поста.
 //
 
 import Foundation
@@ -13,13 +13,16 @@ final class FeedViewModel: ViewModelProtocol {
     // MARK: - State
 
     enum State: Equatable {
+        case loading
         case loaded
+        case error(String)
     }
 
     // MARK: - ViewInput
 
     enum ViewInput {
         case viewDidLoad
+        case refresh
         case toggleSave(index: Int)
         case openPost(index: Int)
     }
@@ -28,7 +31,7 @@ final class FeedViewModel: ViewModelProtocol {
 
     var onStateDidChange: ((State) -> Void)?
 
-    private(set) var state: State = .loaded {
+    private(set) var state: State = .loading {
         didSet { onStateDidChange?(state) }
     }
 
@@ -38,18 +41,18 @@ final class FeedViewModel: ViewModelProtocol {
 
     // MARK: - Dependencies
 
-    private let postService: PostServiceProtocol
+    private let feedService: FeedContentServiceProtocol
     private let favouritesService: FavouritesServiceProtocol
     private weak var coordinator: FeedCoordinator?
 
     // MARK: - Init
 
     init(
-        postService: PostServiceProtocol,
+        feedService: FeedContentServiceProtocol,
         favouritesService: FavouritesServiceProtocol,
         coordinator: FeedCoordinator?
     ) {
-        self.postService = postService
+        self.feedService = feedService
         self.favouritesService = favouritesService
         self.coordinator = coordinator
     }
@@ -69,9 +72,8 @@ final class FeedViewModel: ViewModelProtocol {
 
     func updateState(viewInput: ViewInput) {
         switch viewInput {
-        case .viewDidLoad:
-            posts = postService.posts()
-            state = .loaded
+        case .viewDidLoad, .refresh:
+            loadPosts()
 
         case .toggleSave(let index):
             toggleSave(at: index)
@@ -83,6 +85,20 @@ final class FeedViewModel: ViewModelProtocol {
     }
 
     // MARK: - Private
+    
+    private func loadPosts() {
+        state = .loading
+        feedService.fetchPosts { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let posts):
+                self.posts = posts
+                self.state = .loaded
+            case .failure(let error):
+                self.state = .error(error.localizedDescription)
+            }
+        }
+    }
 
     /// закладка работает как переключатель: если пост уже в «Сохранённом» —
     /// убираем, иначе добавляем

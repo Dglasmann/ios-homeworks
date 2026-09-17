@@ -1,1475 +1,1421 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "common.apply": {
-      "comment": "Кнопка применения",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apply"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "common.apply" : {
+      "comment" : "Кнопка применения",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Применить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Применить"
           }
         }
       }
     },
-    "common.cancel": {
-      "comment": "Кнопка отмены",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+    "common.cancel" : {
+      "comment" : "Кнопка отмены",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         }
       }
     },
-    "common.delete": {
-      "comment": "Кнопка удаления",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
+    "common.delete" : {
+      "comment" : "Кнопка удаления",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Удалить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
           }
         }
       }
     },
-    "common.error": {
-      "comment": "Заголовок алерта об ошибке",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Error"
+    "common.error" : {
+      "comment" : "Заголовок алерта об ошибке",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ошибка"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка"
           }
         }
       }
     },
-    "common.loading": {
-      "comment": "Индикатор загрузки",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loading…"
+    "common.loading" : {
+      "comment" : "Индикатор загрузки",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Загрузка…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка…"
           }
         }
       }
     },
-    "common.ok": {
-      "comment": "Кнопка OK",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+    "common.ok" : {
+      "comment" : "Кнопка OK",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "favourites.empty": {
-      "comment": "Заглушка для пустого списка",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing here yet.\nDouble-tap a post in your profile to save it."
+    "favourites.empty" : {
+      "comment" : "Заглушка для пустого списка",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing here yet.\nDouble-tap a post in your profile to save it."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Здесь пока пусто.\nДважды коснитесь поста в профиле, чтобы сохранить его."
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Здесь пока пусто.\nДважды коснитесь поста в профиле, чтобы сохранить его."
           }
         }
       }
     },
-    "favourites.filter.message": {
-      "comment": "Текст алерта фильтрации",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter the author's name"
+    "favourites.filter.message" : {
+      "comment" : "Текст алерта фильтрации",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the author's name"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите имя автора"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите имя автора"
           }
         }
       }
     },
-    "favourites.filter.placeholder": {
-      "comment": "Плейсхолдер поля автора",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Author"
+    "favourites.filter.placeholder" : {
+      "comment" : "Плейсхолдер поля автора",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Автор"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автор"
           }
         }
       }
     },
-    "favourites.filter.title": {
-      "comment": "Заголовок алерта фильтрации",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search by author"
+    "favourites.filter.title" : {
+      "comment" : "Заголовок алерта фильтрации",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by author"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поиск по автору"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск по автору"
           }
         }
       }
     },
-    "favourites.title": {
-      "comment": "Заголовок экрана избранного",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Favourites"
+    "favourites.title" : {
+      "comment" : "Заголовок экрана избранного",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favourites"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Избранное"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Избранное"
           }
         }
       }
     },
-    "feed.check": {
-      "comment": "Кнопка проверки слова",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Check"
+    "feed.check" : {
+      "comment" : "Кнопка проверки слова",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проверить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверить"
           }
         }
       }
     },
-    "feed.guess.placeholder": {
-      "comment": "Плейсхолдер поля секретного слова",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter the secret word"
+    "feed.guess.placeholder" : {
+      "comment" : "Плейсхолдер поля секретного слова",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the secret word"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите секретное слово"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите секретное слово"
           }
         }
       }
     },
-    "feed.openFirstPost": {
-      "comment": "Кнопка открытия первого поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open post 1"
+    "feed.loadError" : {
+      "comment" : "Загрузка ленты",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to load feed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Открыть пост 1"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось загрузить ленту"
           }
         }
       }
     },
-    "feed.openSecondPost": {
-      "comment": "Кнопка открытия второго поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open post 2"
+    "feed.openFirstPost" : {
+      "comment" : "Кнопка открытия первого поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open post 1"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Открыть пост 2"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть пост 1"
           }
         }
       }
     },
-    "feed.post.details": {
-      "comment": "Подпись на экране деталей поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Post details"
+    "feed.openSecondPost" : {
+      "comment" : "Кнопка открытия второго поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open post 2"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Детали поста"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть пост 2"
           }
         }
       }
     },
-    "feed.post.info": {
-      "comment": "Кнопка перехода к информации",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Info"
+    "feed.post.details" : {
+      "comment" : "Подпись на экране деталей поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post details"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Информация"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Детали поста"
           }
         }
       }
     },
-    "feed.post.title": {
-      "comment": "Заголовок демо-поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My first post"
+    "feed.post.info" : {
+      "comment" : "Кнопка перехода к информации",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мой первый пост"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Информация"
           }
         }
       }
     },
-    "feed.result.correct": {
-      "comment": "Слово угадано",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Correct!"
+    "feed.post.title" : {
+      "comment" : "Заголовок демо-поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My first post"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Верно!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мой первый пост"
           }
         }
       }
     },
-    "feed.result.incorrect": {
-      "comment": "Слово не угадано",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wrong :("
+    "feed.result.correct" : {
+      "comment" : "Слово угадано",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct!"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Неверно :("
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Верно!"
           }
         }
       }
     },
-    "feed.title": {
-      "comment": "Заголовок ленты",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
+    "feed.result.incorrect" : {
+      "comment" : "Слово не угадано",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wrong :("
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Главная"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверно :("
           }
         }
       }
     },
-    "info.alert.message": {
-      "comment": "Текст демонстрационного алерта",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This is a test message"
+    "feed.title" : {
+      "comment" : "Заголовок ленты",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Это тестовое сообщение"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Главная"
           }
         }
       }
     },
-    "info.alert.title": {
-      "comment": "Заголовок демонстрационного алерта",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Attention"
+    "info.alert.message" : {
+      "comment" : "Текст демонстрационного алерта",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is a test message"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Внимание"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это тестовое сообщение"
           }
         }
       }
     },
-    "info.loading.period": {
-      "comment": "Заглушка при загрузке периода обращения",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loading orbital period…"
+    "info.alert.title" : {
+      "comment" : "Заголовок демонстрационного алерта",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Загрузка периода обращения…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Внимание"
           }
         }
       }
     },
-    "info.loading.title": {
-      "comment": "Заглушка при загрузке заголовка",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loading…"
+    "info.loading.period" : {
+      "comment" : "Заглушка при загрузке периода обращения",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading orbital period…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Загрузка…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка периода обращения…"
           }
         }
       }
     },
-    "info.orbitalPeriod": {
-      "comment": "Период обращения планеты. %@ — значение из API",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tatooine orbital period: %@"
+    "info.loading.title" : {
+      "comment" : "Заглушка при загрузке заголовка",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Период обращения Татуина: %@"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка…"
           }
         }
       }
     },
-    "info.showAlert": {
-      "comment": "Кнопка показа алерта",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Show alert"
+    "info.orbitalPeriod" : {
+      "comment" : "Период обращения планеты. %@ — значение из API",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tatooine orbital period: %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Показать оповещение"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Период обращения Татуина: %@"
           }
         }
       }
     },
-    "login.biometry.button": {
-      "comment": "Кнопка входа по биометрии",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log in with biometrics"
+    "info.showAlert" : {
+      "comment" : "Кнопка показа алерта",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show alert"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Войти по биометрии"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать оповещение"
           }
         }
       }
     },
-    "login.biometry.reason": {
-      "comment": "Причина запроса биометрии в системном диалоге",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log in using biometrics"
+    "login.biometry.button" : {
+      "comment" : "Кнопка входа по биометрии",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in with biometrics"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Войдите с помощью биометрии"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти по биометрии"
           }
         }
       }
     },
-    "login.button.signUp": {
-      "comment": "Кнопка регистрации",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create account"
+    "login.biometry.reason" : {
+      "comment" : "Причина запроса биометрии в системном диалоге",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in using biometrics"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать аккаунт"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войдите с помощью биометрии"
           }
         }
       }
     },
-    "login.button.title": {
-      "comment": "Кнопка входа",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log in"
+    "login.button.signUp" : {
+      "comment" : "Кнопка регистрации",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create account"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Войти"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать аккаунт"
           }
         }
       }
     },
-    "login.email.placeholder": {
-      "comment": "Плейсхолдер поля email",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Email or phone"
+    "login.button.title" : {
+      "comment" : "Кнопка входа",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Email или телефон"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти"
           }
         }
       }
     },
-    "login.error.biometryCancelled": {
-      "comment": "Пользователь отменил авторизацию",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Authentication cancelled"
+    "login.email.placeholder" : {
+      "comment" : "Плейсхолдер поля email",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email or phone"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Авторизация отменена"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email или телефон"
           }
         }
       }
     },
-    "login.error.biometryFailed": {
-      "comment": "Общая ошибка биометрии",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Biometric authentication failed"
+    "login.error.biometryCancelled" : {
+      "comment" : "Пользователь отменил авторизацию",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentication cancelled"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось авторизоваться по биометрии"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Авторизация отменена"
           }
         }
       }
     },
-    "login.error.biometryLockout": {
-      "comment": "Биометрия заблокирована после неудачных попыток",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Biometrics are locked. Enter your device passcode"
+    "login.error.biometryFailed" : {
+      "comment" : "Общая ошибка биометрии",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biometric authentication failed"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Биометрия заблокирована, введите пароль устройства"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось авторизоваться по биометрии"
           }
         }
       }
     },
-    "login.error.biometryNotAvailable": {
-      "comment": "Биометрия недоступна на устройстве",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Biometrics are unavailable on this device"
+    "login.error.biometryLockout" : {
+      "comment" : "Биометрия заблокирована после неудачных попыток",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biometrics are locked. Enter your device passcode"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Биометрия недоступна на этом устройстве"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Биометрия заблокирована, введите пароль устройства"
           }
         }
       }
     },
-    "login.error.biometryNotEnrolled": {
-      "comment": "Биометрия не настроена на устройстве",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No biometrics are set up on this device"
+    "login.error.biometryNotAvailable" : {
+      "comment" : "Биометрия недоступна на устройстве",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biometrics are unavailable on this device"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На устройстве не настроена биометрия"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Биометрия недоступна на этом устройстве"
           }
         }
       }
     },
-    "login.error.emailInUse": {
-      "comment": "Ошибка: email уже зарегистрирован",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This email is already registered"
+    "login.error.biometryNotEnrolled" : {
+      "comment" : "Биометрия не настроена на устройстве",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No biometrics are set up on this device"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этот email уже зарегистрирован"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "На устройстве не настроена биометрия"
           }
         }
       }
     },
-    "login.error.emptyEmail": {
-      "comment": "Ошибка: не введён email",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter your email"
+    "login.error.emailInUse" : {
+      "comment" : "Ошибка: email уже зарегистрирован",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This email is already registered"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите email"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этот email уже зарегистрирован"
           }
         }
       }
     },
-    "login.error.emptyPassword": {
-      "comment": "Ошибка: не введён пароль",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter your password"
+    "login.error.emptyEmail" : {
+      "comment" : "Ошибка: не введён email",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your email"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите пароль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите email"
           }
         }
       }
     },
-    "login.error.invalidCredentials": {
-      "comment": "Ошибка: неверные учётные данные",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incorrect email or password"
+    "login.error.emptyPassword" : {
+      "comment" : "Ошибка: не введён пароль",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your password"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Неверный логин или пароль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите пароль"
           }
         }
       }
     },
-    "login.error.userNotFound": {
-      "comment": "Ошибка: пользователь не найден",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "User not found"
+    "login.error.invalidCredentials" : {
+      "comment" : "Ошибка: неверные учётные данные",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect email or password"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пользователь не найден"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный логин или пароль"
           }
         }
       }
     },
-    "login.error.wrongPassword": {
-      "comment": "Ошибка: неверный пароль",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incorrect password"
+    "login.error.userNotFound" : {
+      "comment" : "Ошибка: пользователь не найден",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User not found"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Неверный пароль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пользователь не найден"
           }
         }
       }
     },
-    "login.password.placeholder": {
-      "comment": "Плейсхолдер поля пароля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Password"
+    "login.error.wrongPassword" : {
+      "comment" : "Ошибка: неверный пароль",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect password"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пароль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный пароль"
           }
         }
       }
     },
-    "login.tab.signIn": {
-      "comment": "Вкладка «Вход»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign in"
+    "login.password.placeholder" : {
+      "comment" : "Плейсхолдер поля пароля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Вход"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль"
           }
         }
       }
     },
-    "login.tab.signUp": {
-      "comment": "Вкладка «Регистрация»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign up"
+    "login.tab.signIn" : {
+      "comment" : "Вкладка «Вход»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Регистрация"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вход"
           }
         }
       }
     },
-    "media.audioPlayer": {
-      "comment": "Кнопка и заголовок аудиоплеера",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio player"
+    "login.tab.signUp" : {
+      "comment" : "Вкладка «Регистрация»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Аудиоплеер"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Регистрация"
           }
         }
       }
     },
-    "media.error.recorderSetup": {
-      "comment": "Ошибка настройки диктофона",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Could not set up recording"
+    "media.audioPlayer" : {
+      "comment" : "Кнопка и заголовок аудиоплеера",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio player"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось настроить запись"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аудиоплеер"
           }
         }
       }
     },
-    "media.error.trackLoad": {
-      "comment": "Ошибка загрузки трека",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Could not load the track"
+    "media.error.recorderSetup" : {
+      "comment" : "Ошибка настройки диктофона",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not set up recording"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось загрузить трек"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось настроить запись"
           }
         }
       }
     },
-    "media.microphone.denied": {
-      "comment": "Доступ к микрофону запрещён",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Microphone access denied"
+    "media.error.trackLoad" : {
+      "comment" : "Ошибка загрузки трека",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load the track"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Доступ к микрофону запрещён"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось загрузить трек"
           }
         }
       }
     },
-    "media.microphone.granted": {
-      "comment": "Доступ к микрофону разрешён",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Microphone access granted"
+    "media.microphone.denied" : {
+      "comment" : "Доступ к микрофону запрещён",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microphone access denied"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Доступ к микрофону разрешён"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступ к микрофону запрещён"
           }
         }
       }
     },
-    "media.next": {
-      "comment": "Кнопка следующего трека",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next"
+    "media.microphone.granted" : {
+      "comment" : "Доступ к микрофону разрешён",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microphone access granted"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Вперёд"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступ к микрофону разрешён"
           }
         }
       }
     },
-    "media.pause": {
-      "comment": "Кнопка паузы",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pause"
+    "media.next" : {
+      "comment" : "Кнопка следующего трека",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пауза"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вперёд"
           }
         }
       }
     },
-    "media.play": {
-      "comment": "Кнопка воспроизведения",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play"
+    "media.pause" : {
+      "comment" : "Кнопка паузы",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Воспроизвести"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пауза"
           }
         }
       }
     },
-    "media.playRecording": {
-      "comment": "Кнопка воспроизведения записи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play recording"
+    "media.play" : {
+      "comment" : "Кнопка воспроизведения",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прослушать запись"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Воспроизвести"
           }
         }
       }
     },
-    "media.previous": {
-      "comment": "Кнопка предыдущего трека",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Previous"
+    "media.playRecording" : {
+      "comment" : "Кнопка воспроизведения записи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play recording"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Назад"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прослушать запись"
           }
         }
       }
     },
-    "media.record": {
-      "comment": "Кнопка начала записи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record"
+    "media.previous" : {
+      "comment" : "Кнопка предыдущего трека",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записать"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назад"
           }
         }
       }
     },
-    "media.recorder": {
-      "comment": "Кнопка и заголовок диктофона",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voice recorder"
+    "media.record" : {
+      "comment" : "Кнопка начала записи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Запись аудио"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записать"
           }
         }
       }
     },
-    "media.status.nothingToPlay": {
-      "comment": "Статус: записи ещё нет",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing to play"
+    "media.recorder" : {
+      "comment" : "Кнопка и заголовок диктофона",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice recorder"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нечего воспроизводить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запись аудио"
           }
         }
       }
     },
-    "media.status.playing": {
-      "comment": "Статус: воспроизведение записи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playing…"
+    "media.status.nothingToPlay" : {
+      "comment" : "Статус: записи ещё нет",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing to play"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Воспроизведение…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нечего воспроизводить"
           }
         }
       }
     },
-    "media.status.ready": {
-      "comment": "Статус: готов к записи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ready to record"
+    "media.status.playing" : {
+      "comment" : "Статус: воспроизведение записи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playing…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Готов к записи"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Воспроизведение…"
           }
         }
       }
     },
-    "media.status.recording": {
-      "comment": "Статус: идёт запись",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording…"
+    "media.status.ready" : {
+      "comment" : "Статус: готов к записи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to record"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Идёт запись…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готов к записи"
           }
         }
       }
     },
-    "media.status.saved": {
-      "comment": "Статус: запись сохранена",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording saved"
+    "media.status.recording" : {
+      "comment" : "Статус: идёт запись",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Запись сохранена"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Идёт запись…"
           }
         }
       }
     },
-    "media.stop": {
-      "comment": "Кнопка остановки",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stop"
+    "media.status.saved" : {
+      "comment" : "Статус: запись сохранена",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording saved"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Стоп"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запись сохранена"
           }
         }
       }
     },
-    "media.stopRecording": {
-      "comment": "Кнопка остановки записи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stop recording"
+    "media.stop" : {
+      "comment" : "Кнопка остановки",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остановить запись"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Стоп"
           }
         }
       }
     },
-    "media.title": {
-      "comment": "Заголовок раздела медиа",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Media"
+    "media.stopRecording" : {
+      "comment" : "Кнопка остановки записи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop recording"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Медиа"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остановить запись"
           }
         }
       }
     },
-    "media.track.name": {
-      "comment": "Название трека. %d — порядковый номер",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Track %d"
+    "media.title" : {
+      "comment" : "Заголовок раздела медиа",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Трек %d"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Медиа"
           }
         }
       }
     },
-    "media.video.name": {
-      "comment": "Название видео. %d — порядковый номер",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Video %d"
+    "media.track.name" : {
+      "comment" : "Название трека. %d — порядковый номер",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track %d"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Видео %d"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Трек %d"
           }
         }
       }
     },
-    "media.videoList": {
-      "comment": "Заголовок списка видео",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Videos"
+    "media.video.name" : {
+      "comment" : "Название видео. %d — порядковый номер",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video %d"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Видео"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео %d"
           }
         }
       }
     },
-    "media.videoPlayer": {
-      "comment": "Кнопка видеоплеера",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Video player"
+    "media.videoList" : {
+      "comment" : "Заголовок списка видео",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videos"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Видеоплеер"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео"
           }
         }
       }
     },
-    "network.error.decoding": {
-      "comment": "Не удалось разобрать ответ сервера",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Could not process the server response"
+    "media.videoPlayer" : {
+      "comment" : "Кнопка видеоплеера",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video player"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось обработать ответ сервера"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видеоплеер"
           }
         }
       }
     },
-    "network.error.emptyData": {
-      "comment": "Сервер вернул пустой ответ",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The server returned an empty response"
+    "network.error.decoding" : {
+      "comment" : "Не удалось разобрать ответ сервера",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not process the server response"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сервер вернул пустой ответ"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось обработать ответ сервера"
           }
         }
       }
     },
-    "notification.action.open": {
-      "comment": "Кнопка действия в уведомлении",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open updates"
+    "network.error.emptyData" : {
+      "comment" : "Сервер вернул пустой ответ",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server returned an empty response"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Открыть обновления"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервер вернул пустой ответ"
           }
         }
       }
     },
-    "notification.body": {
-      "comment": "Текст локального уведомления",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Check out the latest updates"
+    "notification.action.open" : {
+      "comment" : "Кнопка действия в уведомлении",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open updates"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Посмотрите последние обновления"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть обновления"
           }
         }
       }
     },
-    "notification.title": {
-      "comment": "Заголовок локального уведомления",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "VKontakte"
+    "notification.body" : {
+      "comment" : "Текст локального уведомления",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check out the latest updates"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ВКонтакте"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Посмотрите последние обновления"
           }
         }
       }
     },
-    "post.likes": {
-      "comment": "Счётчик лайков поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d like"
+    "notification.title" : {
+      "comment" : "Заголовок локального уведомления",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VKontakte"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ВКонтакте"
+          }
+        }
+      }
+    },
+    "post.likes" : {
+      "comment" : "Счётчик лайков поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d like"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d likes"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d likes"
                 }
               }
             }
           }
         },
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d лайк"
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d лайка"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d лайка"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d лайков"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d лайков"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d лайк"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d лайка"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "post.stats": {
-      "comment": "Счётчики на экране поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "♥ %1$d   💬 %2$d   👁 %3$d"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "♥ %1$d   💬 %2$d   👁 %3$d"
-          }
-        }
-      }
-    },
-    "post.views": {
-      "comment": "Счётчик просмотров поста",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d view"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d views"
-                }
-              }
-            }
-          }
-        },
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d просмотр"
-                }
-              },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d просмотра"
-                }
-              },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d просмотров"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%d просмотра"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d лайка"
                 }
               }
             }
@@ -1477,456 +1423,528 @@
         }
       }
     },
-    "profile.action.photo": {
-      "comment": "Действие: фото",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Photo"
+    "post.stats" : {
+      "comment" : "Счётчики на экране поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "♥ %1$d   💬 %2$d   👁 %3$d"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Фото"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "♥ %1$d   💬 %2$d   👁 %3$d"
           }
         }
       }
     },
-    "profile.action.post": {
-      "comment": "Действие: запись",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Post"
+    "post.views" : {
+      "comment" : "Счётчик просмотров поста",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d view"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d views"
+                }
+              }
+            }
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Запись"
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d просмотра"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d просмотров"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d просмотр"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%d просмотра"
+                }
+              }
+            }
           }
         }
       }
     },
-    "profile.action.story": {
-      "comment": "Действие: история",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Story"
+    "profile.action.photo" : {
+      "comment" : "Действие: фото",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "История"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фото"
           }
         }
       }
     },
-    "profile.details": {
-      "comment": "Подробная информация профиля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Details"
+    "profile.action.post" : {
+      "comment" : "Действие: запись",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подробная информация"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запись"
           }
         }
       }
     },
-    "profile.dragdrop.author": {
-      "comment": "Автор поста, созданного через drag&drop",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dropped post"
+    "profile.action.story" : {
+      "comment" : "Действие: история",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Story"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Перетащенный пост"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "История"
           }
         }
       }
     },
-    "profile.edit": {
-      "comment": "Кнопка редактирования профиля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Edit"
+    "profile.details" : {
+      "comment" : "Подробная информация профиля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Редактировать"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подробная информация"
           }
         }
       }
     },
-    "profile.edit.namePlaceholder": {
-      "comment": "Плейсхолдер имени",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name"
+    "profile.dragdrop.author" : {
+      "comment" : "Автор поста, созданного через drag&drop",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dropped post"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Имя"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащенный пост"
           }
         }
       }
     },
-    "profile.edit.professionPlaceholder": {
-      "comment": "Плейсхолдер профессии",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profession"
+    "profile.edit" : {
+      "comment" : "Кнопка редактирования профиля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Профессия"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать"
           }
         }
       }
     },
-    "profile.edit.save": {
-      "comment": "Кнопка сохранения профиля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save"
+    "profile.edit.namePlaceholder" : {
+      "comment" : "Плейсхолдер имени",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сохранить"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имя"
           }
         }
       }
     },
-    "profile.edit.title": {
-      "comment": "Заголовок экрана редактирования",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Edit profile"
+    "profile.edit.professionPlaceholder" : {
+      "comment" : "Плейсхолдер профессии",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profession"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Редактирование"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профессия"
           }
         }
       }
     },
-    "profile.gallery.title": {
-      "comment": "Заголовок экрана галереи",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gallery"
+    "profile.edit.save" : {
+      "comment" : "Кнопка сохранения профиля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Галерея"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
           }
         }
       }
     },
-    "profile.logout": {
-      "comment": "Выход из профиля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log out"
+    "profile.edit.title" : {
+      "comment" : "Заголовок экрана редактирования",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit profile"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выход из профиля"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактирование"
           }
         }
       }
     },
-    "profile.myPosts": {
-      "comment": "Заголовок секции моих записей",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My posts"
+    "profile.gallery.title" : {
+      "comment" : "Заголовок экрана галереи",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gallery"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мои записи"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Галерея"
           }
         }
       }
     },
-    "profile.photos.title": {
-      "comment": "Заголовок секции фотографий",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Photos"
+    "profile.logout" : {
+      "comment" : "Выход из профиля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Фотографии"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выход из профиля"
           }
         }
       }
     },
-    "profile.session.time": {
-      "comment": "Время на экране. %@ — время в формате мм:сс",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On screen: %@"
+    "profile.myPosts" : {
+      "comment" : "Заголовок секции моих записей",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My posts"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На экране: %@"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мои записи"
           }
         }
       }
     },
-    "profile.stats.publications": {
-      "comment": "Счётчик публикаций",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "publications"
+    "profile.photos.title" : {
+      "comment" : "Заголовок секции фотографий",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photos"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "публикаций"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фотографии"
           }
         }
       }
     },
-    "profile.stats.subscribers": {
-      "comment": "Счётчик подписчиков",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "followers"
+    "profile.session.time" : {
+      "comment" : "Время на экране. %@ — время в формате мм:сс",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On screen: %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "подписчиков"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "На экране: %@"
           }
         }
       }
     },
-    "profile.stats.subscriptions": {
-      "comment": "Счётчик подписок",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "following"
+    "profile.stats.publications" : {
+      "comment" : "Счётчик публикаций",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "publications"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "подписок"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "публикаций"
           }
         }
       }
     },
-    "profile.status.button": {
-      "comment": "Кнопка сохранения статуса",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Set status"
+    "profile.stats.subscribers" : {
+      "comment" : "Счётчик подписчиков",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "followers"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Установить статус"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "подписчиков"
           }
         }
       }
     },
-    "profile.status.placeholder": {
-      "comment": "Плейсхолдер поля статуса",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter status…"
+    "profile.stats.subscriptions" : {
+      "comment" : "Счётчик подписок",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "following"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите статус…"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "подписок"
           }
         }
       }
     },
-    "profile.title": {
-      "comment": "Заголовок экрана профиля",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profile"
+    "profile.status.button" : {
+      "comment" : "Кнопка сохранения статуса",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set status"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Профиль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Установить статус"
           }
         }
       }
     },
-    "tabbar.favourites": {
-      "comment": "Вкладка «Избранное»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saved"
+    "profile.status.placeholder" : {
+      "comment" : "Плейсхолдер поля статуса",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter status…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сохранённые"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите статус…"
           }
         }
       }
     },
-    "tabbar.feed": {
-      "comment": "Вкладка «Лента»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
+    "profile.title" : {
+      "comment" : "Заголовок экрана профиля",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Главная"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профиль"
           }
         }
       }
     },
-    "tabbar.media": {
-      "comment": "Вкладка «Медиа»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Media"
+    "tabbar.favourites" : {
+      "comment" : "Вкладка «Избранное»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Медиа"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранённые"
           }
         }
       }
     },
-    "tabbar.profile": {
-      "comment": "Вкладка «Профиль»",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profile"
+    "tabbar.feed" : {
+      "comment" : "Вкладка «Лента»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Профиль"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Главная"
+          }
+        }
+      }
+    },
+    "tabbar.media" : {
+      "comment" : "Вкладка «Медиа»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Медиа"
+          }
+        }
+      }
+    },
+    "tabbar.profile" : {
+      "comment" : "Вкладка «Профиль»",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профиль"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

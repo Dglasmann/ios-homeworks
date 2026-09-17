@@ -113,10 +113,7 @@ enum L10n {
         static let postTitle = NSLocalizedString("feed.post.title", comment: "Заголовок демо-поста")
         static let postDetails = NSLocalizedString("feed.post.details", comment: "Подпись на экране деталей поста")
         static let info = NSLocalizedString("feed.post.info", comment: "Кнопка перехода к информации")
-        static let guessPlaceholder = NSLocalizedString("feed.guess.placeholder", comment: "Плейсхолдер поля секретного слова")
-        static let check = NSLocalizedString("feed.check", comment: "Кнопка проверки слова")
-        static let correct = NSLocalizedString("feed.result.correct", comment: "Слово угадано")
-        static let incorrect = NSLocalizedString("feed.result.incorrect", comment: "Слово не угадано")
+        static let loadError = NSLocalizedString("feed.loadError", comment: "Ошибка загрузки ленты")
     }
 
     // MARK: - Информация (SWAPI)
@@ -127,11 +124,6 @@ enum L10n {
         static let alertMessage = NSLocalizedString("info.alert.message", comment: "Текст демонстрационного алерта")
         static let loadingTitle = NSLocalizedString("info.loading.title", comment: "Заглушка при загрузке заголовка")
         static let loadingPeriod = NSLocalizedString("info.loading.period", comment: "Заглушка при загрузке периода обращения")
-
-        /// Период обращения планеты. `%@` — значение из API.
-        static func orbitalPeriod(_ value: String) -> String {
-            String(format: NSLocalizedString("info.orbitalPeriod", comment: "Период обращения планеты"), value)
-        }
     }
 
     // MARK: - Избранное
@@ -143,48 +135,7 @@ enum L10n {
         static let filterPlaceholder = NSLocalizedString("favourites.filter.placeholder", comment: "Плейсхолдер поля автора")
         static let empty = NSLocalizedString("favourites.empty", comment: "Заглушка для пустого списка")
     }
-
-    // MARK: - Медиа
-
-    enum Media {
-        static let title = NSLocalizedString("media.title", comment: "Заголовок раздела медиа")
-        static let audioPlayer = NSLocalizedString("media.audioPlayer", comment: "Кнопка и заголовок аудиоплеера")
-        static let videoPlayer = NSLocalizedString("media.videoPlayer", comment: "Кнопка видеоплеера")
-        static let videoList = NSLocalizedString("media.videoList", comment: "Заголовок списка видео")
-        static let recorder = NSLocalizedString("media.recorder", comment: "Кнопка и заголовок диктофона")
-
-        static let play = NSLocalizedString("media.play", comment: "Кнопка воспроизведения")
-        static let pause = NSLocalizedString("media.pause", comment: "Кнопка паузы")
-        static let stop = NSLocalizedString("media.stop", comment: "Кнопка остановки")
-        static let next = NSLocalizedString("media.next", comment: "Кнопка следующего трека")
-        static let previous = NSLocalizedString("media.previous", comment: "Кнопка предыдущего трека")
-
-        static let record = NSLocalizedString("media.record", comment: "Кнопка начала записи")
-        static let stopRecording = NSLocalizedString("media.stopRecording", comment: "Кнопка остановки записи")
-        static let playRecording = NSLocalizedString("media.playRecording", comment: "Кнопка воспроизведения записи")
-
-        static let readyToRecord = NSLocalizedString("media.status.ready", comment: "Статус: готов к записи")
-        static let recording = NSLocalizedString("media.status.recording", comment: "Статус: идёт запись")
-        static let recordingSaved = NSLocalizedString("media.status.saved", comment: "Статус: запись сохранена")
-        static let playingBack = NSLocalizedString("media.status.playing", comment: "Статус: воспроизведение записи")
-        static let nothingToPlay = NSLocalizedString("media.status.nothingToPlay", comment: "Статус: записи ещё нет")
-
-        static let microphoneGranted = NSLocalizedString("media.microphone.granted", comment: "Доступ к микрофону разрешён")
-        static let microphoneDenied = NSLocalizedString("media.microphone.denied", comment: "Доступ к микрофону запрещён")
-        static let recorderSetupFailed = NSLocalizedString("media.error.recorderSetup", comment: "Ошибка настройки диктофона")
-        static let trackLoadFailed = NSLocalizedString("media.error.trackLoad", comment: "Ошибка загрузки трека")
-
-        /// Название трека в плейлисте. `%d` — порядковый номер.
-        static func trackName(_ number: Int) -> String {
-            String(format: NSLocalizedString("media.track.name", comment: "Название трека с номером"), number)
-        }
-
-        /// Название видео в списке. `%d` — порядковый номер.
-        static func videoName(_ number: Int) -> String {
-            String(format: NSLocalizedString("media.video.name", comment: "Название видео с номером"), number)
-        }
-    }
-
+    
     // MARK: - Уведомления
 
     enum Notifications {

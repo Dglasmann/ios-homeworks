@@ -106,10 +106,10 @@ final class ProfileHeaderView: UIView {
             editButton.heightAnchor.constraint(equalToConstant: AppLayout.controlHeight),
 
             mainStack.topAnchor.constraint(equalTo: topAnchor, constant: AppLayout.spacing),
-            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: AppLayout.spacing),
-            mainStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -AppLayout.spacing),
             mainStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -AppLayout.spacing)
         ])
+        mainStack.constrainWidth(to: self)
+
     }
 
     /// строка «⚠ Подробная информация» под именем

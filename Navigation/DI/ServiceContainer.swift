@@ -17,6 +17,8 @@ protocol ServiceContainerProtocol {
     var localAuthorizationService: LocalAuthorizationServiceProtocol { get }
     var userService: UserService { get }
     var loginInspector: LoginViewControllerDelegate { get }
+    var networkService: NetworkServiceProtocol { get }
+    var feedContentService: FeedContentServiceProtocol { get }
 }
 
 final class ServiceContainer: ServiceContainerProtocol {
@@ -29,6 +31,8 @@ final class ServiceContainer: ServiceContainerProtocol {
     lazy var favouritesService: FavouritesServiceProtocol = FavouritesService(coreDataService: coreDataService)
     lazy var localAuthorizationService: LocalAuthorizationServiceProtocol = LocalAuthorizationService()
     lazy var loginInspector: LoginViewControllerDelegate = MyLoginFactory().makeLoginInspector()
+    lazy var networkService: NetworkServiceProtocol = NetworkService()
+    lazy var feedContentService: FeedContentServiceProtocol = RickAndMortyFeedService(networkService: networkService)
 
     lazy var userService: UserService = {
         let avatar = UIImage(named: "avatar") ?? UIImage()

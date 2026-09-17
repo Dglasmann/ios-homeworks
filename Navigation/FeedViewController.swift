@@ -23,6 +23,34 @@ final class FeedViewController: UIViewController {
         tableView.register(FeedPostCell.self)
         return tableView
     }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
+    private lazy var errorLabel: UILabel = {
+        let errorLabel = UILabel()
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.font = AppFont.body
+        errorLabel.textColor = AppColor.secondaryText
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 0
+        errorLabel.isHidden = true
+        return errorLabel
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    @objc private func refresh() {
+        viewModel.updateState(viewInput: .refresh)
+    }
 
     init(viewModel: FeedViewModel) {
         self.viewModel = viewModel
@@ -44,19 +72,49 @@ final class FeedViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+        view.addSubview(errorLabel)
+        tableView.refreshControl = refreshControl
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: AppLayout.spacing),
+            errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -AppLayout.spacing)
+            
         ])
     }
 
     private func bindViewModel() {
-        viewModel.onStateDidChange = { [weak self] _ in
+        viewModel.onStateDidChange = { [weak self] state in
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                self?.render(state: state)
             }
+        }
+    }
+    
+    private func render(state: FeedViewModel.State) {
+        switch state {
+        case .loading:
+            errorLabel.isHidden = true
+            if !refreshControl.isRefreshing { activityIndicator.startAnimating() }
+        case .loaded:
+            activityIndicator.stopAnimating()
+            refreshControl.endRefreshing()
+            errorLabel.isHidden = true
+            tableView.reloadData()
+        case .error(let message):
+            activityIndicator.stopAnimating()
+            refreshControl.endRefreshing()
+            errorLabel.text = message
+            errorLabel.isHidden = false
         }
     }
 }

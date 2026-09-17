@@ -17,8 +17,9 @@ struct PostModel {
     let authorRole: String
     let comments: Int
     let authorAvatar: UIImage?
+    let imageURL: URL?
 
-    init(
+    nonisolated init(
         author: String,
         description: String,
         image: UIImage,
@@ -26,7 +27,8 @@ struct PostModel {
         views: Int,
         authorRole: String = "",
         comments: Int = 0,
-        authorAvatar: UIImage? = nil
+        authorAvatar: UIImage? = nil,
+        imageURL: URL? = nil
     ) {
         self.author = author
         self.description = description
@@ -36,6 +38,7 @@ struct PostModel {
         self.authorRole = authorRole
         self.comments = comments
         self.authorAvatar = authorAvatar
+        self.imageURL = imageURL
     }
 }
 
@@ -49,6 +52,19 @@ extension PostModel {
             image: UIImage(data: entity.image ?? Data()) ?? UIImage(),
             likes: Int(entity.likes),
             views: Int(entity.views)
+        )
+    }
+    
+    nonisolated init(from character: RMCharacter) {
+        self.init(
+            author: character.name,
+            description: "\(character.status) · \(character.origin.name)",
+            image: UIImage(),
+            likes: character.id * 7 % 500, // сделаем псеводсчетчик
+            views: character.id * 37 % 20000,
+            authorRole: character.species,
+            comments: character.id * 3 % 200,
+            imageURL: URL(string: character.image)
         )
     }
 }

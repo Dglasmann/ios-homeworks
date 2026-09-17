@@ -34,3 +34,11 @@ protocol LocalAuthorizationServiceProtocol {
     var biometryType: BiometryType { get }
     func authorizeIfPossible(_ completion: @escaping (Bool, Error?) -> Void)
 }
+
+nonisolated protocol NetworkServiceProtocol {
+    func fetch<T: Decodable>(_ url: URL, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void) 
+}
+
+nonisolated protocol FeedContentServiceProtocol {
+    func fetchPosts(completion: @escaping (Result<[PostModel], Error>) -> Void)
+}

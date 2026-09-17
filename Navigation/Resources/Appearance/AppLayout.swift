@@ -9,7 +9,7 @@ import UIKit
 
 enum AppLayout {
     
-    //MARK: - Отступы
+    // MARK: - Отступы
     
     static let spacingSmall: CGFloat = 8
     
@@ -17,7 +17,7 @@ enum AppLayout {
     
     static let spacingLarge: CGFloat = 32
     
-    //MARK: - Размеры
+    // MARK: - Размеры
     
     static let controlHeight: CGFloat = 50
     
@@ -27,5 +27,5 @@ enum AppLayout {
     
     static let avatarSize: CGFloat = 100
     
-    static let maxContentWidth: CGFloat = 700
+    static let maxContentWidth: CGFloat = 480
 }

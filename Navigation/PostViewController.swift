@@ -104,6 +104,7 @@ final class PostViewController: UIViewController {
         title = post.author
         setupViews()
         setupConstraints()
+        loadImage()
     }
 
     // MARK: - Setup
@@ -156,5 +157,13 @@ final class PostViewController: UIViewController {
             statsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -spacing),
             statsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -spacing)
         ])
+    }
+    
+    private func loadImage() {
+        guard let url = post.imageURL else { return }
+        ImageLoader.shared.load(url) { [weak self] image in
+            self?.postImageView.image = image
+            
+        }
     }
 }

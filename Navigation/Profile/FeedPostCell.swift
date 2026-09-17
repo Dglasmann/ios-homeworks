@@ -10,6 +10,9 @@
 import UIKit
 
 final class FeedPostCell: UITableViewCell {
+    
+    // MARK: - Data
+    private var imageTask: URLSessionDataTask?
 
     // MARK: - Callbacks
 
@@ -97,6 +100,9 @@ final class FeedPostCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
+        postImageView.image = nil
         onLike = nil
         onBookmark = nil
     }
@@ -108,8 +114,16 @@ final class FeedPostCell: UITableViewCell {
         authorLabel.text = post.author
         roleLabel.text = post.authorRole
         descriptionLabel.text = post.description
-        postImageView.image = post.image
         commentCountLabel.text = "\(post.comments)"
+        
+        if let url = post.imageURL {
+            postImageView.image = nil
+            imageTask = ImageLoader.shared.load(url) { [weak self] image in
+                self?.postImageView.image = image
+            }
+        } else {
+            postImageView.image = post.image
+        }
 
         self.isLiked = isLiked
         likeCountLabel.text = "\(post.likes + (isLiked ? 1 : 0))"

@@ -26,7 +26,7 @@ final class ModuleFactory: ModuleFactoryProtocol {
     
     func makeFeed(coordinator: FeedCoordinator) -> UIViewController {
         let viewModel = FeedViewModel(
-            postService: services.postService,
+            feedService: services.feedContentService,
             favouritesService: services.favouritesService,
             coordinator: coordinator
         )
